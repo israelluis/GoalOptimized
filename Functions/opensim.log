@@ -1,0 +1,1723 @@
+[2025-07-04 16:54:32.392] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 16:54:32.639] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 16:54:32.819] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 16:54:32.822] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 16:54:32.822] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 16:54:32.823] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 16:54:32.825] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 16:54:32.826] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 16:54:32.827] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 16:54:32.828] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 16:54:32.828] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 16:54:32.829] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 16:54:32.830] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 16:54:32.830] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 16:54:32.831] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 16:54:32.832] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 16:54:32.832] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 16:54:32.833] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 16:54:32.834] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 16:54:32.834] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 16:54:32.835] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 16:54:32.835] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 16:54:32.840] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 16:54:32.847] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 16:54:32.940] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 16:54:33.094] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 16:54:33.095] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 16:54:33.096] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 16:54:33.097] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 16:54:33.097] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 16:54:33.098] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 16:54:33.098] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 16:54:33.099] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 16:54:33.100] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 16:54:33.101] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 16:54:33.102] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 16:54:33.102] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 16:54:33.103] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 16:54:33.104] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 16:54:33.104] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 16:54:33.105] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 16:54:33.106] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 16:54:33.106] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 16:54:33.107] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 16:54:33.108] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 16:54:33.110] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 16:54:33.114] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 16:54:33.129] [cout] [info] 
+               MODEL: subject01
+         coordinates: 23
+              forces: 54
+           actuators: 54
+             muscles: 54
+            analyses: 0
+              probes: 0
+              bodies: 12
+              joints: 12
+         constraints: 0
+             markers: 39
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-07-04 16:54:33.130] [info] Running tool ID...
+[2025-07-04 16:54:33.209] [info] Old version storage/motion file encountered
+[2025-07-04 16:54:33.209] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot (nr=1501 nc=25)
+[2025-07-04 16:54:33.209] [info] .. assuming rotations in Degrees..
+[2025-07-04 16:54:33.322] [info] ExternalForce::right Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 16:54:33.322] [info] ExternalForce::left Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 16:54:33.322] [info] ExternalForce::exoFoot Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 16:54:33.322] [info] ExternalForce::exoShank Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 16:54:33.407] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 16:54:33.413] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-07-04 16:54:34.602] [info] InverseDynamicsTool: 73 time frames in 882 millisecond(s).
+[2025-07-04 22:20:45.201] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:20:45.284] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:20:45.333] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:20:45.334] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:20:45.334] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:20:45.334] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:20:45.335] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:20:45.335] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:20:45.335] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:20:45.335] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:20:45.335] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:20:45.336] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:20:45.336] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:20:45.336] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:20:45.336] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:20:45.336] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:20:45.337] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:20:45.337] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:20:45.337] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:20:45.337] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:20:45.337] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:20:45.337] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:20:45.339] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:20:45.341] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:20:45.371] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:20:45.413] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:20:45.414] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:20:45.414] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:20:45.414] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:20:45.414] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:20:45.415] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:20:45.415] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:20:45.415] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:20:45.415] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:20:45.415] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:20:45.416] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:20:45.416] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:20:45.416] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:20:45.416] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:20:45.416] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:20:45.417] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:20:45.417] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:20:45.417] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:20:45.417] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:20:45.417] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:20:45.418] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:20:45.419] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:20:45.423] [cout] [info] 
+               MODEL: subject01
+         coordinates: 23
+              forces: 54
+           actuators: 54
+             muscles: 54
+            analyses: 0
+              probes: 0
+              bodies: 12
+              joints: 12
+         constraints: 0
+             markers: 39
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-07-04 22:20:45.423] [info] Running tool ID...
+[2025-07-04 22:20:45.448] [error] Storage: no more lines in storage file.
+[2025-07-04 22:20:45.452] [error] InverseDynamicsTool Failed: Storage: Failed to parse headers of file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+	Thrown at Storage.cpp:199 in Storage().
+[2025-07-04 22:21:21.056] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:21:21.071] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:21:21.124] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:21:21.125] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:21:21.125] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:21:21.125] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:21:21.126] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:21:21.126] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:21:21.126] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:21:21.126] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:21:21.126] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:21:21.127] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:21:21.127] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:21:21.127] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:21:21.127] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:21:21.127] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:21:21.127] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:21:21.128] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:21:21.128] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:21:21.128] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:21:21.128] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:21:21.128] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:21:21.129] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:21:21.130] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:21:21.149] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:21:21.197] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:21:21.197] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:21:21.198] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:21:21.198] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:21:21.198] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:21:21.198] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:21:21.198] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:21:21.199] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:21:21.199] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:21:21.199] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:21:21.199] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:21:21.199] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:21:21.200] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:21:21.200] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:21:21.200] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:21:21.200] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:21:21.200] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:21:21.200] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:21:21.201] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:21:21.201] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:21:21.201] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:21:21.203] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:21:21.206] [cout] [info] 
+               MODEL: subject01
+         coordinates: 23
+              forces: 54
+           actuators: 54
+             muscles: 54
+            analyses: 0
+              probes: 0
+              bodies: 12
+              joints: 12
+         constraints: 0
+             markers: 39
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-07-04 22:21:21.206] [info] Running tool ID...
+[2025-07-04 22:21:21.232] [error] Storage: no more lines in storage file.
+[2025-07-04 22:21:21.232] [error] InverseDynamicsTool Failed: Storage: Failed to parse headers of file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+	Thrown at Storage.cpp:199 in Storage().
+[2025-07-04 22:22:09.399] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:22:09.414] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:22:09.459] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:22:09.460] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:22:09.460] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:22:09.460] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:22:09.461] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:22:09.461] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:22:09.461] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:22:09.461] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:22:09.461] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:22:09.462] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:22:09.462] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:22:09.462] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:22:09.462] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:22:09.462] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:22:09.463] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:22:09.463] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:22:09.463] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:22:09.463] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:22:09.463] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:22:09.463] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:22:09.464] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:22:09.466] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:22:09.486] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:22:09.532] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:22:09.533] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:22:09.533] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:22:09.533] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:22:09.533] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:22:09.534] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:22:09.534] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:22:09.534] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:22:09.534] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:22:09.534] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:22:09.534] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:22:09.534] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:22:09.535] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:22:09.535] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:22:09.535] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:22:09.535] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:22:09.535] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:22:09.535] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:22:09.536] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:22:09.536] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:22:09.536] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:22:09.537] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:22:09.540] [cout] [info] 
+               MODEL: subject01
+         coordinates: 23
+              forces: 54
+           actuators: 54
+             muscles: 54
+            analyses: 0
+              probes: 0
+              bodies: 12
+              joints: 12
+         constraints: 0
+             markers: 39
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-07-04 22:22:09.540] [info] Running tool ID...
+[2025-07-04 22:22:09.560] [error] Storage: no more lines in storage file.
+[2025-07-04 22:22:09.560] [error] InverseDynamicsTool Failed: Storage: Failed to parse headers of file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+	Thrown at Storage.cpp:199 in Storage().
+[2025-07-04 22:24:03.274] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:24:03.289] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:24:03.333] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:24:03.334] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:24:03.334] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:24:03.334] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:24:03.334] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:24:03.335] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:24:03.335] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:24:03.335] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:24:03.335] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:24:03.335] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:24:03.335] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:24:03.336] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:24:03.336] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:24:03.336] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:24:03.336] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:24:03.336] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:24:03.337] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:24:03.337] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:24:03.337] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:24:03.337] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:24:03.338] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:24:03.339] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:24:03.355] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:24:03.408] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:24:03.408] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:24:03.408] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:24:03.409] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:24:03.409] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:24:03.409] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:24:03.409] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:24:03.409] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:24:03.410] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:24:03.410] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:24:03.410] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:24:03.410] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:24:03.410] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:24:03.411] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:24:03.411] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:24:03.411] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:24:03.411] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:24:03.412] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:24:03.412] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:24:03.412] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:24:03.412] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:24:03.414] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:24:03.418] [cout] [info] 
+               MODEL: subject01
+         coordinates: 23
+              forces: 54
+           actuators: 54
+             muscles: 54
+            analyses: 0
+              probes: 0
+              bodies: 12
+              joints: 12
+         constraints: 0
+             markers: 39
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-07-04 22:24:03.418] [info] Running tool ID...
+[2025-07-04 22:24:03.451] [error] Storage: no more lines in storage file.
+[2025-07-04 22:24:03.452] [error] InverseDynamicsTool Failed: Storage: Failed to parse headers of file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+	Thrown at Storage.cpp:199 in Storage().
+[2025-07-04 22:28:09.060] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:28:09.072] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:28:09.111] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:28:09.112] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:28:09.112] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:28:09.112] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:28:09.113] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:28:09.113] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:28:09.113] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:28:09.113] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:28:09.113] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:28:09.113] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:28:09.114] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:28:09.114] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:28:09.114] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:28:09.114] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:28:09.114] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:28:09.114] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:28:09.115] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:28:09.115] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:28:09.115] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:28:09.115] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:28:09.115] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:28:09.117] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:28:09.132] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:28:09.178] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:28:09.179] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:28:09.179] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:28:09.179] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:28:09.179] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:28:09.179] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:28:09.180] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:28:09.180] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:28:09.180] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:28:09.180] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:28:09.180] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:28:09.180] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:28:09.181] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:28:09.181] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:28:09.181] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:28:09.181] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:28:09.181] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:28:09.182] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:28:09.182] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:28:09.182] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:28:09.182] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:28:09.184] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:28:09.186] [cout] [info] 
+               MODEL: subject01
+         coordinates: 23
+              forces: 54
+           actuators: 54
+             muscles: 54
+            analyses: 0
+              probes: 0
+              bodies: 12
+              joints: 12
+         constraints: 0
+             markers: 39
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-07-04 22:28:09.186] [info] Running tool ID...
+[2025-07-04 22:28:09.207] [info] Old version storage/motion file encountered
+[2025-07-04 22:28:09.208] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot (nr=1501 nc=25)
+[2025-07-04 22:28:09.208] [info] .. assuming rotations in Degrees..
+[2025-07-04 22:28:09.236] [info] ExternalForce::right Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:28:09.236] [info] ExternalForce::left Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:28:09.236] [info] ExternalForce::exoFoot Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:28:09.236] [info] ExternalForce::exoShank Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:28:09.301] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:28:09.305] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-07-04 22:28:09.654] [info] InverseDynamicsTool: 73 time frames in 251 millisecond(s).
+[2025-07-04 22:29:32.113] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:29:32.125] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:29:32.166] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:29:32.167] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:29:32.167] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:29:32.167] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:29:32.167] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:29:32.168] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:29:32.168] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:29:32.168] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:29:32.168] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:29:32.168] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:29:32.169] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:29:32.169] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:29:32.169] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:29:32.169] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:29:32.169] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:29:32.169] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:29:32.170] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:29:32.170] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:29:32.170] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:29:32.170] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:29:32.171] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:29:32.172] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:29:32.188] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:29:32.234] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:29:32.235] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:29:32.235] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:29:32.235] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:29:32.236] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:29:32.236] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:29:32.236] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:29:32.236] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:29:32.236] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:29:32.236] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:29:32.237] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:29:32.237] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:29:32.237] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:29:32.237] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:29:32.237] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:29:32.238] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:29:32.238] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:29:32.238] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:29:32.238] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:29:32.238] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:29:32.239] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:29:32.240] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:29:32.244] [cout] [info] 
+               MODEL: subject01
+         coordinates: 23
+              forces: 54
+           actuators: 54
+             muscles: 54
+            analyses: 0
+              probes: 0
+              bodies: 12
+              joints: 12
+         constraints: 0
+             markers: 39
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-07-04 22:29:32.244] [info] Running tool ID...
+[2025-07-04 22:29:32.271] [info] Old version storage/motion file encountered
+[2025-07-04 22:29:32.271] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot (nr=1501 nc=25)
+[2025-07-04 22:29:32.271] [info] .. assuming rotations in Degrees..
+[2025-07-04 22:29:32.304] [info] ExternalForce::right Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:29:32.304] [info] ExternalForce::left Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:29:32.304] [info] ExternalForce::exoFoot Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:29:32.304] [info] ExternalForce::exoShank Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:29:32.315] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:29:32.317] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-07-04 22:29:32.612] [info] InverseDynamicsTool: 73 time frames in 220 millisecond(s).
+[2025-07-04 22:31:05.445] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:31:05.458] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:31:05.503] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:31:05.504] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:31:05.504] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:31:05.504] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:31:05.505] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:31:05.505] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:31:05.505] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:31:05.505] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:31:05.505] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:31:05.506] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:31:05.506] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:31:05.506] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:31:05.506] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:31:05.506] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:31:05.506] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:31:05.507] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:31:05.507] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:31:05.507] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:31:05.507] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:31:05.507] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:31:05.508] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:31:05.509] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:31:05.525] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:31:05.566] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:31:05.567] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:31:05.567] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:31:05.567] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:31:05.567] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:31:05.568] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:31:05.568] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:31:05.568] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:31:05.568] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:31:05.568] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:31:05.568] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:31:05.569] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:31:05.569] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:31:05.569] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:31:05.569] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:31:05.569] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:31:05.570] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:31:05.570] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:31:05.570] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:31:05.570] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:31:05.570] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:31:05.572] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:31:05.575] [cout] [info] 
+               MODEL: subject01
+         coordinates: 23
+              forces: 54
+           actuators: 54
+             muscles: 54
+            analyses: 0
+              probes: 0
+              bodies: 12
+              joints: 12
+         constraints: 0
+             markers: 39
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-07-04 22:31:05.575] [info] Running tool ID...
+[2025-07-04 22:31:05.596] [info] Old version storage/motion file encountered
+[2025-07-04 22:31:05.596] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot (nr=1501 nc=25)
+[2025-07-04 22:31:05.596] [info] .. assuming rotations in Degrees..
+[2025-07-04 22:31:05.626] [info] ExternalForce::right Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:31:05.626] [info] ExternalForce::left Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:31:05.626] [info] ExternalForce::exoFoot Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:31:05.626] [info] ExternalForce::exoShank Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:31:05.636] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:31:05.638] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-07-04 22:31:05.940] [info] InverseDynamicsTool: 73 time frames in 224 millisecond(s).
+[2025-07-04 22:33:10.367] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:33:10.380] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:33:10.423] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:33:10.423] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:33:10.424] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:33:10.424] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:33:10.424] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:33:10.424] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:33:10.424] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:33:10.425] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:33:10.425] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:33:10.425] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:33:10.425] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:33:10.425] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:33:10.425] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:33:10.426] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:33:10.426] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:33:10.426] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:33:10.426] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:33:10.426] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:33:10.426] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:33:10.427] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:33:10.427] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:33:10.428] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:33:10.444] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:33:10.485] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:33:10.486] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:33:10.486] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:33:10.486] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:33:10.487] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:33:10.487] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:33:10.487] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:33:10.487] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:33:10.487] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:33:10.487] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:33:10.488] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:33:10.488] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:33:10.488] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:33:10.488] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:33:10.488] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:33:10.488] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:33:10.489] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:33:10.489] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:33:10.489] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:33:10.489] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:33:10.489] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:33:10.491] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:33:10.493] [cout] [info] 
+               MODEL: subject01
+         coordinates: 23
+              forces: 54
+           actuators: 54
+             muscles: 54
+            analyses: 0
+              probes: 0
+              bodies: 12
+              joints: 12
+         constraints: 0
+             markers: 39
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-07-04 22:33:10.493] [info] Running tool ID...
+[2025-07-04 22:33:10.515] [info] Old version storage/motion file encountered
+[2025-07-04 22:33:10.515] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot (nr=1501 nc=25)
+[2025-07-04 22:33:10.515] [info] .. assuming rotations in Degrees..
+[2025-07-04 22:33:10.546] [info] ExternalForce::right Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:33:10.546] [info] ExternalForce::left Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:33:10.546] [info] ExternalForce::exoFoot Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:33:10.546] [info] ExternalForce::exoShank Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:33:10.556] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:33:10.558] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-07-04 22:33:10.849] [info] InverseDynamicsTool: 73 time frames in 216 millisecond(s).
+[2025-07-04 22:33:58.934] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:33:58.950] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:33:58.993] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:33:58.994] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:33:58.994] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:33:58.994] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:33:58.994] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:33:58.995] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:33:58.995] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:33:58.995] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:33:58.995] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:33:58.995] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:33:58.996] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:33:58.996] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:33:58.996] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:33:58.996] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:33:58.996] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:33:58.996] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:33:58.997] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:33:58.997] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:33:58.997] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:33:58.997] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:33:58.997] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:33:58.999] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:33:59.015] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:33:59.058] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:33:59.059] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:33:59.059] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:33:59.059] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:33:59.059] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:33:59.060] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:33:59.060] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:33:59.060] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:33:59.060] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:33:59.060] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:33:59.060] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:33:59.061] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:33:59.061] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:33:59.061] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:33:59.061] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:33:59.061] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:33:59.062] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:33:59.062] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:33:59.062] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:33:59.062] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:33:59.062] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:33:59.064] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:33:59.066] [cout] [info] 
+               MODEL: subject01
+         coordinates: 23
+              forces: 54
+           actuators: 54
+             muscles: 54
+            analyses: 0
+              probes: 0
+              bodies: 12
+              joints: 12
+         constraints: 0
+             markers: 39
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-07-04 22:33:59.067] [info] Running tool ID...
+[2025-07-04 22:33:59.089] [info] Old version storage/motion file encountered
+[2025-07-04 22:33:59.089] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot (nr=1501 nc=25)
+[2025-07-04 22:33:59.089] [info] .. assuming rotations in Degrees..
+[2025-07-04 22:33:59.120] [info] ExternalForce::right Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:33:59.120] [info] ExternalForce::left Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:33:59.120] [info] ExternalForce::exoFoot Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:33:59.120] [info] ExternalForce::exoShank Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:33:59.129] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:33:59.131] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-07-04 22:33:59.431] [info] InverseDynamicsTool: 73 time frames in 226 millisecond(s).
+[2025-07-04 22:44:29.713] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:44:29.728] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:44:29.777] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:44:29.777] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:44:29.778] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:44:29.778] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:44:29.778] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:44:29.778] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:44:29.779] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:44:29.779] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:44:29.779] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:44:29.779] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:44:29.779] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:44:29.780] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:44:29.780] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:44:29.780] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:44:29.780] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:44:29.780] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:44:29.781] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:44:29.781] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:44:29.781] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:44:29.781] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:44:29.782] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:44:29.783] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:44:29.801] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:44:29.842] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:44:29.843] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:44:29.843] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:44:29.843] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:44:29.843] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:44:29.843] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:44:29.844] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:44:29.844] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:44:29.844] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:44:29.844] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:44:29.844] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:44:29.844] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:44:29.845] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:44:29.845] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:44:29.845] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:44:29.845] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:44:29.845] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:44:29.845] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:44:29.846] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:44:29.846] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:44:29.846] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:44:29.848] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:44:29.851] [cout] [info] 
+               MODEL: subject01
+         coordinates: 23
+              forces: 54
+           actuators: 54
+             muscles: 54
+            analyses: 0
+              probes: 0
+              bodies: 12
+              joints: 12
+         constraints: 0
+             markers: 39
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-07-04 22:44:29.851] [info] Running tool ID...
+[2025-07-04 22:44:29.874] [info] Old version storage/motion file encountered
+[2025-07-04 22:44:29.874] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot (nr=1501 nc=25)
+[2025-07-04 22:44:29.874] [info] .. assuming rotations in Degrees..
+[2025-07-04 22:44:29.904] [info] ExternalForce::right Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:44:29.904] [info] ExternalForce::left Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:44:29.904] [info] ExternalForce::exoFoot Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:44:29.904] [info] ExternalForce::exoShank Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:44:29.914] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:44:29.916] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-07-04 22:44:30.203] [info] InverseDynamicsTool: 73 time frames in 214 millisecond(s).
+[2025-07-04 22:45:49.095] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:45:49.111] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:45:49.156] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:45:49.157] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:45:49.157] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:45:49.157] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:45:49.158] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:45:49.158] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:45:49.158] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:45:49.158] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:45:49.159] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:45:49.159] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:45:49.159] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:45:49.159] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:45:49.160] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:45:49.160] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:45:49.160] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:45:49.160] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:45:49.161] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:45:49.161] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:45:49.161] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:45:49.161] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:45:49.162] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:45:49.163] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:45:49.183] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:45:49.227] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:45:49.228] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:45:49.228] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:45:49.228] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:45:49.228] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:45:49.229] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:45:49.229] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:45:49.229] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:45:49.229] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:45:49.229] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:45:49.230] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:45:49.230] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:45:49.230] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:45:49.230] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:45:49.230] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:45:49.231] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:45:49.231] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:45:49.231] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:45:49.231] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:45:49.231] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:45:49.232] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:45:49.233] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:45:49.236] [cout] [info] 
+               MODEL: subject01
+         coordinates: 23
+              forces: 54
+           actuators: 54
+             muscles: 54
+            analyses: 0
+              probes: 0
+              bodies: 12
+              joints: 12
+         constraints: 0
+             markers: 39
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-07-04 22:45:49.237] [info] Running tool ID...
+[2025-07-04 22:45:49.260] [info] Old version storage/motion file encountered
+[2025-07-04 22:45:49.260] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot (nr=1501 nc=25)
+[2025-07-04 22:45:49.260] [info] .. assuming rotations in Degrees..
+[2025-07-04 22:45:49.292] [info] ExternalForce::right Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:45:49.292] [info] ExternalForce::left Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:45:49.292] [info] ExternalForce::exoFoot Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:45:49.292] [info] ExternalForce::exoShank Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:45:49.303] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:45:49.304] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-07-04 22:45:49.591] [info] InverseDynamicsTool: 73 time frames in 214 millisecond(s).
+[2025-07-04 22:48:48.398] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:48:48.414] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:48:48.457] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:48:48.458] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:48:48.458] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:48:48.458] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:48:48.458] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:48:48.459] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:48:48.459] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:48:48.459] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:48:48.459] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:48:48.459] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:48:48.460] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:48:48.460] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:48:48.460] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:48:48.460] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:48:48.460] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:48:48.460] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:48:48.461] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:48:48.461] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:48:48.461] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:48:48.461] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:48:48.462] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:48:48.463] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:48:48.481] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:48:48.524] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:48:48.525] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:48:48.525] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:48:48.525] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:48:48.525] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:48:48.526] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:48:48.526] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:48:48.526] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:48:48.526] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:48:48.526] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:48:48.527] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:48:48.527] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:48:48.527] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:48:48.527] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:48:48.527] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:48:48.528] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:48:48.528] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:48:48.528] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:48:48.528] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:48:48.528] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:48:48.529] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:48:48.530] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:48:48.533] [cout] [info] 
+               MODEL: subject01
+         coordinates: 23
+              forces: 54
+           actuators: 54
+             muscles: 54
+            analyses: 0
+              probes: 0
+              bodies: 12
+              joints: 12
+         constraints: 0
+             markers: 39
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-07-04 22:48:48.533] [info] Running tool ID...
+[2025-07-04 22:48:48.554] [info] Old version storage/motion file encountered
+[2025-07-04 22:48:48.554] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot (nr=1501 nc=25)
+[2025-07-04 22:48:48.554] [info] .. assuming rotations in Degrees..
+[2025-07-04 22:48:48.586] [info] ExternalForce::right Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:48:48.586] [info] ExternalForce::left Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:48:48.587] [info] ExternalForce::exoFoot Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:48:48.587] [info] ExternalForce::exoShank Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:48:48.597] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:48:48.599] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-07-04 22:48:48.895] [info] InverseDynamicsTool: 73 time frames in 223 millisecond(s).
+[2025-07-04 22:49:14.558] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:49:14.574] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:49:14.620] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:49:14.620] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:49:14.621] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:49:14.621] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:49:14.621] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:49:14.621] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:49:14.621] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:49:14.622] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:49:14.622] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:49:14.622] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:49:14.622] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:49:14.622] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:49:14.623] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:49:14.623] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:49:14.623] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:49:14.623] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:49:14.623] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:49:14.624] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:49:14.624] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:49:14.624] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:49:14.624] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:49:14.626] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:49:14.645] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:49:14.685] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:49:14.686] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:49:14.686] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:49:14.686] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:49:14.687] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:49:14.687] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:49:14.687] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:49:14.687] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:49:14.687] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:49:14.687] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:49:14.688] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:49:14.688] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:49:14.688] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:49:14.688] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:49:14.688] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:49:14.689] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:49:14.689] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:49:14.689] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:49:14.689] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:49:14.689] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:49:14.690] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:49:14.691] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:49:14.694] [cout] [info] 
+               MODEL: subject01
+         coordinates: 23
+              forces: 54
+           actuators: 54
+             muscles: 54
+            analyses: 0
+              probes: 0
+              bodies: 12
+              joints: 12
+         constraints: 0
+             markers: 39
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-07-04 22:49:14.694] [info] Running tool ID...
+[2025-07-04 22:49:14.714] [info] Old version storage/motion file encountered
+[2025-07-04 22:49:14.714] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot (nr=1501 nc=25)
+[2025-07-04 22:49:14.714] [info] .. assuming rotations in Degrees..
+[2025-07-04 22:49:14.745] [info] ExternalForce::right Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:49:14.745] [info] ExternalForce::left Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:49:14.745] [info] ExternalForce::exoFoot Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:49:14.745] [info] ExternalForce::exoShank Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:49:14.755] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:49:14.757] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-07-04 22:49:15.046] [info] InverseDynamicsTool: 73 time frames in 215 millisecond(s).
+[2025-07-04 22:49:57.288] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:49:57.303] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:49:57.349] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:49:57.350] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:49:57.350] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:49:57.350] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:49:57.350] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:49:57.351] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:49:57.351] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:49:57.351] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:49:57.351] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:49:57.351] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:49:57.352] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:49:57.352] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:49:57.352] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:49:57.352] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:49:57.352] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:49:57.353] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:49:57.353] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:49:57.353] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:49:57.353] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:49:57.353] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:49:57.354] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:49:57.355] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:49:57.376] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:49:57.421] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:49:57.422] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:49:57.422] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:49:57.422] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:49:57.422] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:49:57.422] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:49:57.423] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:49:57.423] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:49:57.423] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:49:57.423] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:49:57.423] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:49:57.424] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:49:57.424] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:49:57.424] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:49:57.424] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:49:57.424] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:49:57.425] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:49:57.425] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:49:57.425] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:49:57.425] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:49:57.426] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:49:57.427] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:49:57.430] [cout] [info] 
+               MODEL: subject01
+         coordinates: 23
+              forces: 54
+           actuators: 54
+             muscles: 54
+            analyses: 0
+              probes: 0
+              bodies: 12
+              joints: 12
+         constraints: 0
+             markers: 39
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-07-04 22:49:57.430] [info] Running tool ID...
+[2025-07-04 22:49:57.452] [info] Old version storage/motion file encountered
+[2025-07-04 22:49:57.452] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot (nr=1501 nc=25)
+[2025-07-04 22:49:57.452] [info] .. assuming rotations in Degrees..
+[2025-07-04 22:49:57.486] [info] ExternalForce::right Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:49:57.486] [info] ExternalForce::left Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:49:57.486] [info] ExternalForce::exoFoot Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:49:57.486] [info] ExternalForce::exoShank Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:49:57.499] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:49:57.501] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-07-04 22:49:57.804] [info] InverseDynamicsTool: 73 time frames in 217 millisecond(s).
+[2025-07-04 22:50:26.206] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:50:26.221] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:50:26.266] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:50:26.267] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:50:26.267] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:50:26.267] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:50:26.268] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:50:26.268] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:50:26.268] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:50:26.268] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:50:26.268] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:50:26.269] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:50:26.269] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:50:26.269] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:50:26.269] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:50:26.269] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:50:26.270] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:50:26.270] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:50:26.270] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:50:26.270] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:50:26.271] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:50:26.271] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:50:26.271] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:50:26.273] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:50:26.293] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:50:26.338] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:50:26.339] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:50:26.339] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:50:26.339] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:50:26.340] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:50:26.340] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:50:26.340] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:50:26.340] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:50:26.340] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:50:26.341] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:50:26.341] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:50:26.341] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:50:26.341] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:50:26.341] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:50:26.342] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:50:26.342] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:50:26.342] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:50:26.342] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:50:26.342] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:50:26.343] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:50:26.343] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:50:26.345] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:50:26.348] [cout] [info] 
+               MODEL: subject01
+         coordinates: 23
+              forces: 54
+           actuators: 54
+             muscles: 54
+            analyses: 0
+              probes: 0
+              bodies: 12
+              joints: 12
+         constraints: 0
+             markers: 39
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-07-04 22:50:26.348] [info] Running tool ID...
+[2025-07-04 22:50:26.368] [info] Old version storage/motion file encountered
+[2025-07-04 22:50:26.368] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot (nr=1501 nc=25)
+[2025-07-04 22:50:26.368] [info] .. assuming rotations in Degrees..
+[2025-07-04 22:50:26.398] [info] ExternalForce::right Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:50:26.398] [info] ExternalForce::left Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:50:26.398] [info] ExternalForce::exoFoot Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:50:26.398] [info] ExternalForce::exoShank Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:50:26.409] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:50:26.410] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-07-04 22:50:26.708] [info] InverseDynamicsTool: 73 time frames in 223 millisecond(s).
+[2025-07-04 22:54:39.900] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:54:39.916] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:54:39.961] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:54:39.962] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:54:39.962] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:54:39.962] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:54:39.962] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:54:39.963] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:54:39.963] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:54:39.963] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:54:39.963] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:54:39.963] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:54:39.964] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:54:39.964] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:54:39.964] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:54:39.964] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:54:39.965] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:54:39.965] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:54:39.965] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:54:39.965] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:54:39.965] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:54:39.966] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:54:39.966] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:54:39.968] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:54:39.988] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:54:40.033] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:54:40.033] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:54:40.034] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:54:40.034] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:54:40.034] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:54:40.034] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:54:40.034] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:54:40.035] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:54:40.035] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:54:40.035] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:54:40.035] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:54:40.035] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:54:40.036] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:54:40.036] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:54:40.036] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:54:40.036] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:54:40.036] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:54:40.036] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:54:40.037] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:54:40.037] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:54:40.037] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:54:40.039] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:54:40.041] [cout] [info] 
+               MODEL: subject01
+         coordinates: 23
+              forces: 54
+           actuators: 54
+             muscles: 54
+            analyses: 0
+              probes: 0
+              bodies: 12
+              joints: 12
+         constraints: 0
+             markers: 39
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-07-04 22:54:40.041] [info] Running tool ID...
+[2025-07-04 22:54:40.065] [info] Old version storage/motion file encountered
+[2025-07-04 22:54:40.065] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot (nr=1501 nc=25)
+[2025-07-04 22:54:40.065] [info] .. assuming rotations in Degrees..
+[2025-07-04 22:54:40.098] [info] ExternalForce::right Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:54:40.099] [info] ExternalForce::left Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:54:40.099] [info] ExternalForce::exoFoot Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:54:40.099] [info] ExternalForce::exoShank Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:54:40.112] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:54:40.114] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-07-04 22:54:40.410] [info] InverseDynamicsTool: 73 time frames in 216 millisecond(s).
+[2025-07-04 22:55:47.394] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:55:47.410] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:55:47.452] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:55:47.452] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:55:47.452] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:55:47.452] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:55:47.453] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:55:47.453] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:55:47.453] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:55:47.453] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:55:47.453] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:55:47.454] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:55:47.454] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:55:47.454] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:55:47.454] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:55:47.454] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:55:47.455] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:55:47.455] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:55:47.455] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:55:47.455] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:55:47.455] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:55:47.456] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:55:47.456] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:55:47.457] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:55:47.475] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:55:47.517] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:55:47.517] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:55:47.518] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:55:47.518] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:55:47.518] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:55:47.518] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:55:47.518] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:55:47.518] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:55:47.519] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:55:47.519] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:55:47.519] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:55:47.519] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:55:47.519] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:55:47.520] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:55:47.520] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:55:47.520] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:55:47.520] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:55:47.520] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:55:47.520] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:55:47.521] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:55:47.521] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:55:47.522] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:55:47.525] [cout] [info] 
+               MODEL: subject01
+         coordinates: 23
+              forces: 54
+           actuators: 54
+             muscles: 54
+            analyses: 0
+              probes: 0
+              bodies: 12
+              joints: 12
+         constraints: 0
+             markers: 39
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-07-04 22:55:47.525] [info] Running tool ID...
+[2025-07-04 22:55:47.545] [info] Old version storage/motion file encountered
+[2025-07-04 22:55:47.545] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot (nr=1501 nc=25)
+[2025-07-04 22:55:47.545] [info] .. assuming rotations in Degrees..
+[2025-07-04 22:55:47.575] [info] ExternalForce::right Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:55:47.575] [info] ExternalForce::left Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:55:47.575] [info] ExternalForce::exoFoot Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:55:47.575] [info] ExternalForce::exoShank Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:55:47.585] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:55:47.587] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-07-04 22:55:47.886] [info] InverseDynamicsTool: 73 time frames in 224 millisecond(s).
+[2025-07-04 22:58:12.046] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:58:12.064] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:58:12.113] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:58:12.114] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:58:12.114] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:58:12.115] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:58:12.115] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:58:12.115] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:58:12.115] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:58:12.115] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:58:12.116] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:58:12.116] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:58:12.116] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:58:12.116] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:58:12.116] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:58:12.117] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:58:12.117] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:58:12.117] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:58:12.117] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:58:12.118] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:58:12.118] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:58:12.118] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:58:12.118] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:58:12.120] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:58:12.142] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:58:12.189] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:58:12.190] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:58:12.190] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:58:12.190] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:58:12.190] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:58:12.191] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:58:12.191] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:58:12.191] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:58:12.191] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:58:12.191] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:58:12.192] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:58:12.192] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:58:12.192] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:58:12.192] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:58:12.192] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:58:12.193] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:58:12.193] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:58:12.193] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:58:12.193] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:58:12.193] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:58:12.194] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:58:12.195] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:58:12.199] [cout] [info] 
+               MODEL: subject01
+         coordinates: 23
+              forces: 54
+           actuators: 54
+             muscles: 54
+            analyses: 0
+              probes: 0
+              bodies: 12
+              joints: 12
+         constraints: 0
+             markers: 39
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-07-04 22:58:12.199] [info] Running tool ID...
+[2025-07-04 22:58:12.223] [info] Old version storage/motion file encountered
+[2025-07-04 22:58:12.223] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot (nr=1501 nc=25)
+[2025-07-04 22:58:12.223] [info] .. assuming rotations in Degrees..
+[2025-07-04 22:58:12.258] [info] ExternalForce::right Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:58:12.258] [info] ExternalForce::left Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:58:12.258] [info] ExternalForce::exoFoot Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:58:12.258] [info] ExternalForce::exoShank Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:58:12.272] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:58:12.275] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-07-04 22:58:12.620] [info] InverseDynamicsTool: 73 time frames in 253 millisecond(s).
+[2025-07-04 22:59:28.309] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:59:28.327] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:59:28.380] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:59:28.381] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:59:28.381] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:59:28.381] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:59:28.382] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:59:28.382] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:59:28.382] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:59:28.382] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:59:28.382] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:59:28.383] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:59:28.383] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:59:28.383] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:59:28.383] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:59:28.384] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:59:28.384] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:59:28.384] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:59:28.384] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:59:28.385] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:59:28.385] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:59:28.385] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:59:28.386] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:59:28.388] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:59:28.408] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 22:59:28.452] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 22:59:28.453] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 22:59:28.453] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 22:59:28.453] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 22:59:28.454] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 22:59:28.454] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 22:59:28.454] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 22:59:28.454] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 22:59:28.454] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 22:59:28.455] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 22:59:28.455] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 22:59:28.455] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 22:59:28.455] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 22:59:28.455] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 22:59:28.456] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 22:59:28.456] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 22:59:28.456] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 22:59:28.456] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 22:59:28.456] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 22:59:28.457] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 22:59:28.457] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 22:59:28.458] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 22:59:28.461] [cout] [info] 
+               MODEL: subject01
+         coordinates: 23
+              forces: 54
+           actuators: 54
+             muscles: 54
+            analyses: 0
+              probes: 0
+              bodies: 12
+              joints: 12
+         constraints: 0
+             markers: 39
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-07-04 22:59:28.461] [info] Running tool ID...
+[2025-07-04 22:59:28.482] [info] Old version storage/motion file encountered
+[2025-07-04 22:59:28.482] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot (nr=1501 nc=25)
+[2025-07-04 22:59:28.482] [info] .. assuming rotations in Degrees..
+[2025-07-04 22:59:28.511] [info] ExternalForce::right Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:59:28.511] [info] ExternalForce::left Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:59:28.511] [info] ExternalForce::exoFoot Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:59:28.511] [info] ExternalForce::exoShank Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 22:59:28.521] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 22:59:28.523] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-07-04 22:59:28.839] [info] InverseDynamicsTool: 73 time frames in 235 millisecond(s).
+[2025-07-04 23:01:19.687] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 23:01:19.702] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 23:01:19.747] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 23:01:19.748] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 23:01:19.748] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 23:01:19.748] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 23:01:19.748] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 23:01:19.748] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 23:01:19.749] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 23:01:19.749] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 23:01:19.749] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 23:01:19.749] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 23:01:19.749] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 23:01:19.750] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 23:01:19.750] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 23:01:19.750] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 23:01:19.750] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 23:01:19.750] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 23:01:19.751] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 23:01:19.751] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 23:01:19.751] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 23:01:19.751] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 23:01:19.751] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 23:01:19.753] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 23:01:19.769] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 23:01:19.809] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 23:01:19.810] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 23:01:19.810] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 23:01:19.810] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 23:01:19.810] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 23:01:19.811] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 23:01:19.811] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 23:01:19.811] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 23:01:19.811] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 23:01:19.811] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 23:01:19.811] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 23:01:19.812] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 23:01:19.812] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 23:01:19.812] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 23:01:19.812] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 23:01:19.812] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 23:01:19.813] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 23:01:19.813] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 23:01:19.813] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 23:01:19.813] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 23:01:19.813] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 23:01:19.815] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 23:01:19.818] [cout] [info] 
+               MODEL: subject01
+         coordinates: 23
+              forces: 54
+           actuators: 54
+             muscles: 54
+            analyses: 0
+              probes: 0
+              bodies: 12
+              joints: 12
+         constraints: 0
+             markers: 39
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-07-04 23:01:19.818] [info] Running tool ID...
+[2025-07-04 23:01:19.838] [info] Old version storage/motion file encountered
+[2025-07-04 23:01:19.838] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot (nr=1501 nc=25)
+[2025-07-04 23:01:19.838] [info] .. assuming rotations in Degrees..
+[2025-07-04 23:01:19.868] [info] ExternalForce::right Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 23:01:19.868] [info] ExternalForce::left Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 23:01:19.868] [info] ExternalForce::exoFoot Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 23:01:19.868] [info] ExternalForce::exoShank Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 23:01:19.879] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 23:01:20.098] [info] InverseDynamicsTool: 73 time frames in 204 millisecond(s).
+[2025-07-04 23:02:07.482] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 23:02:07.496] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 23:02:07.543] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 23:02:07.544] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 23:02:07.544] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 23:02:07.544] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 23:02:07.544] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 23:02:07.545] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 23:02:07.545] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 23:02:07.545] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 23:02:07.545] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 23:02:07.545] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 23:02:07.546] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 23:02:07.546] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 23:02:07.546] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 23:02:07.546] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 23:02:07.546] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 23:02:07.547] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 23:02:07.547] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 23:02:07.547] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 23:02:07.547] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 23:02:07.547] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 23:02:07.548] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 23:02:07.549] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 23:02:07.567] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 23:02:07.615] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 23:02:07.616] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 23:02:07.616] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 23:02:07.617] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 23:02:07.617] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 23:02:07.617] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 23:02:07.617] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 23:02:07.617] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 23:02:07.618] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 23:02:07.618] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 23:02:07.618] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 23:02:07.618] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 23:02:07.618] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 23:02:07.619] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 23:02:07.619] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 23:02:07.619] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 23:02:07.619] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 23:02:07.619] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 23:02:07.620] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 23:02:07.620] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 23:02:07.620] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 23:02:07.623] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 23:02:07.626] [cout] [info] 
+               MODEL: subject01
+         coordinates: 23
+              forces: 54
+           actuators: 54
+             muscles: 54
+            analyses: 0
+              probes: 0
+              bodies: 12
+              joints: 12
+         constraints: 0
+             markers: 39
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-07-04 23:02:07.626] [info] Running tool ID...
+[2025-07-04 23:02:07.649] [info] Old version storage/motion file encountered
+[2025-07-04 23:02:07.649] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot (nr=1501 nc=25)
+[2025-07-04 23:02:07.649] [info] .. assuming rotations in Degrees..
+[2025-07-04 23:02:07.681] [info] ExternalForce::right Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 23:02:07.681] [info] ExternalForce::left Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 23:02:07.681] [info] ExternalForce::exoFoot Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 23:02:07.681] [info] ExternalForce::exoShank Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 23:02:07.692] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 23:02:07.694] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-07-04 23:02:07.985] [info] InverseDynamicsTool: 73 time frames in 215 millisecond(s).
+[2025-07-04 23:16:44.795] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 23:16:44.810] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 23:16:44.854] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 23:16:44.854] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 23:16:44.855] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 23:16:44.855] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 23:16:44.855] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 23:16:44.855] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 23:16:44.855] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 23:16:44.855] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 23:16:44.856] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 23:16:44.856] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 23:16:44.856] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 23:16:44.856] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 23:16:44.856] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 23:16:44.857] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 23:16:44.857] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 23:16:44.857] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 23:16:44.857] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 23:16:44.857] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 23:16:44.857] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 23:16:44.858] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 23:16:44.858] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 23:16:44.859] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 23:16:44.876] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 23:16:44.921] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 23:16:44.922] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 23:16:44.922] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 23:16:44.922] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 23:16:44.923] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 23:16:44.923] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 23:16:44.923] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 23:16:44.923] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 23:16:44.923] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 23:16:44.924] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 23:16:44.924] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 23:16:44.924] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 23:16:44.924] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 23:16:44.924] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 23:16:44.925] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 23:16:44.925] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 23:16:44.925] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 23:16:44.925] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 23:16:44.925] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 23:16:44.926] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 23:16:44.926] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 23:16:44.928] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 23:16:44.931] [cout] [info] 
+               MODEL: subject01
+         coordinates: 23
+              forces: 54
+           actuators: 54
+             muscles: 54
+            analyses: 0
+              probes: 0
+              bodies: 12
+              joints: 12
+         constraints: 0
+             markers: 39
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-07-04 23:16:44.931] [info] Running tool ID...
+[2025-07-04 23:16:44.954] [info] Old version storage/motion file encountered
+[2025-07-04 23:16:44.954] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot (nr=1501 nc=25)
+[2025-07-04 23:16:44.954] [info] .. assuming rotations in Degrees..
+[2025-07-04 23:16:44.988] [info] ExternalForce::right Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 23:16:44.988] [info] ExternalForce::left Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 23:16:44.988] [info] ExternalForce::exoFoot Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 23:16:44.988] [info] ExternalForce::exoShank Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 23:16:45.001] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 23:16:45.002] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-07-04 23:16:45.322] [info] InverseDynamicsTool: 73 time frames in 231 millisecond(s).
+[2025-07-04 23:21:33.476] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 23:21:33.491] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 23:21:33.538] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 23:21:33.539] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 23:21:33.539] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 23:21:33.539] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 23:21:33.540] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 23:21:33.540] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 23:21:33.540] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 23:21:33.540] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 23:21:33.540] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 23:21:33.541] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 23:21:33.541] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 23:21:33.541] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 23:21:33.541] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 23:21:33.541] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 23:21:33.542] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 23:21:33.542] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 23:21:33.542] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 23:21:33.542] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 23:21:33.542] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 23:21:33.543] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 23:21:33.543] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 23:21:33.545] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 23:21:33.562] [info] Updating Model file from 20303 to latest format...
+[2025-07-04 23:21:33.610] [info] Loaded model subject01 from file C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_simbody.osim
+[2025-07-04 23:21:33.611] [warning] Couldn't find file 'sacrum.vtp'.
+[2025-07-04 23:21:33.611] [warning] Couldn't find file 'pelvis.vtp'.
+[2025-07-04 23:21:33.611] [warning] Couldn't find file 'l_pelvis.vtp'.
+[2025-07-04 23:21:33.611] [warning] Couldn't find file 'femur_r.vtp'.
+[2025-07-04 23:21:33.612] [warning] Couldn't find file 'tibia_r.vtp'.
+[2025-07-04 23:21:33.612] [warning] Couldn't find file 'fibula.vtp'.
+[2025-07-04 23:21:33.612] [warning] Couldn't find file 'talus.vtp'.
+[2025-07-04 23:21:33.612] [warning] Couldn't find file 'foot.vtp'.
+[2025-07-04 23:21:33.612] [warning] Couldn't find file 'bofoot.vtp'.
+[2025-07-04 23:21:33.613] [warning] Couldn't find file 'femur_l.vtp'.
+[2025-07-04 23:21:33.613] [warning] Couldn't find file 'tibia_l.vtp'.
+[2025-07-04 23:21:33.613] [warning] Couldn't find file 'l_fibula.vtp'.
+[2025-07-04 23:21:33.613] [warning] Couldn't find file 'l_talus.vtp'.
+[2025-07-04 23:21:33.613] [warning] Couldn't find file 'l_foot.vtp'.
+[2025-07-04 23:21:33.614] [warning] Couldn't find file 'l_bofoot.vtp'.
+[2025-07-04 23:21:33.614] [warning] Couldn't find file 'hat_spine.vtp'.
+[2025-07-04 23:21:33.614] [warning] Couldn't find file 'hat_jaw.vtp'.
+[2025-07-04 23:21:33.614] [warning] Couldn't find file 'hat_skull.vtp'.
+[2025-07-04 23:21:33.614] [warning] Couldn't find file 'hat_ribs.vtp'.
+[2025-07-04 23:21:33.615] [info] ControllerSet 'Controllers' was renamed and is being reset to 'controllerset'.
+[2025-07-04 23:21:33.616] [info] ComponentSet 'MiscComponents' was renamed and is being reset to 'componentset'.
+[2025-07-04 23:21:33.620] [cout] [info] 
+               MODEL: subject01
+         coordinates: 23
+              forces: 54
+           actuators: 54
+             muscles: 54
+            analyses: 0
+              probes: 0
+              bodies: 12
+              joints: 12
+         constraints: 0
+             markers: 39
+         controllers: 0
+  contact geometries: 0
+misc modelcomponents: 0
+[2025-07-04 23:21:33.620] [info] Running tool ID...
+[2025-07-04 23:21:33.643] [info] Old version storage/motion file encountered
+[2025-07-04 23:21:33.643] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot (nr=1501 nc=25)
+[2025-07-04 23:21:33.643] [info] .. assuming rotations in Degrees..
+[2025-07-04 23:21:33.672] [info] ExternalForce::right Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 23:21:33.672] [info] ExternalForce::left Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 23:21:33.672] [info] ExternalForce::exoFoot Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 23:21:33.672] [info] ExternalForce::exoShank Data source being set to C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_grf_withDev.mot
+[2025-07-04 23:21:33.682] [info] Storage: read data file = C:\Users\movea\Dropbox\Collaboration\Guna\reactionForceData\subject01_walk1_ik.mot (nr=73 nc=24)
+[2025-07-04 23:21:33.684] [info] Low-pass filtering coordinates data with a cutoff frequency of 6.0...
+[2025-07-04 23:21:33.973] [info] InverseDynamicsTool: 73 time frames in 215 millisecond(s).
