@@ -181,7 +181,7 @@ end
 %     [US_data,nUSdata,ind_US,ind_US_AT,ind_USnone,USDigitalizedInterp]=fiberCalibrationSetup(DatStore,Misc,time_opt); % only works for one trial
 % end
 DatStore.Mesh=Mesh;
-[Results,DatStore,Misc] = MRS_Formulate_and_Solve(Misc,DatStore);
+[Results,DatStore,Misc] = MRS_Formulate_and_Solve_NeuroCons(Misc,DatStore);
 end
 
 

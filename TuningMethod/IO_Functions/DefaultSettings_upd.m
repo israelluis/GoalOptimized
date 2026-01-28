@@ -175,14 +175,17 @@ end
 if ~isfield(Misc,'Advance')|| isempty(Misc.Advance)
     Misc.Advance.AssistiveDevice    = 0;
     Misc.Advance.TuningMethod_fiber = 0;
+    Misc.Advance.SynergyControl     = 0;
 end
 if ~isfield(Misc.Advance,'TuningMethod_fiber') || isempty(Misc.Advance.TuningMethod_fiber)
     Misc.Advance.TuningMethod_fiber=0; 
 end
 if ~isfield(Misc.Advance,'AssistiveDevice')|| isempty(Misc.Advance.AssistiveDevice)
-    Misc.Advance.TuningMethod_fiber = 0;
+    Misc.Advance.AssistiveDevice = 0;
 end
-
+if ~isfield(Misc.Advance,'SynergyControl')|| isempty(Misc.Advance.SynergyControl)
+    Misc.Advance.SynergyControl = 0;
+end
 if ~isfield(Misc,'initial_guess_source')|| isempty(Misc.initial_guess_source)
     Misc.initial_guess_source = 'SO'; % Static optimization by default
 end

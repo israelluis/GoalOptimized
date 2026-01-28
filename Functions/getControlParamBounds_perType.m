@@ -18,13 +18,17 @@ for iDev=1:nDevs
 
             % hip flexion
         elseif strcmp(jointSel,'hip_flexion')   & (jointDir== 1)
-            range=[45 75; 5 35; 5 35; 10 100];     % Range: 30 30 30 90    E= 65 32 35 40
+            range=[55 80; 10 35; 10 35; 10 100];     % Range: 25 25 25 90    E= 65 32 35 40
+            % range=[50 75; 10 35; 10 35; 10 100];     % Range: 25 25 25 90    E= 65 32 35 40
+            % range=[45 75; 5 35; 5 35; 10 100];     % Range: 30 30 30 90    E= 65 32 35 40
             % rangeX=[40 80; 5 45; 5 45];   % Width timing changes results
             % rangeY=[10 100];
 
             % hip abduction
         elseif strcmp(jointSel,'hip_adduction') & (jointDir==-1)
-            range=[40 70; 5 35; 5 35; 10 120];    % Range: 30 30 30 110    E= 50 15 10 100
+            range=[20 50; 5 15; 5 15; 10 120];    % Range: 25 25 25 110    E= 50 15 10 100
+            % range=[40 65; 10 35; 10 35; 10 120];    % Range: 25 25 25 110    E= 50 15 10 100
+            % range=[40 70; 5 35; 5 35; 10 120];    % Range: 30 30 30 110    E= 50 15 10 100
         else
             error('the selected muscle group for assistance is not defined')
         end
