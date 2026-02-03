@@ -1,0 +1,93 @@
+This is Ipopt version 3.12.3, running with linear solver mumps.
+NOTE: Other linear solvers might be more efficient (see Ipopt documentation).
+
+Number of nonzeros in equality constraint Jacobian...:    80910
+Number of nonzeros in inequality constraint Jacobian.:    24310
+Number of nonzeros in Lagrangian Hessian.............:    57350
+
+Total number of variables............................:    24310
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:        0
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:    19510
+Total number of inequality constraints...............:    24310
+        inequality constraints with only lower bounds:     4760
+   inequality constraints with lower and upper bounds:    19550
+        inequality constraints with only upper bounds:        0
+
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+   0 1.6897999e-002 8.95e+001 1.71e-002  -1.0 0.00e+000    -  0.00e+000 0.00e+000   0
+   1 7.9643303e-001 7.22e+001 2.10e+002  -1.0 6.29e+000    -  1.33e-001 1.94e-001f  1
+   2 7.1712543e+000 3.90e+001 4.07e+002  -1.0 6.86e+000    -  1.97e-001 4.63e-001f  1
+   3 2.9266175e+001 3.49e+000 6.09e+002  -1.0 7.78e+000    -  7.63e-002 1.00e+000f  1
+   4 3.1295491e+001 2.54e+000 4.39e+002  -1.0 1.18e+000   0.0 4.21e-001 2.72e-001f  1
+   5 3.4437665e+001 1.66e+000 2.91e+002  -1.0 3.10e+000  -0.5 4.91e-001 3.39e-001f  1
+   6 4.3923444e+001 1.68e+000 1.87e+002  -1.0 3.60e+000  -1.0 5.84e-001 9.65e-001f  1
+   7 4.7061869e+001 1.81e-001 1.13e+002  -1.0 8.61e-001  -0.5 5.86e-001 1.00e+000f  1
+   8 4.8019213e+001 2.07e-001 5.90e+000  -1.0 7.12e-001  -1.0 1.00e+000 1.00e+000f  1
+   9 4.8364989e+001 1.44e-001 2.65e+000  -1.0 9.93e-001  -1.5 1.00e+000 1.00e+000f  1
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+  10 4.8273603e+001 3.07e-001 7.90e+000  -1.0 3.37e+000  -2.0 6.79e-001 1.00e+000f  1
+  11 4.8192111e+001 5.79e-002 4.06e+000  -1.0 9.28e-001  -1.5 1.00e+000 8.89e-001h  1
+  12 4.8166353e+001 1.04e-001 2.10e+000  -1.0 1.94e+000  -2.0 1.00e+000 1.00e+000f  1
+  13 4.8155728e+001 1.86e-002 7.49e-001  -1.0 8.55e-001  -1.6 1.00e+000 1.00e+000h  1
+  14 2.3082836e+001 9.67e-001 2.37e+000  -1.7 5.63e-001  -2.1 9.23e-001 1.00e+000f  1
+  15 1.1788463e+001 1.22e+000 5.44e-001  -1.7 6.01e-001  -2.5 1.00e+000 1.00e+000f  1
+  16 1.0576456e+001 2.74e-002 2.40e-001  -1.7 2.00e-001  -2.1 1.00e+000 1.00e+000h  1
+  17 1.0508497e+001 2.13e-002 6.78e-002  -1.7 4.83e-001  -2.6 1.00e+000 1.00e+000h  1
+  18 3.4474933e+000 5.37e-001 9.16e-001  -2.5 2.59e-001  -2.2 9.57e-001 1.00e+000f  1
+  19 1.3400983e+000 4.22e-001 3.13e-001  -2.5 3.14e-001  -2.6 1.00e+000 1.00e+000h  1
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+  20 1.1261398e+000 3.23e-002 3.53e-002  -2.5 5.31e-001  -3.1 1.00e+000 1.00e+000h  1
+  21 1.1159096e+000 8.49e-002 1.81e-002  -2.5 1.58e+000  -3.6 1.00e+000 1.00e+000h  1
+  22 3.3361287e-001 2.83e-001 1.77e-001  -3.8 3.18e-001  -3.2 8.55e-001 1.00e+000f  1
+  23 2.1944535e-001 3.24e-001 6.17e-002  -3.8 2.16e-001  -3.6 1.00e+000 1.00e+000h  1
+  24 1.8842916e-001 7.89e-002 8.91e-003  -3.8 2.63e-001  -4.1 1.00e+000 1.00e+000h  1
+  25 1.8577702e-001 7.52e-003 7.10e-004  -3.8 4.06e-001  -4.6 1.00e+000 1.00e+000h  1
+  26 1.8578042e-001 1.05e-002 2.00e-003  -3.8 8.13e+001  -5.1 6.53e-002 7.76e-003h  5
+  27 1.8573693e-001 7.01e-003 3.20e-004  -3.8 4.43e-001  -4.7 1.00e+000 1.00e+000h  1
+  28 1.8574352e-001 1.11e-003 6.96e-005  -3.8 1.32e-001  -4.2 1.00e+000 1.00e+000h  1
+  29 1.4879860e-001 1.80e-001 1.32e-002  -5.7 4.13e-001  -4.7 8.29e-001 1.00e+000h  1
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+  30 7.3242385e-002 2.14e+000 1.34e-002  -5.7 2.57e+000    -  5.01e-001 1.00e+000h  1
+  31 5.0131079e-002 1.24e+000 1.13e-002  -5.7 4.96e+000    -  5.23e-001 7.29e-001h  1
+  32 3.4200335e-002 9.02e-001 1.19e-002  -5.7 4.36e+000    -  5.14e-001 1.00e+000h  1
+  33 2.9762377e-002 1.49e-001 5.15e-003  -5.7 8.18e-001    -  7.42e-001 1.00e+000h  1
+  34 2.8621208e-002 2.58e-002 2.35e-004  -5.7 2.46e-001    -  1.00e+000 1.00e+000h  1
+  35 2.8494451e-002 5.80e-004 1.47e-006  -5.7 2.25e-002    -  1.00e+000 1.00e+000h  1
+  36 2.3370344e-002 1.94e-001 5.02e-004  -7.0 3.84e-001    -  7.40e-001 7.68e-001h  1
+  37 2.0987030e-002 1.63e-001 1.51e-004  -7.0 2.44e-001    -  9.74e-001 9.85e-001h  1
+  38 2.0611676e-002 3.22e-002 2.19e-005  -7.0 1.61e-001    -  1.00e+000 1.00e+000h  1
+  39 2.0575975e-002 1.92e-003 7.55e-007  -7.0 3.15e-002    -  1.00e+000 1.00e+000h  1
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+  40 2.0574807e-002 3.09e-006 1.82e-009  -7.0 1.73e-003    -  1.00e+000 1.00e+000h  1
+
+Number of Iterations....: 40
+
+                                   (scaled)                 (unscaled)
+Objective...............:  2.0574806982583991e-002   2.0574806982583991e-002
+Dual infeasibility......:  1.8240625345357753e-009   1.8240625345357753e-009
+Constraint violation....:  8.9377926386358109e-008   3.0936289903138459e-006
+Complementarity.........:  9.0919028348811454e-008   9.0919028348811454e-008
+Overall NLP error.......:  9.0919028348811454e-008   3.0936289903138459e-006
+
+
+Number of objective function evaluations             = 47
+Number of objective gradient evaluations             = 41
+Number of equality constraint evaluations            = 47
+Number of inequality constraint evaluations          = 47
+Number of equality constraint Jacobian evaluations   = 41
+Number of inequality constraint Jacobian evaluations = 41
+Number of Lagrangian Hessian evaluations             = 40
+Total CPU secs in IPOPT (w/o function evaluations)   =      6.027
+Total CPU secs in NLP function evaluations           =      0.645
+
+EXIT: Optimal Solution Found.
+      solver  :   t_proc      (avg)   t_wall      (avg)    n_eval
+       nlp_f  |   2.00ms ( 42.55us)   2.00ms ( 42.57us)        47
+       nlp_g  |  75.00ms (  1.60ms)  74.99ms (  1.60ms)        47
+  nlp_grad_f  |   4.00ms ( 95.24us)   4.00ms ( 95.24us)        42
+  nlp_hess_l  | 255.00ms (  6.38ms) 255.00ms (  6.38ms)        40
+   nlp_jac_g  | 313.00ms (  7.45ms) 313.22ms (  7.46ms)        42
+       total  |   6.67 s (  6.67 s)   6.67 s (  6.67 s)         1
+Computation time solving OCP: 7.3213 s
