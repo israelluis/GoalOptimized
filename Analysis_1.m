@@ -1,5 +1,6 @@
 %% SET PATHS
-mainPath      ='C:\Users\movea\Documents\GitHub\GoalOptimized\ProjectResults\DSE';
+computerPath  ='C:\Users\Israel Luis\Documents\GitHub';
+mainPath      =fullfile(computerPath,'GoalOptimized\ProjectResults\DSE');
 trialPath     ='v2_t1';
 
 currentFolder=pwd;
@@ -25,22 +26,48 @@ for iSub=1:nSubs
     MRS_Je(iSub,1)={load(fullfile(mainPath,['sub' num2str(iSub)],trialPath,folderSpec,[specificFile 'Results.mat']))};
 end
 %% LOAD MRS JeS
-folderSpec   = 'JeS0';
-specificFile = 'JeS0';
+folderSpec   = 'JeS';
+specificFile = 'JeS';
 
-Syn_list=[4 5 6];
-nSyns=length(Syn_list);
+syn_list=[4 5 6];
+nSyns=length(syn_list);
 MRS_JeS=cell(nSubs,nSyns);
 metric_JeS =cell(nSubs,1);
 for iSub=1:nSubs
     for iSyn=1:nSyns
-        sSyn=Syn_list(iSyn);
+        sSyn=syn_list(iSyn);
         MRS_JeS(iSub,iSyn)={load(fullfile(mainPath,['sub' num2str(iSub)],trialPath,folderSpec,[specificFile num2str(sSyn) 'Results.mat']))};
     end
     metric_JeS(iSub)={load(fullfile(mainPath,['sub' num2str(iSub)],trialPath,folderSpec,'synergy_metrics.mat'))};
 end
+%% LOAD MRS JeSD
+folderSpec   = 'Je0SD';
+specificFile = 'Je0SD'; specificFile_dev=specificFile;
+
+dev_list ={'AP(A)' 'KE(Q)' 'HF(A)' 'HB(A)'};
+iter_list={'200' '100' '200' '200'};
+
+
+sub_list=1:3;     nSubs=length(sub_list);
+
+syn_list=[0 4 5 6];
+nSyns=length(syn_list);
+nDevs=length(dev_list);
+MRS_JeSD=cell(nSubs,nSyns,nDevs);
+for iSub=1:nSubs
+    for iSyn=1:nSyns
+        sSyn=syn_list(iSyn);
+        for iDev=1:nDevs
+            MRS_JeSD(iSub,iSyn,iDev)={load(fullfile(mainPath,['sub' num2str(iSub)],trialPath,folderSpec,...
+                ['MRSOptimal_R1' num2str(sSyn) '_eDot_MCLU24_' dev_list{iDev} '_iters' iter_list{iDev} 'Results.mat']))};
+        end
+    end
+end
+%%
+sub_list=1:5;     nSubs=length(sub_list);
+syn_list=[4 5 6]; nSyns=length(syn_list);
 %% Summary
-[NSYN, VAF, RMSE, RMSE_m, R_m] = deal(zeros(nSubs, length(Syn_list)));
+[NSYN, VAF, RMSE, RMSE_m, R_m] = deal(zeros(nSubs, nSyns));
 
 for iSub=1:nSubs
     metric_sel=metric_JeS{iSub};
@@ -86,11 +113,11 @@ d_VAF_str = arrayfun(@(m,s) sprintf('%.0f ± %.0f', m*100, s*100), d_VAF_mean, d
 d_RMSE_str = arrayfun(@(m,s) sprintf('%.3f ± %.3f', m, s), d_RMSE_mean, d_RMSE_std, 'UniformOutput', false);
 
 % Display table
-T = table(Syn_list', d_VAF_str, d_RMSE_str, ...
+T = table(syn_list', d_VAF_str, d_RMSE_str, ...
           'VariableNames', {'Synergies', 'ΔVAF (%)', 'ΔRMSE'});
 disp(T)
 %%
-EMGfile='C:\Users\movea\Documents\GitHub\GoalOptimized\emgFiles.mot';
+EMGfile=fullfile(computerPath,'GoalOptimized\Database\DigitalizedData\emgFiles.mot');
 EMG_data = ReadMotFile(EMGfile);
 %%
 EMG_names=EMG_data.names;
@@ -292,56 +319,9 @@ for i = 1:nEEcon
     end
 end
 
-%%
-% Add mean experimental line
-yline(mean(ExpGrossMetCost), ':k', 'LineWidth', 2, 'Alpha', 0.5);
-
-% Formatting
-set(gca, 'XTickLabel', {'EXP', 'Effort', 'Syn #4', 'Syn #5', 'Syn #6'}, ...
-    'FontSize', font_size, 'XTick', 1:5);
-ylabel('whole-body average metabolic rate [W/kg]', 'FontSize', font_size);
-ylim([0, max(completeEdot_mean + completeEdot_std) * 1.3]);
-
-% Add values on top of bars
-for i = 1:5
-    % Absolute value
-    text(i, completeEdot_mean(i) + completeEdot_std(i) + 0.5, ...
-        sprintf('%.1f', completeEdot_mean(i)), ...
-        'HorizontalAlignment', 'center', 'FontSize', font_size-2, 'FontWeight', 'bold');
-    
-    % Percentage change (relative to EXP) for i>1
-    if i > 1
-        perc_change = ((completeEdot_mean(i) - completeEdot_mean(1)) / completeEdot_mean(1)) * 100;
-        text(i, completeEdot_mean(i) + completeEdot_std(i) + 1.5, ...
-            sprintf('%+.1f%%', perc_change), ...
-            'HorizontalAlignment', 'center', 'FontSize', font_size-2, 'Color', 'r', 'FontWeight', 'bold');
-    end
-end
-%%
-label_list ={'EXP' 'Effort'  'Syn #4' 'Syn #5' 'Syn #6'};
-fig=figure(2); set(gcf,'color','w','Visible','on'); clf; 
-
-font_size=20;
-hb = bar(completeEdot,'FaceColor','flat');
-for i=1:5, hb.CData(i,:)=hex2rgb(color_list{i}); end
-set(gca,'XTickLabel',label_list); 
-set(gca,'FontSize',font_size);
-ylabel('gross metabolic cost [W/kg]'); 
-yline(ExpGrossMetCost,':k','LineWidth',2)
-
-ylim([0 7])
-text(1, completeEdot(1) + 0.25, sprintf('%.1f', completeEdot(1)), ...
-    'HorizontalAlignment', 'center','FontSize',font_size);
-
-% Add percentage change for other bars
-for i = 2:5
-    perc_change = ((completeEdot(i) - completeEdot(1)) / completeEdot(1)) * 100;
-    text(i, completeEdot(i) + 0.25, sprintf('%+.1f%%', perc_change), ...
-        'HorizontalAlignment', 'center','FontSize',font_size);
-end
 %% COMPUTE HILO
-DatStore_normal=MRS_eDot{1,1}.DatStore;
-Misc=MRS_eDot{1,1}.Misc;
+DatStore_normal=MRS_Je0{1,1}.DatStore;
+Misc=MRS_Je0{1,1}.Misc;
 subject_mass=Misc.subject_data.subject_mass;
 
 genVal=100;
@@ -380,113 +360,59 @@ Device{1}.Params      = [48 15 15 genVal]; %54.8 14.5 8.1 51.8
 [assistanceInfo]=generateTorque(Device{1},DatStore_normal,Misc.time,Misc.extra_frames);
 TorqueHILO=assistanceInfo.Profile.Torque/genVal*10.83/subject_mass; %10.83/subject_mass
 TorqueHILO_list(4,:)=TorqueHILO;
-%% PLOT 0
-figure(10); clf; set(gcf,'color','w'); clc;
-SSyn_master=[1 2 3 4];
-
-Misc=MRS_eDot{1,1}.Misc;
-[gait_cycle,~]=computeGC(Misc.time,Misc.extra_frames);
-
-MuscleNames=MRS_eDot{1,1}.Results.MuscleNames;
-MuscleNamesSyn_list     ={{'soleus_r'} {'tibant_r'} {'gasmed_r'} {'vaslat_r'}  {'addlong_r'} {'recfem_r'} {'psoas_r'} {'glmed1_r'} {'semimem_r'} {'semiten_r'}};
-MuscleNamesSyn_list_full={{'soleus'} {'tib. ant.'} {'gas. med.'} {'vas. lat.'}  {'add. long.'} {'rec. fem.'} {'psoas'} {'glut. med.'} {'semimem.'} {'semiten.'}};
-nMuscleSyns=length(MuscleNamesSyn_list);
-musSim_ind=zeros(1,nMuscleSyns);
-for iMus=1:nMuscleSyns
-    musSim_ind(1,iMus)=find(strcmp(MuscleNames,MuscleNamesSyn_list{iMus}));
-end
-
-
-color_list={'k' '#1f7a8c' '#d80032' '#245501'};
-label_list={'Effort' 'Syn #4' 'Syn #5' 'Syn #6' };
-line_list={'-' ':' '--' '-.'};
-for iMus=1:nMuscleSyns
-    subplot(2,5,iMus)
-
-    for iSyn=1:length(SSyn_master)
-        sSyn=SSyn_master(iSyn);
-
-        Results_Baseline=MRS_base{1,sSyn};
-        MActivation_N=Results_Baseline.Results.MActivation.genericMRS(musSim_ind(1,iMus),:);
-        plot(gait_cycle,MActivation_N,'Color',color_list{iSyn},'LineWidth',4,'LineStyle',line_list{iSyn}); hold on
-    end
-    legend(label_list)
-    legend boxoff
-    set(gca,'FontSize',13);
-    title([MuscleNamesSyn_list_full{iMus}{1}])
-    xlabel('gait cycle [%]'); ylabel('activation [ ]');
-    axis([0 100 0 1.4])
-end
-
-figure(11); clf; set(gcf,'color','w'); clc;
-NMuscleTot=length(MuscleNames);
-for iMus=1:NMuscleTot
-    subplot(5,8,iMus)
-
-    for iSyn=1:length(SSyn_master)
-        sSyn=SSyn_master(iSyn);
-
-        Results_Baseline=MRS_base{1,sSyn};
-        MActivation_N=Results_Baseline.Results.MActivation.genericMRS(iMus,:);
-        plot(gait_cycle,MActivation_N,'Color',color_list{iSyn},'LineWidth',4,'LineStyle',line_list{iSyn}); hold on
-    end
-    % legend(syn_name)
-    % legend boxoff
-    set(gca,'FontSize',13);
-    title([MuscleNames{iMus}(1:end-2)])
-    % xlabel('gait cycle [%]'); ylabel('activation [ ]');
-    axis([0 100 0 1])
-end
-
-for iSyn=1:length(SSyn_master)
-    sSyn=SSyn_master(iSyn);
-    Results_Baseline=MRS_base{1,sSyn};
-
-    if iSyn>1
-        VAF=Results_Baseline.Results.SynergyControl.VAF;
-        RMSE=Results_Baseline.Results.SynergyControl.RMSE;
-        disp([label_list{iSyn} ': VAF =' num2str(VAF) ' and RMSE =' num2str(RMSE)])
-    end
-end
 %% PLOT 1
 
 DOFNames_list={{'ankle_angle_r'}    {'knee_angle_r'}    {'hip_flexion_r'}    {'hip_adduction_r'}};
-DOFNames=MRS_eDot{1,1}.DatStore.DOFNames;
+DOFNames=MRS_Je0{1,1}.DatStore.DOFNames;
 NDOFs = length(DOFNames_list);
 
 MuscleNames_list={{{'soleus_r'} {'gasmed_r'}}     {{'vaslat_r'}  {'vasmed_r'}}   {{'recfem_r'} {'psoas_r'}}  {{'glmed1_r'} {'addlong_r'}} };
 MuscleNames_list_full={{{'soleus'} {'gas. med.'}} {{'vas. lat.'} {'vas. med.'}}  {{'rec. fem.'} {'psoas'}}   {{'glut. med.'} {'add. longus'}}};
-MuscleNames=MRS_eDot{1,1}.Results.MuscleNames;
+MuscleNames=MRS_JeS{1,1}.Results.MuscleNames;
 
-Misc=MRS_eDot{1,1}.Misc;
-Results=MRS_eDot{1,1}.Results;
-
+Misc=MRS_Je0{1,1}.Misc;
 extra_frames=Misc.extra_frames;
+
+Results=MRS_Je0{1,1}.Results;
+
 fSel=1+extra_frames:size(Results.MActivation.genericMRS,2)-1-extra_frames;
 
 [gait_cycle,~]=computeGC(Misc.time,Misc.extra_frames);
 gait_cycle_sel=gait_cycle(fSel);
 
+totLabels= {'baseline' 'noSyn' 'Syn#4' 'Syn#5' 'Syn#6'};
 synLabels= {'noSyn' 'Syn#4' 'Syn#5' 'Syn#6'};
-% DOFLabels= {'Ankle plantarflexion' 'Knee extension' 'Hip flexion' 'Hip abduction'};
 DOFLabels= {'ANKLE PLANTARFLEXION' 'KNEE EXTENSION' 'HIP FLEXION' 'HIP ABDUCTION'};
-color_syn={'#4169E2' '#FF8888' '#C60000' '#DF1717'};
-% color_syn={'k' '#FF8888' '#C60000' '#DF1717'};
+color_syn={'#4169E2' '#e86975' '#cc2525' '#78080d'};
 
-SSyn_master=[2 3 4]; % 3 4;
-for iFig=1:length(SSyn_master)
-    figure(iFig); clf; set(gcf,'color','w');
-    Syn_sel=SSyn_master(iFig);
-    SSyn_list=[1 Syn_sel];
-    % plTorque_pos={[1 2] [4 5]  [7 8]   [10 11]};
-    plTorque_pos={[1 2 7 8] [4 5 10 11]  [13 14 19 20]   [16 17 22 23]};
-    plMuscle_pos={[3 9] [6 12] [15 21] [18 24]};
-    sign_list=[-1 -1 1 -1];
-    offs_list=[0 -0.5 -0.5 0];
+plTorque_pos={[1 2 7 8] [4 5 10 11]  [13 14 19 20]   [16 17 22 23]};
+plMuscle_pos={[3 9] [6 12] [15 21] [18 24]};
+sign_list=[-1 -1 1 -1];
+offs_list=[0 -0.5 -0.5 0];
+
+sub_list=[1 2 3];
+nSubs=length(sub_list);
+for iSub=1:nSubs
+    sSub=sub_list(iSub);
+
+    fig=figure(iSub); clf; set(gcf,'color','w'); fig.WindowState = 'maximized';
+
+
+    Results=MRS_Je0{sSub,1}.Results;
+    Misc   =MRS_Je0{sSub,1}.Misc;
+    extra_frames=Misc.extra_frames;
+
+    subject_mass=Misc.subject_data.subject_mass;
+
+    fSel=1+extra_frames:size(Results.MActivation.genericMRS,2)-1-extra_frames;
+    [gait_cycle,~]=computeGC(Misc.time,Misc.extra_frames);
+    gait_cycle_sel=gait_cycle(fSel);
+
+    SSyn_list=[1 2 3 4];
     nSyns=length(SSyn_list);
     for iDOF=1:NDOFs
         indexDOF=strcmp(DOFNames,DOFNames_list{iDOF});
-        jointID =MRS_eDot{1,1}.DatStore.IDinterp(fSel,indexDOF);
+        jointID =MRS_JeS{sSub,1}.DatStore.IDinterp(fSel,indexDOF);
 
         musSim_ind=zeros(1,2);
         for iMus=1:2
@@ -494,22 +420,22 @@ for iFig=1:length(SSyn_master)
         end
 
         name_list={'J_E' 'J_S'};
+
         % torques
-        % subplot(2,6,plTorque_pos{iDOF})
         subplot(4,6,plTorque_pos{iDOF})
         plg(1)=plot(gait_cycle_sel,sign_list(iDOF).*jointID/subject_mass,'k','LineWidth',4,'DisplayName','ID'); hold on
         for iSyn=1:nSyns
             sSyn=SSyn_list(iSyn);
-            Results_Bilevel=MRS_eDot{indexDOF,sSyn};
+            Results_Bilevel=MRS_JeSD{sSub,sSyn,indexDOF};
             Torque=Results_Bilevel.Results.Device{1}.Assistance.Profile.Torque;
 
-            plg(2+iSyn)=plot(gait_cycle,Torque/subject_mass,'Color',color_syn{sSyn},'LineWidth',5,'DisplayName',name_list{iSyn});
+            plg(2+iSyn)=plot(gait_cycle,Torque/subject_mass,'Color',color_syn{sSyn},'LineWidth',5,'DisplayName',synLabels{iSyn});
         end
         plg(2)=plot(GaitCycle,TorqueHILO_list(iDOF,:),'color','#50C878','LineWidth',7,'LineStyle','-.','DisplayName','EXP');
 
         disp(['summary with Syn' synLabels{SSyn_list(end)}(end) ' at ' DOFLabels{iDOF} ...
-              ': VAF' num2str(Results_Bilevel.Results.SynergyControl.VAF) ...
-              ' RMSE' num2str(Results_Bilevel.Results.SynergyControl.RMSE)])
+            ': VAF' num2str(Results_Bilevel.Results.SynergyControl.VAF) ...
+            ' RMSE' num2str(Results_Bilevel.Results.SynergyControl.RMSE)])
         % Results_Bilevel.Results.SynergyControl
 
         xlim([0 100]); ylim([-0.35 2.00]+offs_list(iDOF))
@@ -527,27 +453,27 @@ for iFig=1:length(SSyn_master)
             subplot(4,6,pm(iMus))
 
             sSynBase=1;
-            Results_Baseline=MRS_base{1,sSynBase};
-            MActivation_N=Results_Baseline.Results.MActivation.genericMRS(musSim_ind(1,iMus),:); 
+            Results_Baseline=MRS_JeS{sSub,sSynBase};
+            MActivation_N=Results_Baseline.Results.MActivation.genericMRS(musSim_ind(1,iMus),:);
             plot(gait_cycle,MActivation_N,'Color','k','LineWidth',3); hold on %'#71797E'
 
             for iSyn=1:nSyns
                 sSyn=SSyn_list(iSyn);
-                Results_Bilevel =MRS_eDot{indexDOF,sSyn};
+                Results_Bilevel =MRS_JeSD{sSub,sSyn,indexDOF};
 
                 MActivation_OPT=Results_Bilevel.Results.MActivation.genericMRS(musSim_ind(1,iMus),:);
                 plot(gait_cycle,MActivation_OPT,'Color',color_syn{sSyn},'LineWidth',3)
                 set(gca,'FontSize',13);
-                if iMus==2; xlabel('gait cycle [%]'); end 
+                if iMus==2; xlabel('gait cycle [%]'); end
                 ylabel('activation [ ]')
-                
+
                 legend boxoff
                 axis([0 100 0 1.4])
                 % if iMus==iSyn
                 title([MuscleNames_list_full{iDOF}{iMus}{1}]);
                 % end
             end
-            legend({'No Exo','J_E', 'J_S'},'NumColumns',2,'FontSize',10)
+            legend(totLabels,'NumColumns',2,'FontSize',10)
         end
     end
 
@@ -561,7 +487,8 @@ for iFig=1:length(SSyn_master)
         pos(4) = pos(4) * 0.90;  % Reduce width by 10%
         set(h(i), 'Position', pos);
     end
-    annotation('textbox',[0 0.97 1 0.02],'String',['Analysis with ' synLabels{SSyn_list(end)}(end) ' synergies'],'FontSize',20,'HorizontalAlignment','center','EdgeColor','none');
+    annotation('textbox',[0 0.97 1 0.02],'String',['Analysis with subject N' num2str(sSub) 'mode(' specificFile_dev ')'],'FontSize',20,'HorizontalAlignment','center','EdgeColor','none');
+    % end
 end
 %%
 function fileNames=get_files_from_pattern(folderPath,label_pattern_list)

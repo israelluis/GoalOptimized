@@ -26,8 +26,8 @@ optionssol.ipopt.max_iter = output.setup.nlp.ipoptoptions.maxiterations;
 % ----------------------------------------------------------------------- %
 % Solve muscle redundancy problem with default parameters
 % Problem bounds
-e_min = 0.0; e_max = 1;                % bounds on muscle excitation
-a_min = 0.0; a_max = 1;                % bounds on muscle activation
+e_min = 0.01; e_max = 1;                % bounds on muscle excitation
+a_min = 0.01; a_max = 1;                % bounds on muscle activation
 vMtilde_min = -10; vMtilde_max = 10;    % bounds on normalized muscle fiber velocity
 lMtilde_min = 0.1; lMtilde_max = 1.7;   % bounds on normalized muscle fiber length
 

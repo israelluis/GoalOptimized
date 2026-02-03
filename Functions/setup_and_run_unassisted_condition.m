@@ -48,7 +48,7 @@ muscleNames            = getMuscleNames('rajagopal');
 Misc.MuscleNames_Input = appendSide(muscleNames, Misc.gait_data.side_sel);
 
 % to name and save results
-OutName_sel='Je0';
+OutName_sel='Je';
 Misc.to_save_results = 1;
 Misc.OutName= OutName_sel;
 

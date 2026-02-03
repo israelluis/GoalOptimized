@@ -9,9 +9,9 @@ info.DataFolder       = currentFolder;
 info.FolderOutput     = fullfile('ProjectResults','DSE'); %fullfile('ProjectResults','Codesign','Pilot')
 
 % folder for outputs
-DirF.select_folder_N1 ='Je0';            % specify folder for simulations based on minimal muscle effort
-DirF.select_folder_N2 ='JeS0';           % specify folder for simulation based on minimal muscle effort with synergies
-DirF.select_folder_N3 ='JeS0Dev';        % specify folder for simulation based on "select_folder_N2" with assistive devices
+DirF.select_folder_N1 ='Je';            % specify folder for simulations based on minimal muscle effort
+DirF.select_folder_N2 ='JeS';           % specify folder for simulation based on minimal muscle effort with synergies
+DirF.select_folder_N3 ='JeSD';        % specify folder for simulation based on "select_folder_N2" with assistive devices
 
 % create folders
 for i=1:numel(fieldnames(DirF))
@@ -28,8 +28,8 @@ if strcmp(Scondition, 'onlyBaseline')
     Misc.Advance.SynergyControl=1; nSyn = 4;
 else
     codedSyn=str2double(SOutName(end));
-    if codedSyn==0;    Misc.Advance.SynergyControl=0;
-    else;          Misc.Advance.SynergyControl=1; nSyn = str2double(SOutName(end));
+    if codedSyn==0;    Misc.Advance.SynergyControl=0; nSyn = 0;
+    else;              Misc.Advance.SynergyControl=1; nSyn = str2double(SOutName(end));
     end
 end
 
@@ -40,11 +40,11 @@ end
 assistiveGoal         ='eDot_MCLU24';   % select goal. Options: eDot eDot_MCLU24 gasForces KJMusForces RJXN_knee RJXN_knee_par
 
 [Misc]=setup_for_JRXN(Misc);
-[J_normal_avg,      J_normal_TS,    J_normal_extra]   = computeOuterLoopFunction(Misc,Results_normal,assistiveGoal); % this is my starting point, the Edot at unassisted conditions.
+[~,      J_normal_TS,    ~]   = computeOuterLoopFunction(Misc,Results_normal,assistiveGoal); % this is my starting point, the Edot at unassisted conditions.
 [J_baseline_avg,  J_baseline_TS,  J_baseline_extra]   = computeOuterLoopFunction(Misc,Results_baseline,assistiveGoal); % this is my starting point, the Edot at unassisted conditions.
 
 %% Plot baseline assistive goal
-to_plot=1;
+to_plot=0;
 if to_plot==1
     [gait_cycle,~]=computeGC(Misc.time,Misc.extra_frames);
     gait_cycle_sel=gait_cycle(1+Misc.extra_frames:end-Misc.extra_frames-1);
@@ -208,6 +208,12 @@ Misc.OutName        = 'iterations';
 
 % set device
 clear Device
+side_sel=Misc.gait_data.side_sel;
+
+for i=1:length(SDevice)
+    SDevice{i}.MuscleGroup(1)={[SDevice{i}.MuscleGroup{1} side_sel]};
+end
+
 Device=SDevice;
 Misc.Device=SDevice;
 %% Setup Bounds & Constraints
@@ -281,8 +287,8 @@ if enable_param_ver && strcmp(assistiveGoal(1:4),'JRXN'); assistance_goal_upd=[a
 funInner = @(x) innerLoop(Misc,DatStore,varNames_tot,{x},J_baseline_avg,assistance_goal_upd); 
 
 % number of iterations
-% MaxObjectiveEvaluations=25*nVars; % heuristic
-MaxObjectiveEvaluations=100; % heuristic
+MaxObjectiveEvaluations=50*nVars; % heuristic
+% MaxObjectiveEvaluations=100; % heuristic
 %% Bayesian optimization setup
 %  NOTES: 
 % 'OutputFcn'              ,@stopNoImprovementSimple ,...   % to stop earlier
@@ -536,8 +542,8 @@ end
 % Run inner loop
 try
     [Results,~,Misc] = MRS_Formulate_and_Solve_NeuroCons(Misc,DatStore);
-    [J,~]=computeOuterLoopFunction(Misc,Results,devAim);
-    objective=(J-J_normalized)/J_normalized*100; % as a percentage of the unassisted condition
+    [Javg,~,~]=computeOuterLoopFunction(Misc,Results,devAim);
+    objective=(Javg-J_normalized)/J_normalized*100; % as a percentage of the unassisted condition
 catch ME
     objective=0; % assigned value if simulation fails
     warning('error! revise')
@@ -835,8 +841,8 @@ devAbb_con=strjoin(devAbb, '&');
 end
 
 function [Misc_new,Results_new]=formulation_with_informed_synergist(Misc,Results_noSyn,DatStore,DirF,computationCase,nSyn)
-OutName_label='JeS0';
-if strcmp(computationCase,'none')
+OutName_label='JeS';
+if strcmp(computationCase,'none') || nSyn==0
     % no computation, return without synergy
     Results_new=Results_noSyn;
     Misc_new=Misc;
@@ -868,7 +874,7 @@ elseif strcmp(computationCase,'all')
     save(fullfile(Misc.OutPath,'synergy_metrics.mat'),'synMetrics');
 end
 
-if strcmp(computationCase,'load') || strcmp(computationCase,'all')
+if (strcmp(computationCase,'load') || strcmp(computationCase,'all')) && nSyn~=0
     path_dir_nor    = fullfile(Misc.OutPathMain,DirF.select_folder_N2, [OutName_label num2str(nSyn) 'Results.mat']);
     R_normalLoaded  = load(path_dir_nor);
     Results_new     = R_normalLoaded.Results;

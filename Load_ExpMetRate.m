@@ -1,5 +1,6 @@
 %% PART I - ENERGETICS
-folderPath='C:\Users\movea\Documents\GitHub\GoalOptimized\Database\EE';
+computerPath  ='C:\Users\Israel Luis\Documents\GitHub';
+folderPath      =fullfile(computerPath,'GoalOptimized\Database\EE');
 
 sub_list=1:5;
 sub_mass=[72.6 63.8 59.2 85.2 64];
