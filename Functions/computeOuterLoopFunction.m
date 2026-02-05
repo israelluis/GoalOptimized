@@ -2,8 +2,8 @@ function [J,Jrel_TS,J_extra]=computeOuterLoopFunction(Misc,Results,devGoal)
 
 % window of analysis
 extra_frames=Misc.extra_frames;
-fSel=1+extra_frames:size(Results.MActivation.genericMRS,2)-1-extra_frames;
-t_range=[Results.Time.genericMRS(fSel(1)) Results.Time.genericMRS(fSel(end))];
+fSel=1+extra_frames:size(Results.MActivation,2)-1-extra_frames;
+t_range=[Results.Time(fSel(1)) Results.Time(fSel(end))];
 
 % number of muscles
 nMuscles=length(Results.MuscleNames);
@@ -54,8 +54,8 @@ if strcmp(goal_category,'eDot')
 
     helper_need=0; % if you want to penalize use of reserve actuators
     if helper_need==1
-        NDof      =size(Results.RActivation.genericMRS,1);
-        helper_obs=sum(abs(Results.RActivation.genericMRS(:,fSel)))/NDof; % RA can be possitive (agonist) or negative (antagonist)
+        NDof      =size(Results.RTorque,1);
+        helper_obs=sum(abs(Results.RTorque(:,fSel)))/NDof; % RA can be possitive (agonist) or negative (antagonist)
         aim_helper=sum(helper_obs,'all');
     else
         aim_helper=0;
@@ -138,7 +138,7 @@ elseif strcmp(goal_category,'JRXN')
 %         ind(i)=find(strcmp(Results.MuscleNames,musNames(i)));
 %     end
 % 
-%     tendonForces=Results.TForce.genericMRS(ind,fSel);
+%     tendonForces=Results.TForce(ind,fSel);
 %     % for i=1:nGasMuscles; subplot(1,2,i); plot(gasForces(i,:)); end
 %     Jrel_TS=tendonForces;
 %     J      =sum(mean(tendonForces,2));
@@ -158,7 +158,7 @@ elseif strcmp(goal_category,'JRXN')
 %         ind(i)=find(strcmp(Results.MuscleNames,musNames(i)));
 %     end
 % 
-%     tendonForces=Results.TForce.genericMRS(ind,fSel);
+%     tendonForces=Results.TForce(ind,fSel);
 %     % for i=1:nGasMuscles; subplot(1,2,i); plot(gasForces(i,:)); end
 %     Jrel_TS=tendonForces;
 %     J      =sum(mean(tendonForces,2));
@@ -179,7 +179,7 @@ elseif strcmp(goal_category,'JRXN')
 %         ind(i)=find(strcmp(Results.MuscleNames,musNames(i)));
 %     end
 % 
-%     activation=Results.MActivation.genericMRS(ind,fSel);
+%     activation=Results.MActivation(ind,fSel);
 %     % for i=1:nGasMuscles; subplot(1,2,i); plot(gasForces(i,:)); end
 %     Jrel_TS=activation;
 %     J      =sum(mean(activation,2));

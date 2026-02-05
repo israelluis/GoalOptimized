@@ -16,7 +16,7 @@ musT_param = NaN(length(param_field),nMuscles);
 rho        = 1059.7;  % kg/m^3 [Umberger 2003]
 
 ind_musT   =find(contains(param_field,musT_field));
-musT_param(ind_musT,:) =Results.params.genericMRS(ind_musT,:); % param x nMuscle
+musT_param(ind_musT,:) =Results.Params(ind_musT,:); % param x nMuscle
 
 musE_param(1,:) = getVolumeFraction(Results.MuscleNames)/100*(V_total_leg./(100)^3);    % m^3 
 musE_param(2,:) = (musE_param(1,:))./(musT_param(2,:));                         % Mvol/lMo
@@ -26,17 +26,17 @@ musE_param(4,:) = musE_param(1,:).*rho;                                         
 
 % - states     
 states_field={'MExcitation' 'MActivation' 'lMtildeopt' 'vMtilde' 'FMltilde' 'FMvtilde' 'TForce' 'Fpe'}; % 'Time' is excluded          
-iSel=1+ext_frames:length(Results.Time.genericMRS)-ext_frames-1;
+iSel=1+ext_frames:length(Results.Time)-ext_frames-1;
 data_length=length(iSel);
 
 mus_time= NaN(1,data_length);
 mus_dyn = NaN(length(states_field),nMuscles,data_length);   
 
-Time=Results.Time.genericMRS(iSel);
+Time=Results.Time(iSel);
 
 mus_time(1,:)=Time;
 for i=1:length(states_field)
-    mus_dyn(i,:,:)=Results.(states_field{i}).genericMRS(:,iSel);
+    mus_dyn(i,:,:)=Results.(states_field{i})(:,iSel);
 end
 
 % get muscle passive force-length multiplier

@@ -116,15 +116,17 @@ end
 % Muscle synergy constraints
 if Misc.Advance.SynergyControl
     nSynergies = Misc.SynCon.N; % Number of synergies
-    % Synergy activation coefficients (time-varying)
+
+    % Synergy activation: time-variant
     H = opti.variable(nSynergies, N_tot+nTrials);
     opti.subject_to(0 <= H <= 1); % Bound synergy activations
     
+    % Synergy weight: time-invariant
     % W = opti.variable(NMuscles, nSynergies);
     % opti.subject_to(0 <= W <= 1);
     Wsel=Misc.SynCon.W;
 
-    % Use experimental synergies as initial guess
+    % Use unassisted synergy activation as initial guess
     if isfield(Misc.SynCon, 'H') && ~isempty(Misc.SynCon.H)
         opti.set_initial(H, Misc.SynCon.H);
     end
@@ -287,23 +289,25 @@ for trial = 1:Misc.nTrials
 
     if Misc.Advance.SynergyControl
 
+        % FORMULATION 1
         % This formulation DOES NOT solve the issue
         % Misc.Advance.SynergyWeight=1;
         % synergy_error = a - Wsel * H;
         % J = J + Misc.Advance.SynergyWeight * sumsqr(synergy_error)/N/nSynergies;
         
+        % FORMULATION 2
         % This formulation is the best based on objective function
         % penalization
-        Misc.Advance.SynergyWeight=0.1; % yet it has regularization issues (30 secs)
-        % SynergyWeight=0.01 does not obey synergy pattern (quick)
-        % SynergyWeight=1.00 poor estimation, regularization issues, glmed reach max, met cost red small (4%) (60 secs)
+        Misc.wSc=1.00; % 0.10 yet it has regularization issues (30 secs)
+        % wSc=0.01 does not obey synergy pattern (quick)
+        % wSc=1.00 poor estimation, regularization issues, glmed reach max, met cost red small (4%) (60 secs)
         
         eps_syn=0.01; % good value based on T&E
         % eps_syn=0.001 make the optimization sensitive to small values 
         % eps_syn=0.1 delutes the relative importance formulation
         
         diff = (a - Wsel * H) ./ (a + eps_syn);
-        J = J + Misc.Advance.SynergyWeight.*sumsqr(diff)/N/nSynergies;
+        J = J + Misc.wSc.*sumsqr(diff)/N/nSynergies;
     end
 
 end
@@ -340,14 +344,14 @@ MuscProperties_params_opt=sol.value(MuscProperties_params);
 MuscProperties_kT_opt    =sol.value(MuscProperties_kT);
 MuscProperties_shift_opt =sol.value(MuscProperties_shift);
 
-% store parameters
-Results.params.calibratedMRS=MuscProperties_params_opt;
-Results.kT.calibratedMRS    =MuscProperties_kT_opt;
-Results.params.genericMRS   =Misc.params;
-Results.kT.genericMRS       =Misc.kT;
+%% Store Results
+Results(nTrials) = struct(); % This creates an array of nTrials empty structs
 
-% T_sim_dorsi_net = sol.value(T_sim_dorsi_net);
-% Results.T_sim_dorsi=T_sim_dorsi_net;
+% store parameters
+for trial = 1:Misc.nTrials
+    Results(trial).Params=Misc.params; % MuscProperties_params_opt
+    Results(trial).kT    =Misc.kT;     % MuscProperties_kT_opt
+end
 
 % compute unNormalized tendon values
 if Misc.Advance.TuningMethod_fiber == 1
@@ -368,64 +372,69 @@ end
 % Append results to output structures of exoskeleton
 if Misc.Advance.AssistiveDevice
     for trial = 1:Misc.nTrials
-        Results.Device=Misc.Device;
+        Results(trial).Device=Misc.Device;
     end
 end
 
 if Misc.Advance.SynergyControl
-    % Load synergy features
-    Results.SynergyControl.H = sol.value(H);
-    Results.SynergyControl.W = Wsel;
-    Results.SynergyControl.SynergyActivation = Wsel *  Results.SynergyControl.H;
-    
-    % Calculate reconstruction error
-    synergy_reconstruction_error = a_opt - Results.SynergyControl.SynergyActivation;
-    Results.SynergyControl.RMSE = sqrt(mean(synergy_reconstruction_error.^2, 'all'));
-    Results.SynergyControl.VAF = 1 - (sum(synergy_reconstruction_error.^2, 'all') / sum(a_opt.^2, 'all'));
+    for trial = 1:Misc.nTrials
+        % Load synergy features
+        Results(trial).SynergyControl.H = sol.value(H);
+        Results(trial).SynergyControl.W = Wsel;
+        Results(trial).SynergyControl.SynergyActivation = Wsel *  Results(trial).SynergyControl.H;
+
+        % Calculate reconstruction error
+        synergy_reconstruction_error = a_opt - Results(trial).SynergyControl.SynergyActivation;
+        Results(trial).SynergyControl.RMSE = sqrt(mean(synergy_reconstruction_error.^2, 'all'));
+        Results(trial).SynergyControl.VAF = 1 - (sum(synergy_reconstruction_error.^2, 'all') / sum(a_opt.^2, 'all'));
+    end
 end
 
 % Append results to output structures
 Ntot = 0;
+
 for trial = 1:nTrials
     t0 = DatStore(trial).time(1); tf = DatStore(trial).time(end);
     N = round((tf-t0)*Misc.Mesh_Frequency);
     % Time grid
     tgrid = linspace(t0,tf,N+1)';
+
+    % Gait Cycle grid
+    initial=0;   final=100;
+
+    data_GC      = N-2*Misc.extra_frames;
+    frames_per_GC= final/(data_GC-1);
+    extra_times  = frames_per_GC*Misc.extra_frames;
+    gait_cycle   = initial-extra_times:frames_per_GC:final+extra_times; % case without extra frame-> gait_cycle =linspace(0,100,length(time_series));
+
     % Save results
-    Results.Time(trial).genericMRS = tgrid;
-    Results.MActivation(trial).genericMRS = a_opt(:,(Ntot + trial - 1) + 1:(Ntot + trial - 1) + N + 1);
-    Results.lMtildeopt(trial).genericMRS = lMtilde_opt(:,(Ntot + trial - 1) + 1:(Ntot + trial - 1) + N + 1);
-    Results.lM(trial).genericMRS = lMtilde_opt(:,(Ntot + trial - 1) + 1:(Ntot + trial - 1) + N + 1).*repmat(Misc.lMo',1,length(tgrid));
-    Results.vMtilde(trial).genericMRS = vMtilde_opt(:,Ntot + 1:Ntot + N);
-    Results.lM_projected_opt(trial).genericMRS = lM_projected_opt(:,Ntot + 1:Ntot + N);
-    Results.MExcitation(trial).genericMRS = e_opt(:,Ntot + 1:Ntot + N);
-    Results.RActivation(trial).genericMRS = aT_opt(:,Ntot + 1:Ntot + N)*Misc.Topt;
-    Results.MuscleNames = DatStore.MuscleNames;
-    Results.OptInfo = output;
+    Results(trial).Time     = tgrid;
+    Results(trial).GaitCycle = gait_cycle;
+    Results(trial).MActivation = a_opt(:,(Ntot + trial - 1) + 1:(Ntot + trial - 1) + N + 1);
+    Results(trial).lMtildeopt = lMtilde_opt(:,(Ntot + trial - 1) + 1:(Ntot + trial - 1) + N + 1);
+    Results(trial).lM = lMtilde_opt(:,(Ntot + trial - 1) + 1:(Ntot + trial - 1) + N + 1).*repmat(Misc.lMo',1,length(tgrid));
+    Results(trial).vMtilde = vMtilde_opt(:,Ntot + 1:Ntot + N);
+    Results(trial).lM_projected_opt = lM_projected_opt(:,Ntot + 1:Ntot + N);
+    Results(trial).MExcitation = e_opt(:,Ntot + 1:Ntot + N);
+    Results(trial).RTorque     = aT_opt(:,Ntot + 1:Ntot + N)*Misc.Topt;
+    Results(trial).MuscleNames = DatStore(trial).MuscleNames;
+    Results(trial).OptInfo     = output;
     % Tendon force
-    Results.lMTinterp(trial).genericMRS = DatStore(trial).LMTinterp';
-    [TForcetilde_,TForce_,lTtilde_] = TendonForce_lMtilde(Results.lMtildeopt(trial).genericMRS',MuscProperties_params_opt,Results.lMTinterp(trial).genericMRS',MuscProperties_kT_opt,MuscProperties_shift_opt);
-    Results.TForcetilde(trial).genericMRS = TForcetilde_';
-    Results.TForce(trial).genericMRS = TForce_';
-    Results.lTtilde(trial).genericMRS = lTtilde_';
+    Results(trial).lMTinterp   = DatStore(trial).LMTinterp';
+    [TForcetilde_,TForce_,lTtilde_] = TendonForce_lMtilde(Results(trial).lMtildeopt',MuscProperties_params_opt,Results(trial).lMTinterp',MuscProperties_kT_opt,MuscProperties_shift_opt);
+    Results(trial).TForcetilde = TForcetilde_';
+    Results(trial).TForce      = TForce_';
+    Results(trial).lTtilde     = lTtilde_';
     % get information F/l and F/v properties - updated with passive forces
-    [Fpe_,FMltilde_,FMvtilde_] = getForceLengthVelocityProperties_setPassiveParam(Results.lMtildeopt(trial).genericMRS',Results.vMtilde(trial).genericMRS',MuscProperties_params_opt(5,:),...
+    [Fpe_,FMltilde_,FMvtilde_] = getForceLengthVelocityProperties_setPassiveParam(Results(trial).lMtildeopt',Results(trial).vMtilde',MuscProperties_params_opt(5,:),...
                                                                                   MuscProperties_params_opt(6,:),MuscProperties_params_opt(7,:),MuscProperties_params_opt(8,:));
     FMo = ones(N+1,1)*Misc.params(1,:);
-    Results.Fpe(trial).genericMRS = (Fpe_.*FMo)';
-    Results.FMltilde(trial).genericMRS = FMltilde_';
-    Results.FMvtilde(trial).genericMRS = FMvtilde_';
-    % Results.Fce(trial).genericMRS = Misc.params(1,:).*Results.MActivation(trial).genericMRS'.*FMltilde_.*FMvtilde_;
+    Results(trial).Fpe        = (Fpe_.*FMo)';
+    Results(trial).FMltilde   = FMltilde_';
+    Results(trial).FMvtilde   = FMvtilde_';
+    % Results(trial).Fce = Misc.params(1,:).*Results(trial).MActivation'.*FMltilde_.*FMvtilde_;
     Ntot = Ntot + N;
 end
-
-%% Store Results
-
-% store the Misc structure as well in the results
-Results.Misc = Misc;
-
-% add selected muscle names to the output structure
-Results.MuscleNames = DatStore.MuscleNames;
 
 %% save the results
 % plot states and variables from parameter estimation simulation

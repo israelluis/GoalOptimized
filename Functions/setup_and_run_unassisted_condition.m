@@ -2,24 +2,24 @@ function [Misc,Results_normal,DatStore_normal] = setup_and_run_unassisted_condit
 
 SubjectSelection= info.SubjectSelection;
 MotionSelection = info.MotionSelection;
-DataFolder      = info.DataFolder;
-FolderOutput    = info.FolderOutput;
+BaseFolder      = info.BaseFolder;
+ProjectFolder   = info.ProjectFolder;
 
 BaseDir         = DirF.select_folder_N1;
 ModelVariation   ='';      % none
 
 % initialization
-if init_data==1;     GetAnalysis=1; WorkFlow=1;
-elseif init_data==0; GetAnalysis=0; WorkFlow=0;
+if init_data==1;     GetAnalysis=1; setWorkflow=1;
+elseif init_data==0; GetAnalysis=0; setWorkflow=0;
 end
 
 % read metadata
-[Misc] = loadMetaData(DataFolder,SubjectSelection,MotionSelection);
+[Misc] = loadMetaData(BaseFolder,SubjectSelection,MotionSelection);
 
 % experimental data
-Misc.IKfile = {fullfile(DataFolder,'Database',SubjectSelection,'IK',['IK_' SubjectSelection '_' MotionSelection '.mot'])};
-Misc.IDfile = {fullfile(DataFolder,'Database',SubjectSelection,'ID',['ID_' SubjectSelection '_' MotionSelection '.sto'])};
-Misc.model_path= fullfile(DataFolder,'Database',SubjectSelection,'model',['model_rajagopal2022_' SubjectSelection ModelVariation '.osim']);
+Misc.IKfile = {fullfile(BaseFolder,'Database',SubjectSelection,'IK',['IK_' SubjectSelection '_' MotionSelection '.mot'])};
+Misc.IDfile = {fullfile(BaseFolder,'Database',SubjectSelection,'ID',['ID_' SubjectSelection '_' MotionSelection '.sto'])};
+Misc.model_path= fullfile(BaseFolder,'Database',SubjectSelection,'model',['model_rajagopal2022_' SubjectSelection ModelVariation '.osim']);
 Misc.extra_frames=5;
 
 % input dofs - select the DOFs you want to include in the optimization
@@ -29,13 +29,13 @@ Misc.DofNames_Input={['ankle_angle_' Misc.gait_data.side_sel] ['knee_angle_' Mis
 Misc.GetAnalysis = GetAnalysis;
 
 % output path
-Misc.SetupPath      = fullfile(DataFolder,'GenericSetups');
-Misc.OutPathMain    = fullfile(DataFolder,FolderOutput,SubjectSelection,MotionSelection);
-Misc.OutPath        = fullfile(Misc.OutPathMain,BaseDir);
+Misc.SetupPath      = fullfile(BaseFolder,'GenericSetups');
+Misc.TrialFolder    = fullfile(ProjectFolder,SubjectSelection,MotionSelection);
+Misc.OutPath        = fullfile(BaseFolder,Misc.TrialFolder,BaseDir);
 
 % settings for optimization within the same loop
-Misc.Advance.AssistiveDevice   = 0; % exo disenabled
-Misc.Advance.TuningMethod_fiber= 0; % no parameter tuning
+Misc.Advance.AssistiveDevice   = 0; % No device
+Misc.Advance.TuningMethod_fiber= 0; % No tuning
 
 % select tuned parameters. They need to be previously computed
 variable_tuned  = load(fullfile('Database',SubjectSelection,'model',['tunedParameters_' SubjectSelection '.mat']));
@@ -43,44 +43,46 @@ Misc.param_label= load_MTU_names();       % here I name the convention name for 
 Misc.Param_read = {'selected'};
 Misc.myParams   = variable_tuned.tunedParams;
 
-% Setup names
+% setup names
 muscleNames            = getMuscleNames('rajagopal');
 Misc.MuscleNames_Input = appendSide(muscleNames, Misc.gait_data.side_sel);
 
 % to name and save results
-OutName_sel='Je';
+OutName_sel=BaseDir;
 Misc.to_save_results = 1;
 Misc.OutName= OutName_sel;
 
 % Workflow setup
-to_run_workFlow_Normal = WorkFlow; % run:1, read:0
+to_run_workFlow_Normal = setWorkflow; % run:1, read:0
 
 if to_run_workFlow_Normal==1
     [Results_normal,DatStore_normal,Misc] = MRS_Complete(Misc);
 else
-    path_dir_nor    = fullfile(Misc.OutPath, [OutName_sel 'Results.mat']);
-    R_normalResult  = load(path_dir_nor);
-    Results_normal  = R_normalResult.Results;
-    DatStore_normal = R_normalResult.DatStore;
-    Misc            = R_normalResult.Misc;
+    LoadPath=fullfile(BaseFolder,Misc.TrialFolder,BaseDir);
+    MRS_normal      = load(fullfile(LoadPath, [OutName_sel 'Results.mat']));
+    Results_normal  = MRS_normal.Results;
+    DatStore_normal = MRS_normal.DatStore;
+    Misc            = MRS_normal.Misc;
+
+    Misc.TrialFolder    = fullfile(ProjectFolder,SubjectSelection,MotionSelection);
 end
 end
 
 
-function [Misc] = loadMetaData(DataFolder,SubjectSelection,MotionSelection)
+function [Misc] = loadMetaData(BaseFolder,SubjectSelection,MotionSelection)
 % read metadata
-subInfo       =load(fullfile(DataFolder,'Database',SubjectSelection,'model',['subject_information_' SubjectSelection '.mat']));
+subInfo       =load(fullfile(BaseFolder,'Database',SubjectSelection,'model',['subject_information_' SubjectSelection '.mat']));
 subject_mass  =subInfo.subject_info.mass;   % [kg]
 subject_height=subInfo.subject_info.height; % [cm]
 
-gaitData      =load(fullfile(DataFolder,'Database',SubjectSelection,'gaitData',['gaitFeatureData_' MotionSelection '.mat']));
+gaitData      =load(fullfile(BaseFolder,'Database',SubjectSelection,'gaitData',['gaitFeatureData_' MotionSelection '.mat']));
 side_sel      =gaitData.gaitData.side; % either right or left leg side
 toeOff_time   =gaitData.gaitData.toeOff;
 speed         =gaitData.gaitData.speed; 
 cadence       =gaitData.gaitData.cadence;
 
-extLoadsInfo.fileName =fullfile(DataFolder,'Database',SubjectSelection,'extLoads',['data_'  MotionSelection '.mot']);
-extLoadsInfo.setupName=fullfile(DataFolder,'Database',SubjectSelection,'extLoads',['setup_' MotionSelection '.xml']);
+extLoadsInfo.fileName =fullfile(BaseFolder,'Database',SubjectSelection,'extLoads',['data_'  MotionSelection '.mot']);
+extLoadsInfo.setupName=fullfile(BaseFolder,'Database',SubjectSelection,'extLoads',['setup_' MotionSelection '.xml']);
 
 
 % loading MISC

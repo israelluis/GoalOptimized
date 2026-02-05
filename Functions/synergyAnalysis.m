@@ -1,56 +1,66 @@
-function [W,H,MActivation_reconstructed_array,synMetrics]=synergyAnalysis(Results,synergy_list,plot_flag)
+function [W,H,MActivation_recons_array,synMetrics]=synergyAnalysis(Results,synergy_list,plot_flag)
 %% Compute synergies with proper multi-start NNMF
 % Non-negative Matrix Factorization (most common)
 rng(100); % for reproducibility
 
-MActivation = Results.MActivation.genericMRS;
+MActivation = Results.MActivation;
 
-% NNMF parameters - ADJUST THESE BASED ON YOUR NEEDS
-n_replicates   = 100;      % Number of random starts - more = better but slower
-algorithm_type = 'als'; % 'als' (alternating least squares) or 'mult' (multiplicative)
-max_iterations = 2000;  % Maximum iterations per replicate
-tolerance      = 1e-6;       % Convergence tolerance
+% NNMF parameters
+n_replicates   = 100;    % Number of random starts - more = better but slower
+algorithm_type = 'als';  % 'als' (alternating least squares) or 'mult' (multiplicative)
+max_iterations = 2000;   % Maximum iterations per replicate
+tolerance      = 1e-6;   % Convergence tolerance
 
 fprintf('Running NNMF with %d replicates, algorithm: %s\n', n_replicates, algorithm_type);
 
-nSynergies = length(synergy_list);
-reconstruction_error = zeros(1, nSynergies);
-W = cell(1, nSynergies);
-H = cell(1, nSynergies);
+nSynList     = length(synergy_list);
+recons_error = zeros(1, nSynList);
+W = cell(1, nSynList);
+H = cell(1, nSynList);
 
 % Set NNMF options
 options = statset('MaxIter', max_iterations, 'Display', 'off', 'TolFun', tolerance);
 
-for iSyn = 1:nSynergies
-    fprintf('  Testing %d synergies... ', synergy_list(iSyn));
+for iSyn = 1:nSynList
+    sSyn = synergy_list(iSyn);
+    fprintf('  Testing %d synergies... ', sSyn);
     
     % Run NNMF with multiple replicates - MATLAB automatically picks the best
-    [W{1,iSyn}, H{1,iSyn}, reconstruction_error(1,iSyn)] = nnmf(...
+    [W_temp, H_temp, recons_error(1,iSyn)] = nnmf(...
         MActivation, ...
-        synergy_list(iSyn), ...
+        sSyn, ...
         'replicates', n_replicates, ...  % Multiple random starts
         'algorithm', algorithm_type, ...  % Chosen algorithm
         'options', options);              % Convergence criteria
     
-    fprintf('Best reconstruction error: %.4f\n', reconstruction_error(1,iSyn));
+    for s = 1:sSyn
+        col_max = max(W_temp(:, s));
+        W_temp(:, s) = W_temp(:, s) / col_max;
+        H_temp(s, :) = H_temp(s, :) * col_max;
+    end
+    
+    W{1,iSyn} = W_temp;
+    H{1,iSyn} = H_temp;
+
+    fprintf('Best reconstruction error: %.4f\n', recons_error(1,iSyn));
 end
 
 %% Reconstructed synergies
-full_data_length = length(Results.MActivation.genericMRS);
+full_data_length = length(Results.MActivation);
 nMuscles = length(Results.MuscleNames);
 
-MActivation_reconstructed_array = zeros(nSynergies, nMuscles, full_data_length);
-VAF = zeros(nSynergies,1);
-RMSE = zeros(nSynergies,1);
-RMSE_per_muscle=zeros(nSynergies,nMuscles);
-R_per_muscle   =zeros(nSynergies,nMuscles);
+MActivation_recons_array = zeros(nSynList, nMuscles, full_data_length);
+VAF  = zeros(nSynList,1);
+RMSE = zeros(nSynList,1);
+RMSE_per_muscle=zeros(nSynList,nMuscles);
+R_per_muscle   =zeros(nSynList,nMuscles);
 
 % Calculate Variance Accounted For (VAF)
 total_variance = sum(var(MActivation, 0, 2));
 
-for iSyn = 1:nSynergies
+for iSyn = 1:nSynList
     MActivation_reconstructed = W{1,iSyn} * H{1,iSyn};
-    MActivation_reconstructed_array(iSyn, :, :) = MActivation_reconstructed;
+    MActivation_recons_array(iSyn, :, :) = MActivation_reconstructed;
 
     % metrics of interests
     VAF(iSyn,1) = 1 - (sum(var(MActivation - MActivation_reconstructed, 0, 2)) / total_variance);
@@ -70,9 +80,9 @@ synMetrics.R_per_muscle=R_per_muscle;
 fprintf('\n=== NNMF Results Summary ===\n');
 fprintf('Synergies  Recon.Error  VAF\n');
 fprintf('------------------------------\n');
-for iSyn = 1:nSynergies
+for iSyn = 1:nSynList
     fprintf('    %d        %.4f     %.3f\n', ...
-        synergy_list(iSyn), reconstruction_error(1,iSyn), VAF(iSyn,1));
+        synergy_list(iSyn), recons_error(1,iSyn), VAF(iSyn,1));
 end
 
 %% Plotting section (unchanged except for variable name clarity)
@@ -91,7 +101,7 @@ if to_plot_recoSyn == 1
         hold on
         
         for i = 1:length(synergy_list)
-            pl(i+1) = plot(squeeze(MActivation_reconstructed_array(i, j, :)), ...
+            pl(i+1) = plot(squeeze(MActivation_recons_array(i, j, :)), ...
                 'Color', syn_color_list{i+1}, 'LineWidth', 1.5, ...
                 'DisplayName', sprintf('%d syn', synergy_list(i)));
         end
@@ -110,23 +120,23 @@ if to_plot_optiSyn == 1
     optimal_Syn = find(VAF > 0.9, 1);
     
     % Create scatter plot with markers
-    scatter(reconstruction_error, VAF, 200, 'filled');
+    scatter(recons_error, VAF, 200, 'filled');
     hold on;
     
     % Add labels for each synergy count
     for i = 1:length(synergy_list)
-        text(reconstruction_error(i) + 0.001, VAF(i) + 0.005, ...
+        text(recons_error(i) + 0.001, VAF(i) + 0.005, ...
             sprintf('%d syn', synergy_list(i)), 'FontSize', 12, 'FontWeight', 'bold');
         
         if i == optimal_Syn
-            text(reconstruction_error(i) + 0.001, VAF(i) - 0.015, ...
+            text(recons_error(i) + 0.001, VAF(i) - 0.015, ...
                 'Optimal', 'FontSize', 12, 'FontWeight', 'bold', 'Color', 'red');
         end
     end
     
     % Add reference lines and labels
     yline(0.9, '--k', 'LineWidth', 1.5, 'Alpha', 0.7);
-    text(min(reconstruction_error), 0.91, 'VAF = 0.9', 'FontSize', 11);
+    text(min(recons_error), 0.91, 'VAF = 0.9', 'FontSize', 11);
     
     % Plot formatting
     xlabel('Reconstruction Error', 'FontSize', 14);
@@ -136,29 +146,22 @@ if to_plot_optiSyn == 1
     box on;
 end
 
-% Fixed synergy count for detailed visualization (you might want to make this adaptive)
-sSyn = 5;  % You could replace this with: sSyn = synergy_list(optimal_Syn);
-oSyn = find(synergy_list == sSyn, 1);
+if to_plot_evalSyn == 1
+    for iSyn=1:length(synergy_list)
+        sSyn=synergy_list(iSyn);
+        W_opt = W{1, iSyn};
+        H_opt = H{1, iSyn};
+        figure('WindowState', 'maximized', 'Name', sprintf('Synergy Details (%d Synergies)', sSyn));
 
-if ~isempty(oSyn)
-    W_opt = W{1, oSyn};
-    H_opt = H{1, oSyn};
-    
-    if to_plot_evalSyn == 1
-        figure('WindowState', 'maximized', 'Name', sprintf('Synergy Details (%d Synergies)', sSyn));    
-        
-        % Normalize W for better visualization (optional)
-        W_normalized = W_opt ./ max(W_opt);  % Normalize to [0, 1]
-        
         for i = 1:sSyn
             % Muscle weights (bar plot)
             subplot(sSyn, 2, 2*i-1);
-            bar(W_normalized(:, i), 'FaceColor', syn_color_list{min(i+1, length(syn_color_list))});
+            bar(W_opt(:, i), 'FaceColor', syn_color_list{min(i+1, length(syn_color_list))});
             ylim([0 1]);
             title(sprintf('Synergy %d Weights', i), 'FontSize', 12);
             ylabel('Normalized Weight');
             grid on;
-            
+
             % Synergy activation (line plot)
             subplot(sSyn, 2, 2*i);
             plot(H_opt(i, :), 'Color', syn_color_list{min(i+1, length(syn_color_list))}, 'LineWidth', 2);
@@ -168,11 +171,8 @@ if ~isempty(oSyn)
             ylabel('Activation');
             grid on;
         end
-        
+
         % Add overall title
-        sgtitle(sprintf('Muscle Synergy Analysis - %d Synergies (VAF = %.3f)', sSyn, VAF(oSyn)), 'FontSize', 14);
+        sgtitle(sprintf('Muscle Synergy Analysis - %d Synergies (VAF = %.3f)', sSyn, VAF(iSyn)), 'FontSize', 14);
     end
-else
-    warning('Selected synergy count (%d) not in synergy_list. Skipping detailed plots.', sSyn);
-end
 end

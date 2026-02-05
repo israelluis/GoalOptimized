@@ -1,21 +1,21 @@
-function []=Tool_MainGO(Ssubject,Scondition,SDevice,SOutName)
-currentFolder = pwd;
-addpath(genpath(currentFolder));
+function [MRS]=Tool_MainGO(computerPath,Scondition,Ssubject,SDevice,SOutName)
+addpath(genpath(computerPath));
 %% Input information
 % select subject and motion
 info.SubjectSelection = Ssubject;       % select subject e.g., 'sub1'
 info.MotionSelection  ='v2_t1';         % select velocity & trial. Options: v(velocity)== 1[slow], 2[normal], 3[fast]) _ t (trial)== 1st, 2nd, or 3rd trial
-info.DataFolder       = currentFolder;
-info.FolderOutput     = fullfile('ProjectResults','DSE'); %fullfile('ProjectResults','Codesign','Pilot')
+info.BaseFolder       = computerPath;
+info.ProjectFolder    = fullfile('ProjectResults','DSE'); %fullfile('ProjectResults','Codesign','Pilot')
 
 % folder for outputs
-DirF.select_folder_N1 ='Je';            % specify folder for simulations based on minimal muscle effort
-DirF.select_folder_N2 ='JeS';           % specify folder for simulation based on minimal muscle effort with synergies
-DirF.select_folder_N3 ='JeSD';        % specify folder for simulation based on "select_folder_N2" with assistive devices
+DirName='Je'; DirSpec='T';
+DirF.select_folder_N1 = DirName;                 % specify folder for simulation based on minimal muscle effort
+DirF.select_folder_N2 =[DirName DirSpec 'S'];    % specify folder for simulation based on minimal muscle effort with synergies
+DirF.select_folder_N3 =[DirName DirSpec 'SD'];  % specify folder for simulation based on "select_folder_N2" with assistive devices
 
 % create folders
 for i=1:numel(fieldnames(DirF))
-    dirFile= fullfile(info.DataFolder,info.FolderOutput,info.SubjectSelection,info.MotionSelection,[DirF.(['select_folder_N' num2str(i)])]);
+    dirFile= fullfile(info.BaseFolder,info.ProjectFolder,info.SubjectSelection,info.MotionSelection,[DirF.(['select_folder_N' num2str(i)])]);
     if ~exist(dirFile, 'dir'); mkdir(dirFile); end
 end
 
@@ -24,26 +24,36 @@ init_data=0;
 [Misc,Results_normal,DatStore]=setup_and_run_unassisted_condition(info,DirF,init_data);
 
 %% Synergy setup
-if strcmp(Scondition, 'onlyBaseline')
-    Misc.Advance.SynergyControl=1; nSyn = 4;
-else
-    codedSyn=str2double(SOutName(end));
-    if codedSyn==0;    Misc.Advance.SynergyControl=0; nSyn = 0;
-    else;              Misc.Advance.SynergyControl=1; nSyn = str2double(SOutName(end));
-    end
+if strcmp(Scondition, 'runBaseline')
+    sSyn =[];                          conditionAnalysis='all';
+elseif strcmp(Scondition, 'getBaseline') || strcmp(Scondition, 'runBilevel')
+    sSyn=str2double(SOutName(end));    conditionAnalysis='load'; 
+end
+infoSyn.sSyn = sSyn;
+%% Synergy computation
+[Results_baseline,Misc]=formulation_with_informed_synergist(computerPath,Misc,Results_normal,DatStore,DirF,conditionAnalysis,infoSyn);
+
+if strcmp(Scondition, 'runBaseline')
+    disp(['Condition:' Scondition '. Stop after computing baseline and synergy computation.']);
+    MRS{1}.Results=[];               MRS{1}.DatStore=[];       MRS{1}.Misc=[];
+    return;  % Exit function early
+
+elseif strcmp(Scondition, 'getBaseline') || strcmp(Scondition, 'runBilevel') || strcmp(Scondition, 'getBilevel')
+    MRS{1}.Results=Results_normal;   MRS{1}.DatStore=DatStore; MRS{1}.Misc=Misc;
+    MRS{2}.Results=Results_baseline; MRS{2}.DatStore=DatStore; MRS{2}.Misc=Misc;
 end
 
-%% Synergy computation
-[Misc,Results_baseline]=formulation_with_informed_synergist(Misc,Results_normal,DatStore,DirF,'load',nSyn);
-
-%% Compute assistiveGoal in unassisted/baseline condition
+if strcmp(Scondition, 'getBaseline') 
+    disp(['Condition:' Scondition '. Stop after getting synergy dimension N' num2str(sSyn) '.']);
+    return;  % Exit function early
+end
+%% Compute and plot assistiveGoal in unassisted/baseline condition
 assistiveGoal         ='eDot_MCLU24';   % select goal. Options: eDot eDot_MCLU24 gasForces KJMusForces RJXN_knee RJXN_knee_par
 
 [Misc]=setup_for_JRXN(Misc);
 [~,      J_normal_TS,    ~]   = computeOuterLoopFunction(Misc,Results_normal,assistiveGoal); % this is my starting point, the Edot at unassisted conditions.
 [J_baseline_avg,  J_baseline_TS,  J_baseline_extra]   = computeOuterLoopFunction(Misc,Results_baseline,assistiveGoal); % this is my starting point, the Edot at unassisted conditions.
 
-%% Plot baseline assistive goal
 to_plot=0;
 if to_plot==1
     [gait_cycle,~]=computeGC(Misc.time,Misc.extra_frames);
@@ -63,138 +73,44 @@ if to_plot==1
     for i=1:40
         subplot(5,8,i)
         hold on
-        plot(Results_normal.MActivation.genericMRS(i,:),'k','LineWidth',2);
-        plot(Results_baseline.MActivation.genericMRS(i,:),':r','LineWidth',2);
+        plot(Results_normal.MActivation(i,:),'k','LineWidth',2);
+        plot(Results_baseline.MActivation(i,:),':r','LineWidth',2);
         axis([0 100 0 1])
     end
 end
-%%
-if strcmp(Scondition, 'onlyBaseline')
-    disp('Condition: onlyBaseline. Stopping after baseline and synergy computation per user request.');
-    return;  % Exit function early
-end
-%% Run sample, self-selected parameters / spline controllers
-to_run_example=0;
+%% Bilevel setup
 
-if to_run_example==1
-% run muscle analysis and enable assistive moment
-Misc.GetAnalysis = 0;
-Misc.Advance.AssistiveDevice  = 1;
-
-% NOTE: Available assistance
-% anklePlantarflexion: ankle_angle_   -1
-% kneeExtension:       knee_angle_    -1
-% hipFlexion:          hip_flexion_    1
-% hipAbduction:        hip_adduction_ -1
-
+% update device
 clear Device
-select_simulation_type='active spline#N3';
-if strcmp(select_simulation_type,'active spline#N3')
-    Device{1}.Mode        = 'prescribed'; % opts: optimized and prescribed
-    Device{1}.MuscleGroup = {['ankle_angle_' Misc.gait_data.side_sel] -1};
-    Device{1}.Type        = {'active' 'spline#N3'}; % opts: active, quasi-passive, passive, EMG-driven
-    Device{1}.Params      = [54.1 22 8.6 77.9]; %54.8 14.5 8.1 51.8
-    [assistanceInfo]=generateTorque(Device{1},DatStore,Misc.time,Misc.extra_frames);
+side_sel=Misc.gait_data.side_sel;
 
-    Device{1}.Assistance = assistanceInfo;
-elseif strcmp(select_simulation_type,'quasi-passive clutchSpring')
-    % generate DeviceSetup
-    Device{1}.Mode        = 'prescribed';    % opts: optimized and prescribed
-    % Device{1}.MuscleGroup = {['hip_adduction_' Misc.gait_data.side_sel] -1}; 
-    % Device{1}.MuscleGroup = {['hip_flexion_' Misc.gait_data.side_sel] 1}; 
-    Device{1}.MuscleGroup = {['knee_angle_' Misc.gait_data.side_sel] -1};    
-    % Device{1}.MuscleGroup = {['ankle_angle_' Misc.gait_data.side_sel] -1};  
-    Device{1}.Type        = {'quasi-passive' 'clutchSpring'}; % opts: active, quasi-passive, passive, EMG-driven
-    Device{1}.Params      = [2.99 2.872];
-    [assistanceInfo]=generateTorque(Device{1},DatStore,Misc.time,Misc.extra_frames);
-
-    Device{1}.Assistance = assistanceInfo;
-    Misc.Device=Device;
-elseif strcmp(select_simulation_type,'double')
-    % DEVICE 1
-    Device{1}.Mode        = 'prescribed'; % opts: optimized and prescribed
-    Device{1}.MuscleGroup = {['knee_angle_' Misc.gait_data.side_sel] -1};
-    Device{1}.Type        = {'active' 'spline#N3'}; % opts: active, quasi-passive, passive, EMG-driven
-    Device{1}.Params      = [12.4 6.3 24 67.3];
-    [assistanceInfo]=generateTorque(Device{1},DatStore,Misc.time,Misc.extra_frames);
-
-    Device{1}.Assistance = assistanceInfo;
-
-    % DEVICE 2
-    Device{2}.Mode        = 'prescribed'; % opts: optimized and prescribed
-    Device{2}.MuscleGroup = {['ankle_angle_' Misc.gait_data.side_sel] -1};
-    Device{2}.Type        = {'active' 'spline#N3'}; % opts: active, quasi-passive, passive, EMG-driven
-    Device{2}.Params      = [39.2 20.2 20.9 45.1];
-    [assistanceInfo]=generateTorque(Device{2},DatStore,Misc.time,Misc.extra_frames);
-
-    Device{2}.Assistance = assistanceInfo;    
+for i=1:length(SDevice)
+    SDevice{i}.MuscleGroup(1)={[SDevice{i}.MuscleGroup{1} side_sel]};
 end
-Misc.Device=Device;
 
-% to name and save results
-Misc.to_save_results= 0;
-Misc.OutName= 'example';
+Device=SDevice;
 
-% time performance of a single loop
-ExecutionTime_1=datetime('now');
-[Results_assisted,~,Misc]= MRS_Formulate_and_Solve_NeuroCons(Misc,DatStore);
-ExecutionTime_2=datetime('now'); duration_loop=seconds(duration(ExecutionTime_2-ExecutionTime_1));
-disp(['simulation took ' num2str(duration_loop,'%1.2f') ' secs']);
+% get bounds and names
+[bounds,bounds_stackUp,nVars_tot]=getControlParamBounds_perType(Device);
+[label_deviceAbb]=abbreviation_for_results(Device,bounds);
 
-[J_example_avg,J_example_TS,J_example_extra] = computeOuterLoopFunction(Misc,Results_assisted,assistiveGoal);
-J_value=(J_example_avg-J_baseline_avg)/J_baseline_avg*100;
-disp(['goal change: ' num2str(J_value,'%+1.2f') '%'])
+% number of iterations
+% MaxObjectiveEvaluations=50*nVars; % heuristic
+MaxObjectiveEvaluations=20; % heuristic
 
-% Check results
-to_plot=1;
-if to_plot==1
-    figure; clf; % muscle activations
-    for i=1:40
-        subplot(5,8,i)
-        hold on
-        plot(Results_normal.MActivation.genericMRS(i,:),'k')
-        plot(Results_baseline.MActivation.genericMRS(i,:),'--g')
-        plot(Results_assisted.MActivation.genericMRS(i,:),':r')
-        ylim([0 1])
-        title(Results_assisted.MuscleNames{i})
+% path names
+BilevelOutPath= fullfile(computerPath,Misc.TrialFolder,DirF.select_folder_N3);
+BilevelOutName= ['MRSOptimal' SOutName '_' assistiveGoal '_' label_deviceAbb '_iters' num2str(MaxObjectiveEvaluations)];
 
-    end
-    sgtitle('muscle activations')
-
-    figure; clf; % device torque
-    nDevs=length(Device);
-    norMass=Misc.subject_data.subject_mass;
-    for iDev=1:nDevs
-        gaitCycle=Device{iDev}.Assistance.Profile.GaitCycle;
-        iDOF=strcmp(DatStore.DOFNames,Device{iDev}.MuscleGroup{1});
-        sID =DatStore.IDinterp(:,iDOF)*Device{iDev}.MuscleGroup{2};
-        Torque=Device{iDev}.Assistance.Profile.Torque;
-        subplot(nDevs,1,iDev)
-        plot(gaitCycle,sID/norMass,'k'); hold on
-        plot(gaitCycle,Torque/norMass,'r')
-        title([Device{iDev}.MuscleGroup{1}],'Interpreter','none')
-    end
-    sgtitle('assistive torque')
-
-    figure; clf;
-    plot(J_baseline_TS,'k','LineWidth',2); hold on
-    plot(J_example_TS,'r','LineWidth',2)
-    xlabel('gait cycle[%]'); ylabel([J_example_extra.label ' [' J_example_extra.unit ']']);
-    title([ 'baseline (avg value) = ' num2str(J_baseline_avg,'%1.1f') ' ' J_example_extra.unit ...
-           ' assisted (avg value) = ' num2str(J_example_avg,'%1.1f')  ' ' J_example_extra.unit ...
-           ' - change: ' num2str(J_value,'%+1.1f') '%']);
-end
-end
+if strcmp(Scondition, 'runBilevel')
 %% Bilevel formulation
-% Here we will use Bayesian optimization. According to my previous study,
-% Bayesian converges faster than Particle Swarm optimization and Genetic
-% algorithm. I chose Bayesian for this implementation
-% Here are the main components
-% 
+% Here we will use Bayesian optimization. 
+
 % - OUTER LEVEL
-% OPT=Bayesian Optimization, Objective=devAim
+% Optimizer=Bayesian Optimization, Objective= assistive goal
+
 % - INNER LEVEL
-% OPT=Direct collocation,    Objective=min(a^2) 
+% Optimizer=Direct collocation,    Objective= min(a^2) 
 %% Framework bilevel
 %% Setup Misc & Device
 % run muscle analysis and enable assistive moment
@@ -203,18 +119,12 @@ Misc.Advance.AssistiveDevice  = 1;
 
 % to name and save results
 Misc.to_save_results= 0;
-Misc.OutPath        = fullfile(Misc.OutPathMain,DirF.select_folder_N3);
+Misc.OutPath        = BilevelOutPath;
 Misc.OutName        = 'iterations';
 
-% set device
-clear Device
-
-
-Device=SDevice;
 Misc.Device=SDevice;
 %% Setup Bounds & Constraints
 % get control parameter bound
-[bounds,bounds_stackUp,nVars_tot]=getControlParamBounds_perType(Device);
 lParamUnit=bounds_stackUp.varUnits;
 varNames_tot  =bounds_stackUp.varNames;
 
@@ -275,16 +185,12 @@ if to_plot_IGs==1
     end
 end
 
-[label_deviceAbb]=abbreviation_for_results(Misc,bounds);
 %% Setup inner loop
 % inner loop definition
 enable_param_ver=1;
 if enable_param_ver && strcmp(assistiveGoal(1:4),'JRXN'); assistance_goal_upd=[assistiveGoal '_par']; else; assistance_goal_upd=assistiveGoal; end
 funInner = @(x) innerLoop(Misc,DatStore,varNames_tot,{x},J_baseline_avg,assistance_goal_upd); 
 
-% number of iterations
-MaxObjectiveEvaluations=50*nVars; % heuristic
-% MaxObjectiveEvaluations=100; % heuristic
 %% Bayesian optimization setup
 %  NOTES: 
 % 'OutputFcn'              ,@stopNoImprovementSimple ,...   % to stop earlier
@@ -301,7 +207,7 @@ MaxObjectiveEvaluations=50*nVars; % heuristic
 % USE ardexponential
 
 resultsBayesopt = bayesopt(funInner,var_containers,'IsObjectiveDeterministic',true,...
-                           'MaxObjectiveEvaluations',MaxObjectiveEvaluations,"UseParallel",false,'ParallelMethod','clipped',...
+                           'MaxObjectiveEvaluations',MaxObjectiveEvaluations,"UseParallel",true,'ParallelMethod','clipped',...
                            'AcquisitionFunctionName','expected-improvement',...
                            'XConstraintFcn', finalConstraint,...
                            'PlotFcn', {@plotObjectiveModel,@plotMinObjective},... %,@plotTorque
@@ -311,20 +217,21 @@ disp(['Bayesian optimization took ' num2str(resultsBayesopt.TotalElapsedTime,'%1
 to_save_results=1;
 if to_save_results==1; save(fullfile(Misc.OutPath,['Bayesopt' SOutName '_' assistiveGoal '_' label_deviceAbb '_iters' num2str(MaxObjectiveEvaluations)]),'resultsBayesopt'); end
 %% Summary of results
-MinObjective  = resultsBayesopt.MinObjective;
-paramsAtIters = resultsBayesopt.XTrace;
-valuesAtIters = resultsBayesopt.ObjectiveTrace;
-bestParams    = resultsBayesopt.XAtMinObjective{1,:}';
-ObjMinTrace   = resultsBayesopt.ObjectiveMinimumTrace;
-bestIter      = find(valuesAtIters==MinObjective,1);
+ObjMin     = resultsBayesopt.MinObjective;
+VarAtIters = resultsBayesopt.XTrace;
+ObjAtIters = resultsBayesopt.ObjectiveTrace;
+VarBest    = resultsBayesopt.XAtMinObjective{1,:}';
+ObjMinTrace = resultsBayesopt.ObjectiveMinimumTrace;
+BestIter    = find(ObjAtIters==ObjMin,1);
+nVars       = numel(resultsBayesopt.VariableDescriptions);
 
 range_list=ub_list_tot-lb_list_tot;
-bestParams_upd_per=(bestParams-lb_list_tot)./range_list*100;
+bestParams_upd_per=(VarBest-lb_list_tot)./range_list*100;
 
-disp(['Objective, ΔE ' num2str(MinObjective,'%1.2f') '%'])
+disp(['Objective, ΔE ' num2str(ObjMin,'%1.2f') '%'])
 disp('Optimal control parameters:');
 for iVar=1:nVars
-    disp(['Param#' num2str(iVar) ':' char(varNames_tot(iVar))  '= '  num2str(bestParams(iVar),'%1.1f') ' ' lParamUnit{iVar} ', [min=' num2str(lb_list_tot(iVar),'%1.1f') ', max=' num2str(ub_list_tot(iVar),'%1.1f') ', limits,' num2str(bestParams_upd_per(iVar),'%1.1f') '%]']);
+    disp(['Param#' num2str(iVar) ':' char(varNames_tot(iVar))  '= '  num2str(VarBest(iVar),'%1.1f') ' ' lParamUnit{iVar} ', [min=' num2str(lb_list_tot(iVar),'%1.1f') ', max=' num2str(ub_list_tot(iVar),'%1.1f') ', limits,' num2str(bestParams_upd_per(iVar),'%1.1f') '%]']);
 end
 %% Get results from best iteration
 iVarPrior=0;
@@ -332,7 +239,7 @@ for iDev=1:nDevs
     sVar=nVars_tot(iDev);
     iVarOrder=1+iVarPrior:sVar+iVarPrior;
 
-    Device{iDev}.Params=bestParams(iVarOrder); % peak time, rise time, fall time, peak magnitude
+    Device{iDev}.Params=VarBest(iVarOrder); % peak time, rise time, fall time, peak magnitude
     [assistanceInfo]=generateTorque(Device{iDev},DatStore,Misc.time,Misc.extra_frames);
     Device{iDev}.Assistance=assistanceInfo;
     iVarPrior=sVar;
@@ -341,19 +248,36 @@ Misc.Device = Device;
 
 % to name and save results
 Misc.to_save_results= 1;
-Misc.OutName        = fullfile(['MRSOptimal' SOutName '_' assistiveGoal '_' label_deviceAbb '_iters' num2str(MaxObjectiveEvaluations)]);
-[Results,~,Misc]= MRS_Formulate_and_Solve_NeuroCons(Misc,DatStore);
-[J_bilevel_avg,J_bilevel_TS,J_bilevel_extra] = computeOuterLoopFunction(Misc,Results,assistiveGoal);
+Misc.OutPath        = BilevelOutPath;
+Misc.OutName        = BilevelOutName;
+[Results_bilevel,~,Misc]= MRS_Formulate_and_Solve_NeuroCons(Misc,DatStore);
+[J_bilevel_avg,J_bilevel_TS,J_bilevel_extra] = computeOuterLoopFunction(Misc,Results_bilevel,assistiveGoal);
+
+% output of the function
+MRS{3}.Results=Results_bilevel;  MRS{3}.DatStore=DatStore;    MRS{3}.Misc=Misc; %synergy + bilevel
+end
+
+if strcmp(Scondition, 'getBilevel')
+    disp(['Condition:' Scondition '. Stop after retrieving bilevel optimal results.']);
+    MRS_bilevel      = load(fullfile(BilevelOutPath, [BilevelOutName 'Results.mat']));
+    Results_bilevel  = MRS_bilevel.Results;
+    DatStore         = MRS_bilevel.DatStore;
+    Misc             = MRS_bilevel.Misc;
+
+    MRS{3}.Results=Results_bilevel;  MRS{3}.DatStore=DatStore;    MRS{3}.Misc=Misc; %synergy + bilevel
+    return;  % Exit function early
+end
+
 %% Plot rapid figure
 to_plot_fast=0;
 if to_plot_fast==1
     figure(10); clf;
     for i=1:40
         subplot(5,8,i)
-        plot( Results_baseline.MActivation.genericMRS(i,:),'k','LineWidth',1); hold on
-        plot( Results.MActivation.genericMRS(i,:),'r','LineWidth',2)
+        plot( Results_baseline.MActivation(i,:),'k','LineWidth',1); hold on
+        plot( Results_bilevel.MActivation(i,:),'r','LineWidth',2)
         ylim([0 1])
-        title(Results.MuscleNames{i})
+        title(Results_bilevel.MuscleNames{i})
     end
 end
 %% Plot best iteration
@@ -369,7 +293,7 @@ if to_plot_summary==1
     to_gc  = gait_cycle(find(time_series>=Misc.gait_data.toeOff_time,1)); % toe off event
     gait_cycle_ranged=gait_cycle(1+Misc.extra_frames:end-Misc.extra_frames-1);
 
-    all_torque_profiles = zeros(nDevs,size(Results.MActivation.genericMRS,2),length(resultsBayesopt.UserDataTrace));
+    all_torque_profiles = zeros(nDevs,size(Results_bilevel.MActivation,2),length(resultsBayesopt.UserDataTrace));
     for i = 1:length(resultsBayesopt.UserDataTrace)
         if ~isempty(resultsBayesopt.UserDataTrace{i})
             all_torque_profiles(:,:,i) = resultsBayesopt.UserDataTrace{i}.Torque;
@@ -379,19 +303,19 @@ if to_plot_summary==1
     nRowsTot=nDevs+1;
 
     % PLOT: GENERAL -------------------------------------------------------
-    val_min=min(valuesAtIters); val_max=max(valuesAtIters); range=val_max-val_min;
+    val_min=min(ObjAtIters); val_max=max(ObjAtIters); range=val_max-val_min;
     nIGs=size(initialX{:,:},1);
 
     % ALL ITERATIONS
     subplot(nRowsTot,3,1)
-    plot(valuesAtIters,'.k','MarkerSize',20); hold on;
+    plot(ObjAtIters,'.k','MarkerSize',20); hold on;
     xline(nIGs,'--g','LineWidth',2)
     plot(ObjMinTrace,':b','LineWidth',2,'LineStyle',':')
-    plot(bestIter,MinObjective,'.r','MarkerSize',30)
+    plot(BestIter,ObjMin,'.r','MarkerSize',30)
     set(gca,'FontSize',13);
     xlabel('#iterations'); ylabel('obj. fun [%]');
     xlim([0 resultsBayesopt.NumObjectiveEvaluations]); ylim([val_min-0.1*range val_max+0.1*range]);
-    title(['Convergence, best at ' num2str(bestIter) ' interation'])
+    title(['Convergence, best at ' num2str(BestIter) ' interation'])
     
     % METRIC: TIME SERIES    
     subplot(nRowsTot,3,2);
@@ -449,7 +373,7 @@ if to_plot_summary==1
         plot(Misc.Device{iDev}.Assistance.Profile.GaitCycle,Misc.Device{iDev}.Assistance.Profile.Torque,'r','LineWidth',4);
         
         % optimal from bilevel bestIter
-        plot(Misc.Device{iDev}.Assistance.Profile.GaitCycle,all_torque_profiles(iDev,:,bestIter),':c','LineWidth',4);
+        plot(Misc.Device{iDev}.Assistance.Profile.GaitCycle,all_torque_profiles(iDev,:,BestIter),':c','LineWidth',4);
 
         xline(to_gc,'--m','LineWidth',2)
         % extras
@@ -480,12 +404,12 @@ if to_plot_summary==1
             yline(lb_list_tot(counter),':b','LineWidth',2);
             yline(ub_list_tot(counter),':b','LineWidth',2)
             xline(nIGs,'--g','LineWidth',2)
-            plot(paramsAtIters.(ParamName),'.k','MarkerSize',15)
+            plot(VarAtIters.(ParamName),'.k','MarkerSize',15)
             xlabel('#iterations'); 
             title(['Optimal ' ParamName '= ' num2str(resultsBayesopt.XAtMinObjective.(ParamName),'%1.1f')],'Interpreter','none');
             ylabel([ParamName ' [' ParamUnits ']' ],'Interpreter','none')
 
-            plot(bestIter,resultsBayesopt.XAtMinObjective.(ParamName),'.r','MarkerSize',20);
+            plot(BestIter,resultsBayesopt.XAtMinObjective.(ParamName),'.r','MarkerSize',20);
             set(gca,'FontSize',13);
         end
     end
@@ -820,13 +744,13 @@ initialX = horzcat(initialX_list{:});
 end
 
 % setup abbreviation for labeling results
-function [devAbb_con]=abbreviation_for_results(Misc,bounds)
-nDevs=length(Misc.Device);
+function [devAbb_con]=abbreviation_for_results(Device,bounds)
+nDevs=length(Device);
 devAbb=cell(nDevs,1);
 for iDev=1:nDevs
-    if strcmp(Misc.Device{iDev}.Type{1},'active')
+    if strcmp(Device{iDev}.Type{1},'active')
         typeAbb='A';
-    elseif strcmp(Misc.Device{iDev}.Type{1},'quasi-passive')
+    elseif strcmp(Device{iDev}.Type{1},'quasi-passive')
         typeAbb='Q';
     else
         error('not defined the type of device assistance')
@@ -836,52 +760,175 @@ end
 devAbb_con=strjoin(devAbb, '&');
 end
 
-function [Misc_new,Results_new]=formulation_with_informed_synergist(Misc,Results_noSyn,DatStore,DirF,computationCase,nSyn)
-OutName_label='JeS';
-if strcmp(computationCase,'none') || nSyn==0
-    % no computation, return without synergy
-    Results_new=Results_noSyn;
-    Misc_new=Misc;
-elseif strcmp(computationCase,'all')
-    % Synergy analysis
-    synergy_list = 4:6; % Number of synergies to test
-    [W,H,~,synMetrics]=synergyAnalysis(Results_noSyn,synergy_list,[0 0 0]);
-
-    % compute for each synergy number
-    for iSyn=1:length(synergy_list)
-        synSelected=synergy_list(iSyn);
-        synInd=find(synergy_list==synSelected);
-        Wsel=W{synInd};
-        Hsel=H{synInd};
-        % SynergyActivationComputed=Wsel*Hsel;
-
-        Misc.SynCon.W=Wsel;
-        Misc.SynCon.H=Hsel;
-        Misc.SynCon.N=synSelected;
-
-        % MRS with synergies
-        Misc.Advance.SynergyControl=1;
-        Misc.to_save_results= 1;
-
-        Misc.OutPath        = fullfile(Misc.OutPathMain,DirF.select_folder_N2);
-        Misc.OutName=fullfile([OutName_label num2str(synSelected)]);
-        [Results_new,~,Misc]= MRS_Formulate_and_Solve_NeuroCons(Misc,DatStore);
-    end
-    save(fullfile(Misc.OutPath,'synergy_metrics.mat'),'synMetrics');
-end
-
-if (strcmp(computationCase,'load') || strcmp(computationCase,'all')) && nSyn~=0
-    path_dir_nor    = fullfile(Misc.OutPathMain,DirF.select_folder_N2, [OutName_label num2str(nSyn) 'Results.mat']);
-    R_normalLoaded  = load(path_dir_nor);
-    Results_new     = R_normalLoaded.Results;
-    Misc_new        = R_normalLoaded.Misc;
-end
-
-end
-
 function [Misc]=setup_for_JRXN(Misc)
 Misc.MotionSelection   ='oneSingleMotion';
 Misc.ForceLabel        ='SO_label_rajagopal';
 Misc.extra_folder_name ='temp';
 Misc.extra_file_name   ='unassisted';
+end
+
+function [W,H,MActivation_reconstructed_array,synMetrics]=synergyAnalysisSequential(Results,synergy_list,plot_flag)
+%% Compute synergies with SEQUENTIAL NNMF for nested subspaces
+% This ensures W_n is a subset of W_{n+1} for stability
+
+rng(100); % for reproducibility
+
+MActivation = Results.MActivation;
+[nMuscles, nTimePoints] = size(MActivation);
+
+% NNMF parameters
+n_replicates   = 100;      % Number of random starts
+algorithm_type = 'als';    % 'als' or 'mult'
+max_iterations = 2000;     % Maximum iterations
+tolerance      = 1e-6;     % Convergence tolerance
+
+fprintf('Running SEQUENTIAL NNMF with %d replicates, algorithm: %s\n', n_replicates, algorithm_type);
+
+% Sort synergy_list to ensure we go from smallest to largest
+synergy_list = sort(synergy_list);
+nSynergies = length(synergy_list);
+
+% Initialize storage
+reconstruction_error = zeros(1, nSynergies);
+W = cell(1, nSynergies);
+H = cell(1, nSynergies);
+W_sequential = cell(1, nSynergies); % Store sequential W matrices
+
+% Set NNMF options
+options = statset('MaxIter', max_iterations, 'Display', 'final', 'TolFun', tolerance);
+
+%% SEQUENTIAL EXTRACTION - Key modification!
+for iSyn = 1:nSynergies
+    current_syn = synergy_list(iSyn);
+    fprintf('  Extracting %d synergies (sequential)... ', current_syn);
+    
+    if iSyn == 1
+        % For the first (smallest) synergy count, run normal NNMF
+        [W{1,iSyn}, H{1,iSyn}, reconstruction_error(1,iSyn)] = nnmf(...
+            MActivation, ...
+            current_syn, ...
+            'replicates', n_replicates, ...
+            'algorithm', algorithm_type, ...
+            'options', options);
+        
+        % Store for sequential initialization
+        W_sequential{1,iSyn} = W{1,iSyn};
+        
+    else
+        % For subsequent synergy counts, use previous W as initialization
+        
+        % Get previous W matrix
+        prev_W = W_sequential{1,iSyn-1};
+        prev_n_syn = synergy_list(iSyn-1);
+        
+        % Calculate how many new synergies to add
+        n_new_synergies = current_syn - prev_n_syn;
+        
+        % Initialize with previous W plus random columns for new synergies
+        % Add small random perturbation to previous columns to help convergence
+        W_init = [prev_W .* (0.95 + 0.1*rand(size(prev_W))), ...
+                  rand(nMuscles, n_new_synergies) * 0.5];
+        
+        % Run NNMF with warm start
+        [W{1,iSyn}, H{1,iSyn}, reconstruction_error(1,iSyn)] = nnmf(...
+            MActivation, ...
+            current_syn, ...
+            'w0', W_init, ...          % Initial W matrix
+            'h0', rand(current_syn, nTimePoints), ... % Initial H
+            'replicates', 1, ...       % Only need 1 replicate with good init
+            'algorithm', algorithm_type, ...
+            'options', options);
+        
+        % Store for next iteration
+        W_sequential{1,iSyn} = W{1,iSyn};
+        
+        % Optional: Check if previous columns are preserved
+        % (they should be, but let's verify)
+        prev_in_current = pinv(W{1,iSyn}) * prev_W;
+        reconstruction_check = norm(prev_W - W{1,iSyn} * prev_in_current, 'fro');
+        fprintf('Subspace preservation error: %.4f\n', reconstruction_check);
+    end
+    
+    fprintf('Reconstruction error: %.4f\n', reconstruction_error(1,iSyn));
+end
+
+%% Alternative: PCA-based approach (guaranteed nesting)
+% Uncomment if you want to try PCA instead
+% [coeff, ~, ~] = pca(MActivation');
+% for iSyn = 1:nSynergies
+%     current_syn = synergy_list(iSyn);
+%     W{1,iSyn} = coeff(:,1:current_syn);
+%     % For PCA, H = W' * MActivation (but not non-negative)
+%     % You might need to run NNMF with PCA initialization
+% end
+
+%% Reconstructed synergies and metrics (unchanged from your code)
+full_data_length = nTimePoints;
+MActivation_reconstructed_array = zeros(nSynergies, nMuscles, full_data_length);
+VAF = zeros(nSynergies,1);
+RMSE = zeros(nSynergies,1);
+RMSE_per_muscle = zeros(nSynergies,nMuscles);
+R_per_muscle = zeros(nSynergies,nMuscles);
+
+% Calculate Variance Accounted For (VAF)
+total_variance = sum(var(MActivation, 0, 2));
+
+for iSyn = 1:nSynergies
+    MActivation_reconstructed = W{1,iSyn} * H{1,iSyn};
+    MActivation_reconstructed_array(iSyn, :, :) = MActivation_reconstructed;
+
+    % Metrics
+    VAF(iSyn,1) = 1 - (sum(var(MActivation - MActivation_reconstructed, 0, 2)) / total_variance);
+    RMSE(iSyn,1) = sqrt(mean((MActivation - MActivation_reconstructed).^2, 'all'));
+    RMSE_per_muscle(iSyn,:) = sqrt(mean((MActivation - MActivation_reconstructed).^2, 2));
+    for m = 1:nMuscles
+        R_per_muscle(iSyn,m) = corr(MActivation(m,:)', MActivation_reconstructed(m,:)');
+    end    
+end
+
+%% Additional check: Verify subspace nesting
+fprintf('\n=== Subspace Nesting Verification ===\n');
+for iSyn = 2:nSynergies
+    prev_syn = synergy_list(iSyn-1);
+    curr_syn = synergy_list(iSyn);
+    
+    W_prev = W{1,iSyn-1};
+    W_curr = W{1,iSyn};
+    
+    % Project previous W onto current subspace
+    W_projected = W_curr * (pinv(W_curr) * W_prev);
+    
+    % Calculate reconstruction error
+    nesting_error = norm(W_prev - W_projected, 'fro') / norm(W_prev, 'fro');
+    
+    fprintf('W_%d in W_%d subspace: Relative error = %.4f%%', ...
+        prev_syn, curr_syn, nesting_error*100);
+    
+    if nesting_error < 0.05  % 5% threshold
+        fprintf(' ✓ (Well nested)\n');
+    else
+        fprintf(' ✗ (Poor nesting)\n');
+    end
+end
+
+%% Store metrics (unchanged)
+synMetrics.N = synergy_list;
+synMetrics.VAF = VAF;
+synMetrics.RMSE = RMSE;
+synMetrics.RMSE_per_muscle = RMSE_per_muscle;
+synMetrics.R_per_muscle = R_per_muscle;
+synMetrics.W_sequential = W_sequential; % Store sequential W matrices
+
+% Display results summary
+fprintf('\n=== SEQUENTIAL NNMF Results Summary ===\n');
+fprintf('Synergies  Recon.Error  VAF\n');
+fprintf('------------------------------\n');
+for iSyn = 1:nSynergies
+    fprintf('    %d        %.4f     %.3f\n', ...
+        synergy_list(iSyn), reconstruction_error(1,iSyn), VAF(iSyn,1));
+end
+
+%% Plotting section (unchanged - can keep your original plotting code)
+% ... [Your plotting code here - same as before] ...
+
 end

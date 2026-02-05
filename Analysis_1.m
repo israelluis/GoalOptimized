@@ -1,5 +1,5 @@
 %% SET PATHS
-computerPath  ='C:\Users\Israel Luis\Documents\GitHub';
+computerPath  ='C:\Users\movea\Documents\GitHub';
 mainPath      =fullfile(computerPath,'GoalOptimized\ProjectResults\DSE');
 trialPath     ='v2_t1';
 
@@ -41,14 +41,13 @@ for iSub=1:nSubs
     metric_JeS(iSub)={load(fullfile(mainPath,['sub' num2str(iSub)],trialPath,folderSpec,'synergy_metrics.mat'))};
 end
 %% LOAD MRS JeSD
-folderSpec   = 'Je0SD';
-specificFile = 'Je0SD'; specificFile_dev=specificFile;
+folderSpec   = 'JeSD';
+specificFile = 'JeSD'; specificFile_dev=specificFile;
 
 dev_list ={'AP(A)' 'KE(Q)' 'HF(A)' 'HB(A)'};
 iter_list={'200' '100' '200' '200'};
 
-
-sub_list=1:3;     nSubs=length(sub_list);
+sub_list=1:5;     nSubs=length(sub_list);
 
 syn_list=[0 4 5 6];
 nSyns=length(syn_list);
@@ -390,7 +389,7 @@ plMuscle_pos={[3 9] [6 12] [15 21] [18 24]};
 sign_list=[-1 -1 1 -1];
 offs_list=[0 -0.5 -0.5 0];
 
-sub_list=[1 2 3];
+sub_list=[1 2 3 4 5];
 nSubs=length(sub_list);
 for iSub=1:nSubs
     sSub=sub_list(iSub);
@@ -433,9 +432,12 @@ for iSub=1:nSubs
         end
         plg(2)=plot(GaitCycle,TorqueHILO_list(iDOF,:),'color','#50C878','LineWidth',7,'LineStyle','-.','DisplayName','EXP');
 
-        disp(['summary with Syn' synLabels{SSyn_list(end)}(end) ' at ' DOFLabels{iDOF} ...
-            ': VAF' num2str(Results_Bilevel.Results.SynergyControl.VAF) ...
-            ' RMSE' num2str(Results_Bilevel.Results.SynergyControl.RMSE)])
+        to_disp=0;
+        if to_disp==1
+            disp(['summary with Syn' synLabels{SSyn_list(end)}(end) ' at ' DOFLabels{iDOF} ...
+                ': VAF' num2str(Results_Bilevel.Results.SynergyControl.VAF) ...
+                ' RMSE' num2str(Results_Bilevel.Results.SynergyControl.RMSE)])
+        end
         % Results_Bilevel.Results.SynergyControl
 
         xlim([0 100]); ylim([-0.35 2.00]+offs_list(iDOF))

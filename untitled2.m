@@ -16,17 +16,16 @@ for iSub=1:nSubs
     fSel=1+extra_frames:size(Results.(sVar).genericMRS,2)-1-extra_frames;
     gait_cycle=linspace(0,100,length(fSel));
 
-    SSyn_list=[2 3 4];
+    SSyn_list=[4];
     nSyns=length(SSyn_list);
 
     indexDOF=1;
 
-    LineStyle_sel='-.';
+    LineStyle_sel='-'; %-.
     for iMus=1:40
-        subplot(5,8,iMus); hold on
+        subplot(6,8,iMus); hold on
 
         % no synergies
-
         Results_Baseline=MRS_Je{sSub,1};
         MActivation_N=Results_Baseline.Results.(sVar).genericMRS(iMus,fSel);
         plot(gait_cycle,MActivation_N,'Color',colorBase{1},'LineWidth',3,'LineStyle','-'); hold on %'#71797E'
@@ -46,18 +45,45 @@ for iSub=1:nSubs
             Results_Bilevel =MRS_JeSD{sSub,sSyn,indexDOF};
             MActivation_OPT=Results_Bilevel.Results.(sVar).genericMRS(iMus,fSel);
             plot(gait_cycle,MActivation_OPT,'Color',colorOpti{iSyn+1},'LineWidth',3,'LineStyle',LineStyle_sel)
-           
         end
          set(gca,'FontSize',13);
 
          if strcmp(sVar,'lMtildeopt')
              axis([0 100 0.5 1.5])
          else
-            axis([0 100 0 0.9])
+            % axis([0 100 0 0.9])
          end
          title(Results.MuscleNames{iMus});
     end
-    sgtitle(['sub' num2str(sSub) ' target joint: ' DOFNames_list{indexDOF}{1}])
+    for iDOF=1:5
+        subplot(6,8,40+iDOF); hold on
+        
+        Results_Baseline=MRS_Je{sSub,1};
+        DofNames_Input=Results_Baseline.Misc.DofNames_Input;
+        RActivation=Results_Baseline.Results.RActivation.genericMRS(iDOF,fSel);
+
+        plot(gait_cycle,RActivation);
+
+        sSyn=1;
+        Results_Bilevel =MRS_JeSD{sSub,sSyn,indexDOF};
+        RActivation_OPT=Results_Bilevel.Results.RActivation.genericMRS(iDOF,fSel);
+        plot(gait_cycle,RActivation_OPT,'Color',colorOpti{1},'LineWidth',3,'LineStyle',LineStyle_sel)
+
+        for iSyn=1:nSyns
+            sSyn=SSyn_list(iSyn);
+            Results_Baseline=MRS_JeS{sSub,sSyn-1}; %[4 5 6]
+            MActivation_N=Results_Baseline.Results.RActivation.genericMRS(iDOF,fSel);
+            plot(gait_cycle,MActivation_N,'Color',colorBase{iSyn+1},'LineWidth',3,'LineStyle','-'); hold on %'#71797E'
+
+            Results_Bilevel =MRS_JeSD{sSub,sSyn,indexDOF};
+            MActivation_OPT=Results_Bilevel.Results.RActivation.genericMRS(iDOF,fSel);
+            plot(gait_cycle,MActivation_OPT,'Color',colorOpti{iSyn+1},'LineWidth',3,'LineStyle',LineStyle_sel)
+        end
+
+        % axis([0 100 -10 10])
+        title([DofNames_Input{iDOF}])
+    end
+    % sgtitle(['sub' num2str(sSub) ' target joint: ' DOFNames_list{indexDOF}{1}])
 end
 %%
 clc;
@@ -69,7 +95,7 @@ var2 = {'#2F4F4F', '#006400', '#8B0000', '#00008B'}; % Dark colors
 
 % Synergy counts (4, 5, 6)
 syn_list = 4:6;
-sSub = 2; % Single subject
+sSub = 3; % Single subject
 
 % Loop through synergy counts
 for iSyn = 1:length(syn_list)
@@ -155,9 +181,9 @@ var1 = {'#A0A0A0', '#7CFC00', '#FF6347', '#87CEEB'}; % Light colors
 var2 = {'#2F4F4F', '#006400', '#8B0000', '#00008B'}; % Dark colors
 
 % Synergy counts (4, 5, 6)
-syn_list = 4:6;
+syn_list = [4 5 6];
 
-sub_list=[1 2 3];
+sub_list=[5];
 
 for iSub=1:length(sub_list)
     sSub = sub_list(iSub);
@@ -174,7 +200,7 @@ for iSub=1:length(sub_list)
         MuscleNames = Results_Baseline.Results.MuscleNames;
 
         % Get device results
-        iDev = 2;
+        iDev = 1;
         Results_Device = MRS_JeSD{sSub, iSyn+1, iDev};
         H_dev = Results_Device.Results.SynergyControl.H;
         W_dev = Results_Device.Results.SynergyControl.W;
@@ -257,7 +283,7 @@ for iSub=1:length(sub_list)
         'FontSize', 16, 'FontWeight', 'bold');
 
     % Adjust layout for better spacing
-    set(gcf, 'Position', get(0, 'Screensize')); % Maximize figure
+    % set(gcf, 'Position', get(0, 'Screensize')); % Maximize figure
 end
 %%
 

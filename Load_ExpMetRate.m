@@ -1,5 +1,6 @@
 %% PART I - ENERGETICS
-computerPath  ='C:\Users\Israel Luis\Documents\GitHub';
+addpath(genpath('C:\Users\movea\Documents\GitHub\GoalOptimized'));
+computerPath  ='C:\Users\movea\Documents\GitHub';
 folderPath      =fullfile(computerPath,'GoalOptimized\Database\EE');
 
 sub_list=1:5;
