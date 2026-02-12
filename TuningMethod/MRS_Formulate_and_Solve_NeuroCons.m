@@ -119,7 +119,8 @@ if Misc.Advance.SynergyControl
 
     % Synergy activation: time-variant
     H = opti.variable(nSynergies, N_tot+nTrials);
-    opti.subject_to(0 <= H <= 1); % Bound synergy activations
+    opti.subject_to(0 < H <= 1); % Bound synergy activations
+    % opti.subject_to(0.01 < H <= 1); % Bound synergy activations
     
     % Synergy weight: time-invariant
     % W = opti.variable(NMuscles, nSynergies);
@@ -299,6 +300,8 @@ for trial = 1:Misc.nTrials
         % This formulation is the best based on objective function
         % penalization
         Misc.wSc=1.00; % 0.10 yet it has regularization issues (30 secs)
+        % Misc.wSc=10.00; % 0.10 yet it has regularization issues (30 secs)
+
         % wSc=0.01 does not obey synergy pattern (quick)
         % wSc=1.00 poor estimation, regularization issues, glmed reach max, met cost red small (4%) (60 secs)
         
@@ -307,7 +310,8 @@ for trial = 1:Misc.nTrials
         % eps_syn=0.1 delutes the relative importance formulation
         
         diff = (a - Wsel * H) ./ (a + eps_syn);
-        J = J + Misc.wSc.*sumsqr(diff)/N/nSynergies;
+        % diff = (a - Wsel * H);
+        J = J + Misc.wSc.*sumsqr(diff)/N/NMuscles;
     end
 
 end

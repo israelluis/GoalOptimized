@@ -8,7 +8,7 @@ info.BaseFolder       = computerPath;
 info.ProjectFolder    = fullfile('ProjectResults','DSE'); %fullfile('ProjectResults','Codesign','Pilot')
 
 % folder for outputs
-DirName='Je'; DirSpec='T';
+DirName='Je'; DirSpec='TM'; % T-> thigh formulation M-> /NMuscles
 DirF.select_folder_N1 = DirName;                 % specify folder for simulation based on minimal muscle effort
 DirF.select_folder_N2 =[DirName DirSpec 'S'];    % specify folder for simulation based on minimal muscle effort with synergies
 DirF.select_folder_N3 =[DirName DirSpec 'SD'];  % specify folder for simulation based on "select_folder_N2" with assistive devices
@@ -94,8 +94,8 @@ Device=SDevice;
 [label_deviceAbb]=abbreviation_for_results(Device,bounds);
 
 % number of iterations
-% MaxObjectiveEvaluations=50*nVars; % heuristic
-MaxObjectiveEvaluations=100; % heuristic
+MaxObjectiveEvaluations=50*nVars_tot; % heuristic
+% MaxObjectiveEvaluations=100; % heuristic
 
 % path names
 BilevelOutPath= fullfile(computerPath,Misc.TrialFolder,DirF.select_folder_N3);
@@ -325,7 +325,8 @@ if to_plot_summary==1
     ylabel([J_bilevel_extra.label ' [' J_bilevel_extra.unit ']'])
     title('Targeted metric: time series')
     % J_real=(mean(J_bilevel_TS)-mean(J_baseline_TS))/mean(J_baseline_TS)*100; % CHECK YOUR RESULTS (2!)
-    
+    ylim([0 10])
+
     % METRIC: MEAN VALUE
     subplot(nRowsTot,3,3); hold on;
     x_label={'Normal' 'Bilevel'};
@@ -347,7 +348,7 @@ if to_plot_summary==1
             text(j,E_normal,[num2str(change_per,'%+1.1f') ' %'],'HorizontalAlignment','center','FontSize',15)
         end
     end
-    ylim([0 4])
+    ylim([0 10])
     set(gca,'FontSize',13);
     xlabel('conditions'); ylabel([J_bilevel_extra.label ' [' J_bilevel_extra.unit ']']) %(both legs) 
     title('Targeted metric: mean value')

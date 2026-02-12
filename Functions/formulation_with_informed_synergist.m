@@ -26,7 +26,9 @@ if strcmp(computationCase,'all')
         % set path and run
         Misc.OutPath  = SynergyPath;
         Misc.OutName  = fullfile([OutLabel num2str(sSyn)]);
-        [Results_new,~,Misc_new]= MRS_Formulate_and_Solve_NeuroCons(Misc,DatStore);
+        % [Results_new,~,Misc_new]= MRS_Formulate_and_Solve_NeuroCons(Misc,DatStore);
+        % [Results_new,~,Misc_new]= MRS_Formulate_and_Solve_NeuroConsV2(Misc,DatStore);
+        [Results_new,~,Misc_new]= MRS_Formulate_and_Solve_NeuroConsV3(Misc,DatStore);
     end
 elseif strcmp(computationCase,'load')
     sSyn=infoSyn.sSyn;

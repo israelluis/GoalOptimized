@@ -46,7 +46,7 @@ for iSyn = 1:nSynList
 end
 
 %% Reconstructed synergies
-full_data_length = length(Results.MActivation);
+full_data_length = length(MActivation);
 nMuscles = length(Results.MuscleNames);
 
 MActivation_recons_array = zeros(nSynList, nMuscles, full_data_length);

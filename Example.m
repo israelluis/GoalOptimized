@@ -1,7 +1,134 @@
 %% Run sample, self-selected parameters / spline controllers
-to_run_example=0;
+% run muscle analysis and enable assistive moment
+iSub=1;
+iSynConf=3;
 
-if to_run_example==1
+MRS=MRS_list{iSub,1,iSynConf};
+
+Misc            =MRS{2}.Misc;
+DatStore        =MRS{2}.DatStore;
+Results_baseline=MRS{2}.Results;
+
+Results_normal  =MRS{1}.Results;
+
+Misc.GetAnalysis = 0;
+Misc.Advance.AssistiveDevice  = 1;
+
+% con_list=[60 80 108 120 140];
+con_list=[20 40 60 80 100];
+nCon=length(con_list);
+
+Results_assisted_array=cell(nCon,1);
+
+ExecutionTime_1=datetime('now');
+for iCon=1:length(con_list)
+
+clear Device
+
+Device{1}.Mode        = 'prescribed'; % opts: optimized and prescribed
+Device{1}.MuscleGroup = {['ankle_angle_' Misc.gait_data.side_sel] -1};
+Device{1}.Type        = {'active' 'spline#N3'}; % opts: active, quasi-passive, passive, EMG-driven
+% Device{1}.Params      = [54.94 17.05 7.84 con_list(iCon)]; %54.8 14.5 8.1 51.8     108.06
+Device{1}.Params      = [54.90 15.13 7.91 con_list(iCon)]; %54.8 14.5 8.1 51.8     108.06
+
+[assistanceInfo]=generateTorque(Device{1},DatStore,Misc.time,Misc.extra_frames);
+
+Device{1}.Assistance = assistanceInfo;
+Misc.Device=Device;
+
+% to name and save results
+Misc.to_save_results= 0;
+Misc.OutName= 'example';
+
+% time performance of a single loop
+[Results_assisted,~,Misc]= MRS_Formulate_and_Solve_NeuroCons(Misc,DatStore);
+Results_assisted_array(iCon)={Results_assisted};
+end
+
+ExecutionTime_2=datetime('now'); duration_loop=seconds(duration(ExecutionTime_2-ExecutionTime_1));
+disp(['simulation took ' num2str(duration_loop,'%1.2f') ' secs']);
+
+
+[J_baseline_avg,J_baseline_TS,J_baseline_extra] = computeOuterLoopFunction(Misc,Results_baseline,assistiveGoal);
+
+J_example_TS=cell(nCon,1);
+J_example_avg=cell(nCon,1);
+J_per =cell(nCon,1);
+for iCon=1:nCon
+    [J_example_avg{iCon},J_example_TS{iCon}] = computeOuterLoopFunction(Misc,Results_assisted_array{iCon},assistiveGoal);
+
+    J_per{iCon}=(J_example_avg{iCon}-J_baseline_avg)/J_baseline_avg*100;
+    disp(['goal change: ' num2str(J_per{iCon},'%+1.2f') '%'])
+
+end
+
+color_list = {'#e86975' '#da4d52' '#cc2525' '#a21920' '#78080d'};
+% Check results
+to_plot=1;
+if to_plot==1
+    figure; clf; % muscle activations
+    for i=1:40
+        subplot(5,8,i)
+        hold on
+        plot(Results_normal.MActivation(i,:),'k')
+        plot(Results_baseline.MActivation(i,:),'--g')
+
+        for iCon=1:nCon
+            plot(Results_assisted_array{iCon}.MActivation(i,:),'LineStyle','-','Color',color_list{iCon},'LineWidth',2)
+        end
+
+        ylim([0 1])
+        title(Results_assisted.MuscleNames{i})
+
+    end
+    sgtitle('muscle activations')
+
+    figure; clf; % muscle activations
+    N=Misc.SynCon.N;
+    for i=1:N
+        subplot(2,3,i)
+        hold on
+        plot(Results_baseline.SynergyControl.H(i,:),'b','LineWidth',3)
+
+        for iCon=1:nCon
+            plot(Results_assisted_array{iCon}.SynergyControl.H(i,:),'LineWidth',3,'LineStyle','-','Color',color_list{iCon})
+        end
+
+        ylim([0 1])
+    end
+
+    % figure; clf; % device torque
+    % nDevs=length(Device);
+    % norMass=Misc.subject_data.subject_mass;
+    % for iDev=1:nDevs
+    %     gaitCycle=Device{iDev}.Assistance.Profile.GaitCycle;
+    %     iDOF=strcmp(DatStore.DOFNames,Device{iDev}.MuscleGroup{1});
+    %     sID =DatStore.IDinterp(:,iDOF)*Device{iDev}.MuscleGroup{2};
+    %     Torque=Device{iDev}.Assistance.Profile.Torque;
+    %     subplot(nDevs,1,iDev)
+    %     plot(gaitCycle,sID/norMass,'k'); hold on
+    %     plot(gaitCycle,Torque/norMass,'r')
+    %     title([Device{iDev}.MuscleGroup{1}],'Interpreter','none')
+    % end
+    % sgtitle('assistive torque')
+
+    figure; clf;
+    subplot(1,1,1); hold on
+    p(1)=plot(J_baseline_TS,'LineWidth',3,'LineStyle','-','Color','k','DisplayName',[' Baseline (avg value) = ' num2str(J_baseline_avg,'%1.1f')  ' ' J_baseline_extra.unit]); 
+    for iCon=1:nCon
+        p(1+iCon)=plot(J_example_TS{iCon},'LineWidth',3,'LineStyle','-','Color',color_list{iCon},'DisplayName',[' Assisted (avg value) = ' num2str(J_example_avg{iCon},'%1.1f')  ' ' J_baseline_extra.unit ...
+           ' - change: ' num2str(J_per{iCon},'%+1.1f') '%']); 
+    end
+    legend(p);
+
+    xlabel('gait cycle[%]'); ylabel([J_baseline_extra.label ' [' J_baseline_extra.unit ']']);
+    % title([ 'baseline (avg value) = ' num2str(J_baseline_avg,'%1.1f') ' ' J_baseline_extra.unit ...
+    %        ' assisted (avg value) = ' num2str(J_example_avg,'%1.1f')  ' ' J_baseline_extra.unit ...
+    %        ' - change: ' num2str(J_per,'%+1.1f') '%']);
+end
+
+
+%% Run sample, self-selected parameters / spline controllers
 % run muscle analysis and enable assistive moment
 Misc.GetAnalysis = 0;
 Misc.Advance.AssistiveDevice  = 1;
@@ -67,8 +194,8 @@ ExecutionTime_2=datetime('now'); duration_loop=seconds(duration(ExecutionTime_2-
 disp(['simulation took ' num2str(duration_loop,'%1.2f') ' secs']);
 
 [J_example_avg,J_example_TS,J_example_extra] = computeOuterLoopFunction(Misc,Results_assisted,assistiveGoal);
-J_value=(J_example_avg-J_baseline_avg)/J_baseline_avg*100;
-disp(['goal change: ' num2str(J_value,'%+1.2f') '%'])
+J_per=(J_example_avg-J_baseline_avg)/J_baseline_avg*100;
+disp(['goal change: ' num2str(J_per,'%+1.2f') '%'])
 
 % Check results
 to_plot=1;
@@ -107,6 +234,5 @@ if to_plot==1
     xlabel('gait cycle[%]'); ylabel([J_example_extra.label ' [' J_example_extra.unit ']']);
     title([ 'baseline (avg value) = ' num2str(J_baseline_avg,'%1.1f') ' ' J_example_extra.unit ...
            ' assisted (avg value) = ' num2str(J_example_avg,'%1.1f')  ' ' J_example_extra.unit ...
-           ' - change: ' num2str(J_value,'%+1.1f') '%']);
-end
+           ' - change: ' num2str(J_per,'%+1.1f') '%']);
 end
