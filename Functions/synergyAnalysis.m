@@ -1,9 +1,40 @@
-function [W,H,MActivation_recons_array,synMetrics]=synergyAnalysis(Results,synergy_list,plot_flag)
+function [W,H,HTrial,MActivation_recons_array,synMetrics]=synergyAnalysis(Results,synergy_list,plot_flag)
 %% Compute synergies with proper multi-start NNMF
 % Non-negative Matrix Factorization (most common)
 rng(100); % for reproducibility
 
-MActivation = Results.MActivation;
+nResults=length(Results);
+MuscleNames = Results{1}.MuscleNames;
+
+nN=zeros(nResults,1);
+for iResult=1:nResults
+    nN(iResult)=size(Results{iResult}.MActivation,2);
+end
+nNtot=sum(nN);
+MActivation=zeros(length(MuscleNames),nNtot);
+acc=0;
+ind_lim=zeros(nResults,2); % 1 initial 2 final
+for iResult=1:nResults
+    ind=1:nN(iResult);
+    ind_upd=acc+ind;
+    ind_lim(iResult,1)=ind_upd(1);  ind_lim(iResult,2)=ind_upd(end);
+    MActivation(:,ind_upd) = Results{iResult}.MActivation;
+    acc=acc+ind(end);
+end
+
+to_plot=0;
+if to_plot==1
+    clf
+    for i=1:40
+        subplot(5,8,i); hold on
+        plot(MActivation(i,:),'LineWidth',2)
+        acc=0;
+        for j=1:3
+            acc=acc+nN(j);
+            xline(acc,'LineWidth',2,'LineStyle',':')
+        end
+    end
+end
 
 % NNMF parameters
 n_replicates   = 100;    % Number of random starts - more = better but slower
@@ -17,7 +48,7 @@ nSynList     = length(synergy_list);
 recons_error = zeros(1, nSynList);
 W = cell(1, nSynList);
 H = cell(1, nSynList);
-
+HTrial = cell(nResults,nSynList);
 % Set NNMF options
 options = statset('MaxIter', max_iterations, 'Display', 'off', 'TolFun', tolerance);
 
@@ -42,12 +73,16 @@ for iSyn = 1:nSynList
     W{1,iSyn} = W_temp;
     H{1,iSyn} = H_temp;
 
+    for iResult=1:nResults
+        HTrial{iResult,iSyn} = H_temp(:,ind_lim(iResult,1):ind_lim(iResult,2));
+    end
+
     fprintf('Best reconstruction error: %.4f\n', recons_error(1,iSyn));
 end
 
 %% Reconstructed synergies
 full_data_length = length(MActivation);
-nMuscles = length(Results.MuscleNames);
+nMuscles = length(MuscleNames);
 
 MActivation_recons_array = zeros(nSynList, nMuscles, full_data_length);
 VAF  = zeros(nSynList,1);
@@ -108,7 +143,7 @@ if to_plot_recoSyn == 1
         
         legend(pl, 'NumColumns', 2, 'Box', 'off', 'FontSize', 8);
         ylim([0 1]);
-        title(Results.MuscleNames{j}, 'FontSize', 10);
+        title(MuscleNames{j}, 'FontSize', 10);
         grid on;
     end
 end

@@ -2,14 +2,15 @@ clc;
 computerPath  ='C:\Users\Israel Luis\Documents\GitHub\GoalOptimized';
 
 % Input simulation
-mySub_list=[1]; % list of subs 100 ITERS 5 NO
-myDev_list=[1]; % list of devices 3 4 5
+mySub_list=[1:5]; % list of subs 100 ITERS 5 NO
+myTrial_list=[1 2 3];
+myDev_list=[1 3 4 5]; % list of devices 3 4 5
 % mySyn_list=[0]; % list of synergies [4:6]
-mySyn_list=[4:6]; % list of synergies [4:6]
+mySyn_list=[4 5 6]; % list of synergies [4:6]
 
 % Total of conditions
-[nSubs, nDevs, nSyns] = deal(length(mySub_list), length(myDev_list), length(mySyn_list));
-MRS_list=cell(nSubs,nDevs,nSyns);
+[nSubs, nTrials, nDevs, nSyns] = deal(length(mySub_list), length(myTrial_list), length(myDev_list), length(mySyn_list));
+MRS_list=cell(nSubs,nTrials,nDevs,nSyns);
 
 % condition
 setCondition='getBilevel'; %runBaseline getBaseline runBilevel getBilevel
@@ -22,17 +23,23 @@ for iSub=1:nSubs
     sSub=mySub_list(iSub);
     mySubject=['sub' num2str(sSub)];
 
-    for iDev=1:nDevs
-        sDev=myDev_list(iDev);
-        myDevice=getDeviceSimple(sDev);
+    for iTrial=1:nTrials
+        sTrial=myTrial_list(iTrial);
+        SMotion=['v2_t' num2str(sTrial)];
 
-        for iSynConf=1:nSyns
-            myOutName =['_RX' num2str(mySyn_list(iSynConf))]; %_R10 _RNO10 _RXNO10 _R1(X) _RX _RXe
-            [MRS]=Tool_MainGO(computerPath,setCondition,mySubject,myDevice,myOutName);
-           
-            MRS_list(iSub,iDev,iSynConf)={MRS};
+        for iDev=1:nDevs
+            sDev=myDev_list(iDev);
+            myDevice=getDeviceSimple(sDev);
 
+            for iSynConf=1:nSyns
+                myOutName =['_RXC' num2str(mySyn_list(iSynConf))]; %_R10 _RNO10 _RXNO10 _R1(X) _RX _RXe
+                [MRS]=Tool_MainGO(computerPath,setCondition,mySubject,SMotion,myDevice,myOutName);
+
+                MRS_list(iSub,iTrial,iDev,iSynConf)={MRS};
+
+            end
         end
+        close all;
     end
 end
 
@@ -40,6 +47,7 @@ end
 ExecutionTime_2=datetime('now');    sim_duration = ExecutionTime_2 - ExecutionTime_1;
 disp(['Total simulation time: ' char(sim_duration)]);
 %% Activations
+nSubs=1;
 for iSub=1:nSubs
     sSub=mySub_list(iSub);
     fig=figure(iSub);
@@ -47,15 +55,19 @@ for iSub=1:nSubs
     tabgp = uitabgroup(fig, 'Position', [0.05 0.05 0.95 0.95]);
     fig.Name = ['now Subject ' num2str(sSub) ' - Synergy Analysis'];
     for iSynConf=1:nSyns
-        tab = uitab(tabgp, 'Title', ['Synergy ' num2str(mySyn_list(iSynConf))]);
-        axes('Parent', tab);
-        MRS=MRS_list{iSub,1,iSynConf};
-        for i=1:40
-            subplot(5,8,i); hold on
-            plot(MRS{1}.Results.GaitCycle,MRS{1}.Results.MActivation(i,1:end-1),'k','LineWidth',2);
-            plot(MRS{2}.Results.GaitCycle,MRS{2}.Results.MActivation(i,1:end-1),'b','LineWidth',2);
-            % plot(MRS{3}.Results.GaitCycle,MRS{3}.Results.MActivation(i,1:end-1),'r','LineWidth',2);
-            ylim([0 1])
+        for iTrial=1:nTrials
+            % tab = uitab(tabgp, 'Title', ['Device ' num2str(iDev) dev_label{iDev} '& Trial' num2str(iTrial)]);
+
+            tab = uitab(tabgp, 'Title', ['Synergy ' num2str(mySyn_list(iSynConf)) '& Trial' num2str(iTrial)]);
+            axes('Parent', tab);
+            MRS=MRS_list{iSub,iTrial,1,iSynConf};
+            for i=1:40
+                subplot(5,8,i); hold on
+                plot(MRS{1}.Results.GaitCycle,MRS{1}.Results.MActivation(i,1:end-1),'k','LineWidth',2);
+                plot(MRS{2}.Results.GaitCycle,MRS{2}.Results.MActivation(i,1:end-1),'b','LineWidth',2);
+                % plot(MRS{3}.Results.GaitCycle,MRS{3}.Results.MActivation(i,1:end-1),'r','LineWidth',2);
+                ylim([0 1])
+            end
         end
     end
 end
@@ -66,18 +78,23 @@ for iSub=1:nSubs
     fig=figure(iSub);
     tabgp = uitabgroup(fig, 'Position', [0.05 0.05 0.95 0.95]);
     fig.Name = ['now Subject ' num2str(sSub) ' - Synergy Analysis'];
-    for iDev=1:nDevs
-        tab = uitab(tabgp, 'Title', ['Device ' num2str(iDev) dev_label{iDev}]);
+
+    for iTrial=1:nTrials
+        tab = uitab(tabgp, 'Title', ['Trial' num2str(iTrial)]);
         axes('Parent', tab);
 
         for iSynConf=1:nSyns
-            MRS=MRS_list{iSub,iDev,iSynConf};
+            MRS=MRS_list{iSub,iTrial,iDev,iSynConf};
             N=MRS{2}.Misc.SynCon.N;
 
             for i=1:N
-                subplot(3,6,i+6*(iSynConf-1)); hold on
-                plot(MRS{2}.Results.SynergyControl.SynergyActivation(i,1:end-1),'b','LineWidth',2);
-                % plot(MRS{3}.Results.SynergyControl.SynergyActivation(i,1:end-1),'r','LineWidth',2);
+                subplot(6,6,i+6*(iSynConf-1)); hold on
+                plot(MRS{2}.Results.GaitCycle,MRS{2}.Results.SynergyControl.SynergyActivation(i,1:end-1),'b','LineWidth',2);
+                plot(MRS{3}.Results.GaitCycle,MRS{3}.Results.SynergyControl.SynergyActivation(i,1:end-1),'r','LineWidth',2);
+                ylim([0 1])
+
+                subplot(6,6,i+6*(iSynConf-1)+18); hold on
+                bar(MRS{2}.Results.SynergyControl.W(:,i));
                 ylim([0 1])
             end
         end
@@ -93,7 +110,7 @@ dev_label ={'AP(A)' 'HF(A)' 'HB(A)' 'KE(Q)'};
 iter_label={'200' '200' '200' '100'};
 
 sub_list=[1:5];     nSubs=length(sub_list);
-dev_list=[1:4];       nDevs=length(dev_list);
+dev_list=[1 2 3 4];     nDevs=length(dev_list);
 syn_list=[0];
 nSyns=length(syn_list);
 MRS_JeD=cell(nSubs,nSyns,nDevs);
@@ -109,11 +126,15 @@ for iSub=1:nSubs
     end
 end
 %% Torques
+
+Dev2DOF_list=[1 3 4 2];
+Yrange_list  ={[-0.5 2.0] [-1.25 1.25] [-0.5 2.0] [-1.25 1.25]};
+plotT_list =[1 -1 1 1];
 color_list={'#e86975' '#cc2525' '#78080d'};
 nSubs=5;
 for iSub=1:nSubs
     sSub=mySub_list(iSub);
-    fig=figure(iSub); clf;
+    fig=figure; clf;
 
     fig.Name = ['Subject ' num2str(sSub)];
     tabgp = uitabgroup(fig, 'Position', [0.05 0.05 0.95 0.95]);
@@ -121,18 +142,21 @@ for iSub=1:nSubs
     mass=MRS_JeD{iSub,1,1}.Misc.subject_data.subject_mass;
 
     for iDev=1:nDevs
-        tab = uitab(tabgp, 'Title', ['Device ' num2str(iDev) dev_label{iDev}]);
-        axes('Parent', tab);
+        for iTrial=1:nTrials
+            tab = uitab(tabgp, 'Title', ['Device ' num2str(iDev) dev_label{iDev} '& Trial' num2str(iTrial)]);
+            axes('Parent', tab);
 
-        subplot(1,1,1); hold on
-        MRS_sel=MRS_JeD{iSub,iDev,1};
-        plot(MRS_sel.Results.Device{1}.Assistance.Profile.GaitCycle,MRS_sel.Results.Device{1}.Assistance.Profile.Torque/mass,'color','k','LineWidth',2);
-        for iSynConf=1:3
+            subplot(1,1,1); hold on
+            MRS_sel=MRS_JeD{iSub,iDev,1};
+            plot(MRS_sel.Results.Device{1}.Assistance.Profile.GaitCycle,plotT_list(iDev)*-MRS_sel.DatStore.T_exp(:,Dev2DOF_list(iDev))/mass,'color','k','LineWidth',2);
+            plot(MRS_sel.Results.Device{1}.Assistance.Profile.GaitCycle,MRS_sel.Results.Device{1}.Assistance.Profile.Torque/mass,'color','g','LineWidth',2);
+            for iSynConf=1:3
 
-            MRS=MRS_list{iSub,iDev,iSynConf};
-            plot(MRS{3}.Results.Device{1}.Assistance.Profile.GaitCycle,MRS{3}.Results.Device{1}.Assistance.Profile.Torque/mass,'color',color_list{iSynConf},'LineWidth',2);
+                MRS=MRS_list{iSub,iTrial,iDev,iSynConf};
+                plot(MRS{3}.Results.Device{1}.Assistance.Profile.GaitCycle,MRS{3}.Results.Device{1}.Assistance.Profile.Torque/mass,'color',color_list{iSynConf},'LineWidth',2);
+            end
+            axis([0 100 Yrange_list{iDev}])
         end
-        axis([0 100 -0.2 1.8])
     end
 end
 %% Muscle activations
@@ -183,44 +207,47 @@ for iSub=1:nSubs
     mass=MRS_JeD{iSub,1,1}.Misc.subject_data.subject_mass;
 
     for iDev=1:nDevs
-        tab = uitab(tabgp, 'Title', ['Device ' num2str(iDev) dev_label{iDev}]);
-        axes('Parent', tab);
+        for iTrial=1:nTrials
+            tab = uitab(tabgp, 'Title', ['Device ' num2str(iDev) dev_label{iDev} '& Trial' num2str(iTrial)]);
+            axes('Parent', tab);
 
-        for iSynConf=1:3
-            % Metabolic rate time-series
-            subplot(2,3,iSynConf)
-            hold on;
-            J_avg_all=zeros(2,1);
-            for iCon=2:3
-                MRS=MRS_list{iSub,iDev,iSynConf}{iCon};
-                Misc=MRS.Misc;
-                Results=MRS.Results;
-                [J_avg,      J_TS,    ~]   = computeOuterLoopFunction(Misc,Results,assistiveGoal);
 
-                GaitCycle=Results.GaitCycle(1+5:end-5);
-                plot(GaitCycle,J_TS,'color',color_list{iSynConf},'LineWidth',3,'LineStyle',condi_list{iCon-1});
-                J_avg_all(iCon-1)=J_avg;
+            for iSynConf=1:3
+                % Metabolic rate time-series
+                subplot(2,3,iSynConf)
+                hold on;
+                J_avg_all=zeros(2,1);
+                for iCon=2:3
+                    MRS=MRS_list{iSub,iTrial,iDev,iSynConf}{iCon};
+                    Misc=MRS.Misc;
+                    Results=MRS.Results;
+                    [J_avg,      J_TS,    ~]   = computeOuterLoopFunction(Misc,Results,assistiveGoal);
+
+                    GaitCycle=Results.GaitCycle(1+5:end-5);
+                    plot(GaitCycle,J_TS,'color',color_list{iSynConf},'LineWidth',3,'LineStyle',condi_list{iCon-1});
+                    J_avg_all(iCon-1)=J_avg;
+                end
+                ylim([0 7])
+                ylabel('one leg metabolic rate [W/kg]')
+                xlabel('gait cycle [%]')
+
+                % Metabolic rate average
+                x = ["unassisted" "assisted"];
+
+                metReduction=(J_avg_all(2)-J_avg_all(1))/J_avg_all(1)*100;
+                subplot(2,3,iSynConf+3)
+                hb = bar(x,[J_avg_all(1) J_avg_all(2)], 'FaceColor', 'flat');
+                hb.CData(1,:) = hex2rgb(color_list{iSynConf});
+                hb.CData(2,:) = hex2rgb(color_list{iSynConf});
+
+                text(2, J_avg_all(2) + 0.5, ...
+                    sprintf('%+.1f%%', metReduction), ...
+                    'HorizontalAlignment', 'center', 'FontSize', 15, 'Color', 'k', 'FontWeight', 'bold');
+
+                ylim([0 8])
+                ylabel('net metabolic rate [W/kg]')
+                %
             end
-            ylim([0 7])
-            ylabel('one leg metabolic rate [W/kg]')
-            xlabel('gait cycle [%]')
-
-            % Metabolic rate average
-            x = ["unassisted" "assisted"];
-
-            metReduction=(J_avg_all(2)-J_avg_all(1))/J_avg_all(1)*100;
-            subplot(2,3,iSynConf+3)
-            hb = bar(x,[J_avg_all(1) J_avg_all(2)], 'FaceColor', 'flat');
-            hb.CData(1,:) = hex2rgb(color_list{iSynConf});
-            hb.CData(2,:) = hex2rgb(color_list{iSynConf});
-
-            text(2, J_avg_all(2) + 0.5, ...
-            sprintf('%+.1f%%', metReduction), ...
-            'HorizontalAlignment', 'center', 'FontSize', 15, 'Color', 'k', 'FontWeight', 'bold');
-
-            ylim([0 8])
-            ylabel('net metabolic rate [W/kg]')
-            % 
         end
     end
 end

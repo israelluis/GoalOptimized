@@ -53,12 +53,12 @@ disp(['simulation took ' num2str(duration_loop,'%1.2f') ' secs']);
 
 J_example_TS=cell(nCon,1);
 J_example_avg=cell(nCon,1);
-J_per =cell(nCon,1);
+J_per        =zeros(nCon,1);
 for iCon=1:nCon
     [J_example_avg{iCon},J_example_TS{iCon}] = computeOuterLoopFunction(Misc,Results_assisted_array{iCon},assistiveGoal);
 
-    J_per{iCon}=(J_example_avg{iCon}-J_baseline_avg)/J_baseline_avg*100;
-    disp(['goal change: ' num2str(J_per{iCon},'%+1.2f') '%'])
+    J_per(iCon)=(J_example_avg{iCon}-J_baseline_avg)/J_baseline_avg*100;
+    disp(['goal change: ' num2str(J_per(iCon),'%+1.2f') '%'])
 
 end
 
@@ -112,16 +112,25 @@ if to_plot==1
     % end
     % sgtitle('assistive torque')
 
+    clear p;
+
     figure; clf;
-    subplot(1,1,1); hold on
+    subplot(1,2,1); hold on
     p(1)=plot(J_baseline_TS,'LineWidth',3,'LineStyle','-','Color','k','DisplayName',[' Baseline (avg value) = ' num2str(J_baseline_avg,'%1.1f')  ' ' J_baseline_extra.unit]); 
     for iCon=1:nCon
         p(1+iCon)=plot(J_example_TS{iCon},'LineWidth',3,'LineStyle','-','Color',color_list{iCon},'DisplayName',[' Assisted (avg value) = ' num2str(J_example_avg{iCon},'%1.1f')  ' ' J_baseline_extra.unit ...
-           ' - change: ' num2str(J_per{iCon},'%+1.1f') '%']); 
+           ' - change: ' num2str(J_per(iCon),'%+1.1f') '%']); 
     end
     legend(p);
+    xlabel('gait cycle [%]'); ylabel([J_baseline_extra.label ' [' J_baseline_extra.unit ']']);
 
-    xlabel('gait cycle[%]'); ylabel([J_baseline_extra.label ' [' J_baseline_extra.unit ']']);
+    subplot(1,2,2); hold on
+    for iCon=1:nCon
+        plot(con_list(iCon),J_per(iCon),'Marker','.','color',color_list{iCon},'MarkerSize',35)
+    end
+    xlabel('peak torque [Nm]'); ylabel('metabolic reduction [%]');  
+    axis([0 120 -20 10])
+
     % title([ 'baseline (avg value) = ' num2str(J_baseline_avg,'%1.1f') ' ' J_baseline_extra.unit ...
     %        ' assisted (avg value) = ' num2str(J_example_avg,'%1.1f')  ' ' J_baseline_extra.unit ...
     %        ' - change: ' num2str(J_per,'%+1.1f') '%']);

@@ -1,9 +1,9 @@
-function [MRS]=Tool_MainGO(computerPath,Scondition,Ssubject,SDevice,SOutName)
+function [MRS]=Tool_MainGO(computerPath,Scondition,Ssubject,SMotion,SDevice,SOutName)
 addpath(genpath(computerPath));
 %% Input information
 % select subject and motion
 info.SubjectSelection = Ssubject;       % select subject e.g., 'sub1'
-info.MotionSelection  ='v2_t1';         % select velocity & trial. Options: v(velocity)== 1[slow], 2[normal], 3[fast]) _ t (trial)== 1st, 2nd, or 3rd trial
+info.MotionSelection  = SMotion;         % select velocity & trial. Options: v(velocity)== 1[slow], 2[normal], 3[fast]) _ t (trial)== 1st, 2nd, or 3rd trial
 info.BaseFolder       = computerPath;
 info.ProjectFolder    = fullfile('ProjectResults','DSE'); %fullfile('ProjectResults','Codesign','Pilot')
 
@@ -23,6 +23,9 @@ end
 init_data=0;
 [Misc,Results_normal,DatStore]=setup_and_run_unassisted_condition(info,DirF,init_data);
 
+% MRS{1}.Results=[];               MRS{1}.DatStore=[];       MRS{1}.Misc=[];
+% return;  % Exit function early
+
 %% Synergy setup
 if strcmp(Scondition, 'runBaseline')
     sSyn =[];                          conditionAnalysis='all';
@@ -30,6 +33,21 @@ elseif strcmp(Scondition, 'getBaseline') || strcmp(Scondition, 'runBilevel') || 
     sSyn=str2double(SOutName(end));    conditionAnalysis='load'; 
 end
 infoSyn.sSyn = sSyn;
+%%
+if strcmp(Scondition, 'runBaseline')
+    Synergy_with_multiple_gaitCycles=1;
+    if Synergy_with_multiple_gaitCycles==1
+        clear Results_normal
+        Results_normal=cell(3,1);
+        BaseDir=DirF.select_folder_N1;
+        OutName_sel=BaseDir;
+        for iTrial=1:3
+            LoadPath=fullfile(info.BaseFolder,[Misc.TrialFolder(1:end-1) num2str(iTrial)],BaseDir);
+            Results_normal(iTrial)      = {load(fullfile(LoadPath, [OutName_sel 'Results.mat'])).Results};
+
+        end
+    end
+end
 %% Synergy computation
 [Results_baseline,Misc]=formulation_with_informed_synergist(computerPath,Misc,Results_normal,DatStore,DirF,conditionAnalysis,infoSyn);
 
@@ -148,6 +166,7 @@ if to_plot_IGs==1
     [gait_cycle,~] = computeGC(Misc.time,Misc.extra_frames);
     nDevs=length(Misc.Device);
 
+    figure;
     for i=1:nVars
         subplot(2,nVars,i)
         plot(initialX.(varNames_tot{i}),'.k','MarkerSize',20)
@@ -283,7 +302,7 @@ end
 
 to_plot_summary=1;
 if to_plot_summary==1
-    figure(11); clf; set(gcf,'color','w','Visible','on','WindowState', 'maximized');
+    figure; set(gcf,'color','w','Visible','on','WindowState', 'maximized');
     
     nDevs = length(Misc.Device);
     IDinterp=DatStore.IDinterp;
