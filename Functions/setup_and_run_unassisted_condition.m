@@ -12,25 +12,37 @@ ModelVariation   ='';      % none
 if init_data==1;     GetAnalysis=1; setWorkflow=1;
 elseif init_data==0; GetAnalysis=0; setWorkflow=0;
 end
+% GetAnalysis=0; setWorkflow=1;
 
 % read metadata
 [Misc] = loadMetaData(BaseFolder,SubjectSelection,MotionSelection);
 
-% experimental data
-Misc.IKfile = {fullfile(BaseFolder,'Database',SubjectSelection,'IK',['IK_' SubjectSelection '_' MotionSelection '.mot'])};
-Misc.IDfile = {fullfile(BaseFolder,'Database',SubjectSelection,'ID',['ID_' SubjectSelection '_' MotionSelection '.sto'])};
-Misc.model_path= fullfile(BaseFolder,'Database',SubjectSelection,'model',['model_rajagopal2022_' SubjectSelection ModelVariation '.osim']);
-Misc.extra_frames=5;
+% number of gait cycles
+nGCs=numel(MotionSelection);
+if nGCs>1;    MotionSelection_label='multiCycle'; else; MotionSelection_label = info.MotionSelection;
+end
 
-% input dofs - select the DOFs you want to include in the optimization
-Misc.DofNames_Input={['ankle_angle_' Misc.gait_data.side_sel] ['knee_angle_' Misc.gait_data.side_sel] ['hip_flexion_' Misc.gait_data.side_sel] ['hip_adduction_' Misc.gait_data.side_sel] ['hip_rotation_' Misc.gait_data.side_sel]};
+% model
+Misc.model_path= fullfile(BaseFolder,'Database',SubjectSelection,'model',['model_rajagopal2022_' SubjectSelection ModelVariation '.osim']);
+
+% joint kinematics, kinetics, and DOFs
+for iGC=1:nGCs
+    LegSide=Misc.gait_data(iGC).side_sel;
+
+    Misc.IKfile(1,iGC) = {fullfile(BaseFolder,'Database',SubjectSelection,'IK',['IK_' SubjectSelection '_' MotionSelection{iGC} '.mot'])};
+    Misc.IDfile(1,iGC) = {fullfile(BaseFolder,'Database',SubjectSelection,'ID',['ID_' SubjectSelection '_' MotionSelection{iGC} '.sto'])};
+    % input dofs - select the DOFs you want to include in the optimization
+    Misc.DofNames_Input(1,iGC)={{['ankle_angle_' LegSide] ['knee_angle_' LegSide] ['hip_flexion_' LegSide] ['hip_adduction_' LegSide] ['hip_rotation_' LegSide]}};
+end
+
+Misc.extra_frames=5;
 
 % run muscle analysis
 Misc.GetAnalysis = GetAnalysis;
 
 % output path
 Misc.SetupPath      = fullfile(BaseFolder,'GenericSetups');
-Misc.TrialFolder    = fullfile(ProjectFolder,SubjectSelection,MotionSelection);
+Misc.TrialFolder    = fullfile(ProjectFolder,SubjectSelection,MotionSelection_label);
 Misc.OutPath        = fullfile(BaseFolder,Misc.TrialFolder,BaseDir);
 
 % settings for optimization within the same loop
@@ -45,7 +57,9 @@ Misc.myParams   = variable_tuned.tunedParams;
 
 % setup names
 muscleNames            = getMuscleNames('rajagopal');
-Misc.MuscleNames_Input = appendSide(muscleNames, Misc.gait_data.side_sel);
+for iGC=1:nGCs
+    Misc.MuscleNames_Input(1,iGC) = {appendSide(muscleNames, Misc.gait_data(iGC).side_sel)};
+end
 
 % to name and save results
 OutName_sel=BaseDir;
@@ -64,40 +78,38 @@ else
     DatStore_normal = MRS_normal.DatStore;
     Misc            = MRS_normal.Misc;
 
-    Misc.TrialFolder    = fullfile(ProjectFolder,SubjectSelection,MotionSelection);
+    Misc.TrialFolder    = fullfile(ProjectFolder,SubjectSelection,MotionSelection_label);
 end
 end
 
 
 function [Misc] = loadMetaData(BaseFolder,SubjectSelection,MotionSelection)
+nGCs=numel(MotionSelection);
+
 % read metadata
 subInfo       =load(fullfile(BaseFolder,'Database',SubjectSelection,'model',['subject_information_' SubjectSelection '.mat']));
-subject_mass  =subInfo.subject_info.mass;   % [kg]
-subject_height=subInfo.subject_info.height; % [cm]
-
-gaitData      =load(fullfile(BaseFolder,'Database',SubjectSelection,'gaitData',['gaitFeatureData_' MotionSelection '.mat']));
-side_sel      =gaitData.gaitData.side; % either right or left leg side
-toeOff_time   =gaitData.gaitData.toeOff;
-speed         =gaitData.gaitData.speed; 
-cadence       =gaitData.gaitData.cadence;
-
-extLoadsInfo.fileName =fullfile(BaseFolder,'Database',SubjectSelection,'extLoads',['data_'  MotionSelection '.mot']);
-extLoadsInfo.setupName=fullfile(BaseFolder,'Database',SubjectSelection,'extLoads',['setup_' MotionSelection '.xml']);
-
-
-% loading MISC
-% select the leg's side and toeOff event
-Misc.gait_data.side_sel     = side_sel;    % [r or l]
-Misc.gait_data.toeOff_time  = toeOff_time; % in seconds
-Misc.gait_data.speed        = speed;       % in m/s
-Misc.gait_data.cadence      = cadence*2;   % in #steps per minute
 
 % subject info
-Misc.subject_data.subject_mass   =subject_mass; % [kg]
-Misc.subject_data.subject_height =subject_height; % [cm]
+Misc.subject_data.subject_mass   =subInfo.subject_info.mass;   % [kg]
+Misc.subject_data.subject_height =subInfo.subject_info.height; % [cm]
 
-Misc.extLoadsInfo=extLoadsInfo;
-Misc.MotionSelection=MotionSelection;
+for iGC=1:nGCs
+    Misc.MotionSelection(1,iGC)=MotionSelection(iGC);
+
+    extLoadsInfo.fileName(1,iGC) ={fullfile(BaseFolder,'Database',SubjectSelection,'extLoads',['data_'  MotionSelection{iGC} '.mot'])};
+    extLoadsInfo.setupName(1,iGC)={fullfile(BaseFolder,'Database',SubjectSelection,'extLoads',['setup_' MotionSelection{iGC} '.xml'])};
+    Misc.extLoadsInfo=extLoadsInfo;
+
+    gaitData      =load(fullfile(BaseFolder,'Database',SubjectSelection,'gaitData',['gaitFeatureData_' MotionSelection{iGC} '.mat']));
+
+    % loading MISC
+    % select the leg's side and toeOff event
+    Misc.gait_data(1,iGC).side_sel     = gaitData.gaitData.side;    % [r or l]
+    Misc.gait_data(1,iGC).toeOff_time  = gaitData.gaitData.toeOff; % in seconds
+    Misc.gait_data(1,iGC).speed        = gaitData.gaitData.speed;       % in m/s
+    Misc.gait_data(1,iGC).cadence      = gaitData.gaitData.cadence*2;   % in #steps per minute
+end
+
 end
 
 function muscleNames = getMuscleNames(model_name)

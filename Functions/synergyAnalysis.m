@@ -3,22 +3,22 @@ function [W,H,HTrial,MActivation_recons_array,synMetrics]=synergyAnalysis(Result
 % Non-negative Matrix Factorization (most common)
 rng(100); % for reproducibility
 
-nResults=length(Results);
-MuscleNames = Results{1}.MuscleNames;
+nTrials=length(Results);
+MuscleNames = Results(1).MuscleNames;
 
-nN=zeros(nResults,1);
-for iResult=1:nResults
-    nN(iResult)=size(Results{iResult}.MActivation,2);
+nN=zeros(nTrials,1);
+for iTrial=1:nTrials
+    nN(iTrial)=size(Results(iTrial).MActivation,2);
 end
 nNtot=sum(nN);
 MActivation=zeros(length(MuscleNames),nNtot);
 acc=0;
-ind_lim=zeros(nResults,2); % 1 initial 2 final
-for iResult=1:nResults
-    ind=1:nN(iResult);
+ind_lim=zeros(nTrials,2); % 1 initial 2 final
+for iTrial=1:nTrials
+    ind=1:nN(iTrial);
     ind_upd=acc+ind;
-    ind_lim(iResult,1)=ind_upd(1);  ind_lim(iResult,2)=ind_upd(end);
-    MActivation(:,ind_upd) = Results{iResult}.MActivation;
+    ind_lim(iTrial,1)=ind_upd(1);  ind_lim(iTrial,2)=ind_upd(end);
+    MActivation(:,ind_upd) = Results(iTrial).MActivation;
     acc=acc+ind(end);
 end
 
@@ -48,7 +48,7 @@ nSynList     = length(synergy_list);
 recons_error = zeros(1, nSynList);
 W = cell(1, nSynList);
 H = cell(1, nSynList);
-HTrial = cell(nResults,nSynList);
+HTrial = cell(nTrials,nSynList);
 % Set NNMF options
 options = statset('MaxIter', max_iterations, 'Display', 'off', 'TolFun', tolerance);
 
@@ -73,8 +73,8 @@ for iSyn = 1:nSynList
     W{1,iSyn} = W_temp;
     H{1,iSyn} = H_temp;
 
-    for iResult=1:nResults
-        HTrial{iResult,iSyn} = H_temp(:,ind_lim(iResult,1):ind_lim(iResult,2));
+    for iTrial=1:nTrials
+        HTrial{iTrial,iSyn} = H_temp(:,ind_lim(iTrial,1):ind_lim(iTrial,2));
     end
 
     fprintf('Best reconstruction error: %.4f\n', recons_error(1,iSyn));

@@ -169,7 +169,9 @@ if ~isfield(Misc,'to_save_results')|| isempty(Misc.to_save_results)
     Misc.to_save_results = 1;
 end
 if ~isfield(Misc,'time')|| isempty(Misc.time)
-    Misc.time = [0 10];
+    for iTrial=1:Misc.nTrials
+        Misc.time(iTrial,:) = [0 10];
+    end
 end
 
 if ~isfield(Misc,'Advance')|| isempty(Misc.Advance)

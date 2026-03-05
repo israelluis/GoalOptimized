@@ -3,7 +3,7 @@ nDevs=length(Device);
 nVars_dev=zeros(nDevs,1);
 % totalVars=0;
 for iDev=1:nDevs
-    jointSel=Device{iDev}.MuscleGroup{1}(1:end-2);
+    jointSel=Device{iDev}.MuscleGroup{1};
     jointDir=Device{iDev}.MuscleGroup{2};
     typeProfile=Device{iDev}.Type{2};
 

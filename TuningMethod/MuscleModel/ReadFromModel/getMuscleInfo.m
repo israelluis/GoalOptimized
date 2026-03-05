@@ -5,44 +5,44 @@ function [DatStore] = getMuscleInfo(IK_path,ID_path,Misc,DatStore,trial)
 
 %% Read muscle analysis
 % Pre-allocate loop variables
-DOF_inds=nan(length(Misc.DofNames_Input),1);
+DOF_inds=nan(length(Misc.DofNames_Input{trial}),1);
 ct=1;
 
 % Loop over each DOF in the model
-for i=1:length(Misc.DofNames_Input)
+for i=1:length(Misc.DofNames_Input{trial})
     
     % read the Muscle Analysis Result
-    MA_FileName=fullfile(Misc.MuscleAnalysisPath,[Misc.trialName '_MuscleAnalysis_MomentArm_' Misc.DofNames_Input{i} '.sto']);
+    MA_FileName=fullfile(Misc.MuscleAnalysisPath,[Misc.trialName '_MuscleAnalysis_MomentArm_' Misc.DofNames_Input{trial}{i} '.sto']);
     if exist(MA_FileName,'file')
-        dm_Data_temp=importdata(fullfile(Misc.MuscleAnalysisPath,[Misc.trialName '_MuscleAnalysis_MomentArm_' Misc.DofNames_Input{i} '.sto']));
+        dm_Data_temp=importdata(fullfile(Misc.MuscleAnalysisPath,[Misc.trialName '_MuscleAnalysis_MomentArm_' Misc.DofNames_Input{trial}{i} '.sto']));
     else
-        error(['Cannot open muscle analysis results for: ' Misc.DofNames_Input{i}])
+        error(['Cannot open muscle analysis results for: ' Misc.DofNames_Input{trial}{i}])
     end
     
     % get the indexes for the selected MuscleNames (only needed in first iteration)
     if i==1
         nfr = length(dm_Data_temp.data(:,1));
         headers=dm_Data_temp.colheaders;
-        Inds_muscles=nan(length(Misc.MuscleNames_Input),1);
+        Inds_muscles=nan(length(Misc.MuscleNames_Input{trial}),1);
         ctm=1;
-        for j=1:length(Misc.MuscleNames_Input)
-            ind_sel=find(strcmp(Misc.MuscleNames_Input{j},headers));
+        for j=1:length(Misc.MuscleNames_Input{trial})
+            ind_sel=find(strcmp(Misc.MuscleNames_Input{trial}{j},headers));
             if ~isempty(ind_sel)
                 Inds_muscles(ctm)=ind_sel; IndsNames_sel(ctm)=j;
                 ctm=ctm+1;
             else
-                disp(['Warning: The selected muscle ' Misc.MuscleNames_Input{j} ' does not exist in the selected model. This muscles is removed from the program']);
+                disp(['Warning: The selected muscle ' Misc.MuscleNames_Input{trial}{j} ' does not exist in the selected model. This muscles is removed from the program']);
             end
         end
-        Misc.MuscleNames=Misc.MuscleNames_Input(IndsNames_sel);
+        Misc.MuscleNames{trial}=Misc.MuscleNames_Input{trial}(IndsNames_sel);
         Inds_muscles(isnan(Inds_muscles))=[];                               % Delete the muscles names that are not selected by the user
-        dM_temp=nan(nfr,length(Misc.DofNames_Input),length(Misc.MuscleNames));    % pre-allocate moment arms
+        dM_temp=nan(nfr,length(Misc.DofNames_Input{trial}),length(Misc.MuscleNames{trial}));    % pre-allocate moment arms
     end
     
     % Evaluate if one of the muscles spans this DOF (when moment arms > 0.001)
     dM=dm_Data_temp.data(:,Inds_muscles);    
     if any(any(abs(dM)>0.001))
-        Misc.DofNames_muscles{ct}=Misc.DofNames_Input{i};
+        Misc.DofNames_muscles{trial}{ct}=Misc.DofNames_Input{trial}{i};
         dM_temp(:,i,:)=dM;
         DOF_inds(ct)=i;
         ct=ct+1;   
@@ -51,20 +51,20 @@ end
 
 % Combine DOFs_actuated by muscles and the DOFS selected by the user
 ct=1;
-Inds_deleteDOFS=zeros(length(Misc.DofNames_muscles),1);
-for i=1:length(Misc.DofNames_muscles)
-    if ~any(strcmp(Misc.DofNames_Input,Misc.DofNames_muscles{i}))
+Inds_deleteDOFS=zeros(length(Misc.DofNames_muscles{trial}),1);
+for i=1:length(Misc.DofNames_muscles{trial})
+    if ~any(strcmp(Misc.DofNames_Input{trial},Misc.DofNames_muscles{trial}{i}))
          Inds_deleteDOFS(ct)=i;ct=ct+1;
     end
 end
 Inds_deleteDOFS(ct:end)=[];
 DOF_inds(Inds_deleteDOFS)=[];
-Misc.DofNames=Misc.DofNames_muscles; Misc.DofNames(Inds_deleteDOFS)=[];
+Misc.DofNames{trial}=Misc.DofNames_muscles{trial}; Misc.DofNames{trial}(Inds_deleteDOFS)=[];
 
 % warnings when not all the input DOFS are actuated by muscles
-for i=1:length(Misc.DofNames_Input)
-    if ~any(strcmp(Misc.DofNames_Input{i},Misc.DofNames))
-        disp(['Warning DOF: The input dof: ' Misc.DofNames_Input{i} ' is not actuated by the selected muscles and therefore removed from the analysis']);
+for i=1:length(Misc.DofNames_Input{trial})
+    if ~any(strcmp(Misc.DofNames_Input{trial}{i},Misc.DofNames{trial}))
+        disp(['Warning DOF: The input dof: ' Misc.DofNames_Input{trial}{i} ' is not actuated by the selected muscles and therefore removed from the analysis']);
     end
 end
 
@@ -84,10 +84,10 @@ fs=1/mean(diff(t_lMT));             % sampling frequency
 DatStore(trial).LMT = filtfilt(B,A,LMT_raw);
 
 % store information in the DatStore structure
-DatStore(trial).MuscleNames = Misc.MuscleNames;
-DatStore(trial).DOFNames    = Misc.DofNames;
-DatStore(trial).nMuscles    = length(Misc.MuscleNames);
-DatStore(trial).nDOF        = length(Misc.DofNames);
+DatStore(trial).MuscleNames = Misc.MuscleNames{trial};
+DatStore(trial).DOFNames    = Misc.DofNames{trial};
+DatStore(trial).nMuscles    = length(Misc.MuscleNames{trial});
+DatStore(trial).nDOF        = length(Misc.DofNames{trial});
 
 %% Filter IK
 
@@ -122,9 +122,9 @@ if ~isfield(ID_data,'colheaders')
 end
 ID_header=ID_data.colheaders;     IK_header = IK_data.colheaders;
 ID_Header_inds=zeros(size(DOF_inds));  IK_Header_inds = zeros(size(DOF_inds));
-for i=1:length(Misc.DofNames)
-   ID_Header_inds(i)=find(strcmp([Misc.DofNames{i} '_moment'],ID_header));
-   IK_Header_inds(i)=find(strcmp(Misc.DofNames{i},IK_header)); 
+for i=1:length(Misc.DofNames{trial})
+   ID_Header_inds(i)=find(strcmp([Misc.DofNames{trial}{i} '_moment'],ID_header));
+   IK_Header_inds(i)=find(strcmp(Misc.DofNames{trial}{i},IK_header)); 
 end
 
 % filter the ID data and store in Datstore.T_exp

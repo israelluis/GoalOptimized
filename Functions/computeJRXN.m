@@ -1,20 +1,30 @@
-function [JRXN]=computeJRXN(Results_normal,Misc,deviceInput,to_plot)
+function [JRXN]=computeJRXN(Results_normal,Misc,info,deviceInput,to_plot)
 %% to unload from Misc and Results
-model_path=Misc.model_path;
-IK_path   =Misc.IKfile;
-extLoads_file  =Misc.extLoadsInfo.fileName; 
+model_path     =Misc.model_path;
+
+% IK_path        =Misc.IKfile;
+% extLoads_file  =Misc.extLoadsInfo.fileName;
+% extLoads_setup =Misc.extLoadsInfo.setupName;
+% DofNames_Input =Misc.DofNames_Input;
+
+IK_path       =info.IK_path;
+extLoads_file =info.extLoads_file;
+extLoads_setup=info.extLoads_setup;
+DofNames_Input=info.DofNames_Input;
+%%
 % no need, I am using GRF as
 % in unassisted conditions, TForces are obtained from Results and exoT is
 % not needed - "deviceInput" does not do anything. I have to verify this
-extLoads_setup =Misc.extLoadsInfo.setupName;
 MotionSelection=Misc.MotionSelection;
 
-MuscleNames = Results_normal.MuscleNames;
-RANames     = appendName(Misc.DofNames_Input, '_reserve');
+OutPath = Misc.OutPath;
 
-Time        = Results_normal.Time.genericMRS;
-TForce      = Results_normal.TForce.genericMRS'; % value x muscles - check in case % TForce(:,[13 14])=TForce(:,[13 14])*0;
-RATorque    = [Results_normal.RActivation.genericMRS'; zeros(1,length(RANames))];
+MuscleNames = Results_normal.MuscleNames;
+RANames     = appendName(DofNames_Input, '_reserve');
+
+Time        = Results_normal.Time;
+TForce      = Results_normal.TForce'; % value x muscles - check in case % TForce(:,[13 14])=TForce(:,[13 14])*0;
+RATorque    = [Results_normal.RTorque'; zeros(1,length(RANames))];
 
 data_length=length(Time);
 
@@ -25,10 +35,10 @@ end
 extra_folder_name=Misc.extra_folder_name;
 extra_file_name  =Misc.extra_file_name;
 
-extra_folder_name_full=fullfile(Misc.OutPath,extra_folder_name);
+extra_folder_name_full=fullfile(OutPath,extra_folder_name);
 if ~exist(extra_folder_name_full, 'dir');  mkdir(extra_folder_name_full);  end
 %% to create a ForceFile for JRXN setup
-allActuator_path=fullfile(Misc.OutPath,extra_folder_name,['MRS_ACT_' extra_file_name '.sto']);
+allActuator_path=fullfile(OutPath,extra_folder_name,['MRS_ACT_' extra_file_name '.sto']);
 
 label_name=load(fullfile(Misc.SetupPath,Misc.ForceLabel)); % SO_label_2392 OR SO_label_rajagopal
 fullForce_label=label_name.SO_label;
@@ -58,45 +68,45 @@ generateMotFile_updated(data_full,fullForce_label,allActuator_path);
 
 to_print_forcesOnly=0;
 if to_print_forcesOnly==1
-    outPath    =fullfile(Misc.OutPath,'TForce.sto');
+    outPath    =fullfile(OutPath,'TForce.sto');
     generateMotFile_updated([Time TForce],[{'time'} MuscleNames],outPath);
 
     TForce_max=max(TForce,[],'all');
-    outPath_visual=fullfile(Misc.OutPath,'TForce_visual.sto');
+    outPath_visual=fullfile(OutPath,'TForce_visual.sto');
     generateMotFile_updated([Time TForce/TForce_max],[{'time'} MuscleNames],outPath_visual);
 end
 %% to create "extLoads (_dev) SETUP" using "extLoads SETUP" with new "extLoads FILE"
-extLoads_deviceSetup_path = fullfile(Misc.OutPath,extra_folder_name,['setup_updated_' extra_file_name '.xml']);
+extLoads_deviceSetup_path = fullfile(OutPath,extra_folder_name,['setup_updated_' extra_file_name '.xml']);
 extLoadsDev_file_path     = extLoads_file;
 generateExtLoadsFile(extLoads_setup,extLoads_deviceSetup_path,extLoadsDev_file_path); % generic setup , new (created) setup , new (create) extLoads file
 % extLoads_deviceSetup_path=extLoads_setup;
 %% to setup and run JRXN 
 opt.computeReserveActuator=0; % no needed, it was added in ForceFile
 opt.force_file_path       =allActuator_path; 
-JRXN_defaultSetup_path    ='C:\Users\movea\Dropbox\Collaboration\Guna\GenericSetups\AnalysisJrxn_default_setup.xml';
-JRXN_updatedSetup_path    =fullfile(Misc.OutPath,extra_folder_name,['JRXN_' MotionSelection extra_file_name '_setup.xml']);
-JR_result_path            =fullfile(Misc.OutPath);
+% JRXN_defaultSetup_path    ='C:\Users\movea\Dropbox\Collaboration\Guna\GenericSetups\AnalysisJrxn_default_setup.xml';
+JRXN_defaultSetup_path    =fullfile(Misc.SetupPath,'AnalysisJrxn_default_setup.xml');
+JRXN_updatedSetup_path    =fullfile(OutPath,extra_folder_name,['JRXN_' MotionSelection extra_file_name '_setup.xml']);
+JR_result_path            =fullfile(OutPath);
 
 [result_outpath_full]=setup_and_run_JR(opt,model_path,IK_path,0,    extLoads_deviceSetup_path,JRXN_defaultSetup_path,  JRXN_updatedSetup_path,JR_result_path);
 %% to compute joint reaction force (NET) and plot joint reaction force (NET & VECTORS) 
 JRXN_data  = importdata(result_outpath_full);
 JRXN_label = JRXN_data.colheaders;
 
-side=Misc.gait_data.side_sel;
+legSide=Misc.gait_data.side_sel;
+BW     =Misc.subject_data.subject_mass*9.81; % body_weight=mass*gravity
 
 % variables of interest
 JModNames = getJointModelNames(Misc.ForceLabel);
-list_analysis_hip   = {[JModNames{1} '_' side '_on_femur_' side '_in_femur_' side '_fx'] ...
-                       [JModNames{1} '_' side '_on_femur_' side '_in_femur_' side '_fy'] ...
-                       [JModNames{1} '_' side '_on_femur_' side '_in_femur_' side '_fz']};
-list_analysis_knee  = {[JModNames{2} '_' side '_on_tibia_' side '_in_tibia_' side '_fx'] ...
-                       [JModNames{2} '_' side '_on_tibia_' side '_in_tibia_' side '_fy'] ...
-                       [JModNames{2} '_' side '_on_tibia_' side '_in_tibia_' side '_fz']};
-list_analysis_ank   = {[JModNames{3} '_' side '_on_talus_' side '_in_talus_' side '_fx'] ...
-                       [JModNames{3} '_' side '_on_talus_' side '_in_talus_' side '_fy'] ...
-                       [JModNames{3} '_' side '_on_talus_' side '_in_talus_' side '_fz']};
-
-BW=Misc.subject_data.subject_mass*9.81; % body_weight=mass*gravity
+list_analysis_hip   = {[JModNames{1} '_' legSide '_on_femur_' legSide '_in_femur_' legSide '_fx'] ...
+                       [JModNames{1} '_' legSide '_on_femur_' legSide '_in_femur_' legSide '_fy'] ...
+                       [JModNames{1} '_' legSide '_on_femur_' legSide '_in_femur_' legSide '_fz']};
+list_analysis_knee  = {[JModNames{2} '_' legSide '_on_tibia_' legSide '_in_tibia_' legSide '_fx'] ...
+                       [JModNames{2} '_' legSide '_on_tibia_' legSide '_in_tibia_' legSide '_fy'] ...
+                       [JModNames{2} '_' legSide '_on_tibia_' legSide '_in_tibia_' legSide '_fz']};
+list_analysis_ank   = {[JModNames{3} '_' legSide '_on_talus_' legSide '_in_talus_' legSide '_fx'] ...
+                       [JModNames{3} '_' legSide '_on_talus_' legSide '_in_talus_' legSide '_fy'] ...
+                       [JModNames{3} '_' legSide '_on_talus_' legSide '_in_talus_' legSide '_fz']};
 
 % get indexes
 ind_hip =zeros(1,3); ind_knee=zeros(1,3);   ind_ank =zeros(1,3);

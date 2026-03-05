@@ -13,11 +13,11 @@ function [Results,DatStore,Misc] = MRS_Complete(Misc)
 % -----------------------------------------------------------------------%
 % This is made from "solveMuscleRedundancy_ExoCal"
 
-% update default settings
-Misc = DefaultSettings_upd(Misc);
-
 % number of motion trials
 Misc.nTrials = length(Misc.IKfile);
+
+% update default settings
+Misc = DefaultSettings_upd(Misc);
 
 %check if we have to adapt the start and end time so that it corresponds to
 %time frames in the IK solution
@@ -53,7 +53,7 @@ for i = 1:Misc.nTrials
     MuscleAnalysisPath=fullfile(OutPath_muscleAnalysis,'MuscleAnalysis'); if ~exist(MuscleAnalysisPath,'dir'); mkdir(MuscleAnalysisPath); end
     if Misc.RunAnalysis
         disp('MuscleAnalysis Running .....');
-        OpenSim_Muscle_Analysis(IK_path_trial,model_path,MuscleAnalysisPath,[time(i,1) time(i,end)],Misc.DofNames_Input)
+        OpenSim_Muscle_Analysis(IK_path_trial,model_path,MuscleAnalysisPath,[time(i,1) time(i,end)],Misc.DofNames_Input{i})
         disp('MuscleAnalysis Finished');
     end
     Misc.MuscleAnalysisPath=MuscleAnalysisPath;
@@ -79,7 +79,7 @@ end
 
 % set the tendon stiffness
 if ~isfield(Misc,'kT') || isempty(Misc.kT)
-    Misc.kT =ones(1,length(Misc.MuscleNames_Input)).*35;
+    Misc.kT =ones(1,length(Misc.MuscleNames_Input{1})).*35;
 end
 if isfield(Misc,'Set_kT_ByName') && ~isempty(Misc.Set_kT_ByName)
     Misc= set_kT_ByName(Misc,DatStore);
@@ -89,8 +89,11 @@ end
 Misc.shift = getShift(Misc.kT);
 
 % get the EMG information
-[DatStore] = GetEMGInfo(Misc,DatStore);
-[DatStore] = GetUSInfo(Misc,DatStore);
+to_inform_muscle_dynamics_with_experimental_data=0;
+if to_inform_muscle_dynamics_with_experimental_data==1
+    [DatStore] = GetEMGInfo(Misc,DatStore);
+    [DatStore] = GetUSInfo(Misc,DatStore);
+end
 
 % get the number of muscles
 NMuscles = length(DatStore(1).MuscleNames);
@@ -105,7 +108,7 @@ NMuscles = length(DatStore(1).MuscleNames);
 
 % Static optimization using IPOPT solver (used as an initial guess)
 for trial = 1:Misc.nTrials
-    DatStore    = SolveStaticOptimization_IPOPT_CasADi(DatStore,Misc,trial,0);
+    DatStore    = SolveStaticOptimization_IPOPT_CasADi(DatStore,Misc,trial);
 end
 
 %% Input activation and contraction dynamics
@@ -117,6 +120,7 @@ Misc.b = 0.1;       % tanh coefficient for smooth activation dynamics
 %% Descretisation
 Misc.Mesh_Frequency=100; %200
 % mesh descretisation
+Mesh(Misc.nTrials) = struct('t', [], 'N', [], 'step', []);
 for trial = 1:Misc.nTrials
     t0 = DatStore(trial).time(1); tf = DatStore(trial).time(end);
     Mesh(trial).N = round((tf-t0)*Misc.Mesh_Frequency);
@@ -180,8 +184,11 @@ end
 % if Misc.Advance.TuningMethod_fiber==1
 %     [US_data,nUSdata,ind_US,ind_US_AT,ind_USnone,USDigitalizedInterp]=fiberCalibrationSetup(DatStore,Misc,time_opt); % only works for one trial
 % end
-DatStore.Mesh=Mesh;
-[Results,DatStore,Misc] = MRS_Formulate_and_Solve_NeuroCons(Misc,DatStore);
+for trial=1:Misc.nTrials
+    DatStore(trial).Mesh=Mesh(trial);
+end
+[Results,DatStore,Misc] = MRS_Formulate_and_Solve_NM(Misc,DatStore);
+% [Results,DatStore,Misc] = MRS_Formulate_and_Solve_NeuroCons(Misc,DatStore);
 % [Results,DatStore,Misc] = MRS_Formulate_and_Solve_NeuroConsV2(Misc,DatStore);
 end
 

@@ -18,7 +18,7 @@ if strcmp(typeProfile,'spline#N3')
 
     param.Values=[infoNodes.nodes_x_upd(2) infoNodes.nodes_x_upd(1) infoNodes.nodes_x_upd(3) infoNodes.nodes_y_upd(1)];
 
-    [varNames,varUnits]=getLabelAssistance(jointSel(1:end-2),jointDir,typeProfile);
+    [varNames,varUnits]=getLabelAssistance(jointSel,jointDir,typeProfile);
     param.Names =varNames;
     param.Units =varUnits;
 
@@ -27,7 +27,9 @@ if strcmp(typeProfile,'spline#N3')
     additional.Nodes_y=nodes_y_all;
 elseif strcmp(typeProfile,'clutchSpring')    
     % DOFSel=Device.MuscleGroup{1};
-    sDOF=strcmp(DatStore.DOFNames,jointSel);
+    DOFNames = cellfun(@(x) x(1:end-2), DatStore.DOFNames, 'UniformOutput', false);
+
+    sDOF=strcmp(DOFNames,jointSel);
     qInter=DatStore.IKinterp(:,sDOF);
     [gait_cycle,~] = computeGC(time,addedFrames);
     
@@ -84,7 +86,7 @@ elseif strcmp(typeProfile,'clutchSpring')
 
     % (jointSel,jointDir,assistanceType)
 
-    [varNames,varUnits]=getLabelAssistance(jointSel(1:end-2),jointDir,typeProfile);
+    [varNames,varUnits]=getLabelAssistance(jointSel,jointDir,typeProfile);
     param.Names =varNames;
     param.Units =varUnits;
 

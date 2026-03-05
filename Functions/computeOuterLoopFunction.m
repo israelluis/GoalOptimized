@@ -1,4 +1,4 @@
-function [J,Jrel_TS,J_extra]=computeOuterLoopFunction(Misc,Results,devGoal)
+function [J,Jrel_TS,J_extra]=computeOuterLoopFunction(Misc,Results,devGoal,info)
 
 % window of analysis
 extra_frames=Misc.extra_frames;
@@ -13,7 +13,7 @@ subject_mass  =Misc.subject_data.subject_mass;       % or modelmass = getModelMa
 subject_height=Misc.subject_data.subject_height;
 
 % Order results
-[musT_param,musE_param,mus_time,mus_dyn,states_field] = Results_states_params(Results,subject_mass,subject_height,extra_frames);
+[musT_param,musE_param,mus_time,mus_dyn,~] = Results_states_params(Results,subject_mass,subject_height,extra_frames);
 
 data_length=length(fSel);
 
@@ -78,7 +78,7 @@ elseif strcmp(goal_category,'JRXN')
         % Wait for lock release
         startTime = tic;
         while exist(lockFile, 'file')
-            pause(0.1);  % Avoid busy-waiting
+            pause(1.0);  % Avoid busy-waiting
             if toc(startTime) > maxWaitTime
                 error('Timeout waiting for lock.');
             end
@@ -105,8 +105,8 @@ elseif strcmp(goal_category,'JRXN')
     end
 
     % compute joint reaction forces
-    [JRXN]=computeJRXN(Results,Misc,[],[]);
-    pause(0.2); % just in case
+    [JRXN]=computeJRXN(Results,Misc,info,[],[]);
+    % pause(0.2); % just in case
 
     % recompute fSel
     fSel_1=find(JRXN.time>=t_range(1),1,'first');
@@ -117,7 +117,7 @@ elseif strcmp(goal_category,'JRXN')
     time        =JRXN.time(fSel);
     BW          =subject_mass*9.81;
 
-    toeOff_event=find(time>Misc.gait_data.toeOff_time,1,'first');
+    toeOff_event=find(time>info.toeOff_time,1,'first');
 
     Jrel_TS=JRXN_net_joint/BW;
     JRXN_net_joint_stance=JRXN_net_joint(1:toeOff_event)/BW;
@@ -130,146 +130,6 @@ elseif strcmp(goal_category,'JRXN')
         % Release lock
         delete(lockFile);
     end
-% elseif strcmp(devGoal,'gasForces')
-%     musNames={['gasmed_' Misc.gait_data.side_sel] ['gaslat_' Misc.gait_data.side_sel]};
-%     nSelMuscles=length(musNames);
-%     ind=zeros(1,nSelMuscles);
-%     for i=1:nSelMuscles
-%         ind(i)=find(strcmp(Results.MuscleNames,musNames(i)));
-%     end
-% 
-%     tendonForces=Results.TForce(ind,fSel);
-%     % for i=1:nGasMuscles; subplot(1,2,i); plot(gasForces(i,:)); end
-%     Jrel_TS=tendonForces;
-%     J      =sum(mean(tendonForces,2));
-% 
-%     J_extra.label =' ';
-%     J_extra.unit  =' ';
-% elseif strcmp(devGoal,'KJMusForces')
-%     musNames={['bflh_' Misc.gait_data.side_sel]    ['bfsh_' Misc.gait_data.side_sel] ...
-%               ['gasmed_' Misc.gait_data.side_sel]  ['gaslat_' Misc.gait_data.side_sel]...
-%               ['grac_' Misc.gait_data.side_sel]    ['sart_' Misc.gait_data.side_sel] ...
-%               ['semimem_' Misc.gait_data.side_sel] ['semiten_' Misc.gait_data.side_sel] ...
-%               ['recfem_' Misc.gait_data.side_sel]  ['vasint_' Misc.gait_data.side_sel] ...
-%               ['vasmed_' Misc.gait_data.side_sel]  ['vaslat_' Misc.gait_data.side_sel]};
-%     nSelMuscles=length(musNames);
-%     ind=zeros(1,nSelMuscles);
-%     for i=1:nSelMuscles
-%         ind(i)=find(strcmp(Results.MuscleNames,musNames(i)));
-%     end
-% 
-%     tendonForces=Results.TForce(ind,fSel);
-%     % for i=1:nGasMuscles; subplot(1,2,i); plot(gasForces(i,:)); end
-%     Jrel_TS=tendonForces;
-%     J      =sum(mean(tendonForces,2));
-% 
-%     J_extra.label =' ';
-%     J_extra.unit  =' ';
-% elseif strcmp(devGoal,'KJActs')
-%     musNames={['bflh_' Misc.side_sel] ['bfsh_' Misc.side_sel] ...
-%               ['gasmed_' Misc.side_sel] ['gaslat_' Misc.side_sel]...
-%               ['grac_' Misc.side_sel] ['sart_' Misc.side_sel] ...
-%               ['semimem_' Misc.side_sel] ['semiten_' Misc.side_sel] ...
-%               ['recfem_' Misc.side_sel] ['vasint_' Misc.side_sel] ...
-%               ['vasmed_' Misc.side_sel] ['vaslat_' Misc.side_sel]};
-% 
-%     nSelMuscles=length(musNames);
-%     ind=zeros(1,nSelMuscles);
-%     for i=1:nSelMuscles
-%         ind(i)=find(strcmp(Results.MuscleNames,musNames(i)));
-%     end
-% 
-%     activation=Results.MActivation(ind,fSel);
-%     % for i=1:nGasMuscles; subplot(1,2,i); plot(gasForces(i,:)); end
-%     Jrel_TS=activation;
-%     J      =sum(mean(activation,2));
-% 
-%     J_extra.label =' ';
-%     J_extra.unit  =' ';
-% elseif strcmp(devGoal,'RJXN_knee_par')
-% 
-%     % Lock file path (unique to your application)
-%     lockFile = 'computeOuterLoopFunction.lock';
-%     maxWaitTime = 60;  % Timeout (seconds)
-% 
-%     % Wait for lock release
-%     startTime = tic;
-%     while exist(lockFile, 'file')
-%         pause(0.1);  % Avoid busy-waiting
-%         if toc(startTime) > maxWaitTime
-%             error('Timeout waiting for lock.');
-%         end
-%     end
-% 
-%     % Acquire lock
-%     fid = fopen(lockFile, 'w');
-%     fclose(fid);
-% 
-%     % as in RJXN_knee
-%     if ~isfield(Misc,'DeviceFeatures') || isempty(Misc.DeviceFeatures)
-%     else
-%         nParams=length(Misc.DeviceFeatures.Params.values);
-%         text_label=[];
-%         for i=1:nParams
-%             text_label=[text_label 'v' num2str(i) '_' num2str(Misc.DeviceFeatures.Params.values(i),'%1.0f') '_'];
-%         end
-%         Misc.extra_file_name  =text_label;
-%     end
-% 
-%     [JRXN]=computeJRXN(Results,Misc,[],[]);
-% 
-%     % Release lock
-%     delete(lockFile);
-% 
-%     % recompute fSel
-%     fSel_1=find(JRXN.time>=t_range(1),1,'first');
-%     fSel_2=find(JRXN.time>=t_range(end),1,'first');
-%     fSel  =fSel_1:fSel_2;
-% 
-%     JRXN_net_joint=JRXN.netKnee(fSel);
-%     time        =JRXN.time(fSel);
-%     BW          =Misc.subject_data.subject_mass*9.81;
-% 
-%     toeOff_event=find(time>Misc.gait_data.toeOff_time,1,'first');
-% 
-%     Jrel_TS=JRXN_net_joint/BW;
-%     JRXN_net_joint_stance=JRXN_net_joint(1:toeOff_event)/BW;
-%     J      =mean(JRXN_net_joint_stance);
-% 
-%     J_extra.label ='knee contact force';
-%     J_extra.unit  ='N/BW';
-% elseif strcmp(devGoal,'RJXN_knee')
-% 
-%     if ~isfield(Misc,'DeviceFeatures') || isempty(Misc.DeviceFeatures)
-%     else
-%         nParams=length(Misc.DeviceFeatures.Params.values);
-%         text_label=[];
-%         for i=1:nParams
-%             text_label=[text_label 'v' num2str(i) '_' num2str(Misc.DeviceFeatures.Params.values(i),'%1.0f') '_'];
-%         end
-%         Misc.extra_file_name  =text_label;
-%     end
-% 
-%     [JRXN]=computeJRXN(Results,Misc,[],[]);
-%     pause(0.2); % just in case
-% 
-%     % recompute fSel
-%     fSel_1=find(JRXN.time>=t_range(1),1,'first');
-%     fSel_2=find(JRXN.time>=t_range(end),1,'first');
-%     fSel  =fSel_1:fSel_2;
-% 
-%     JRXN_net_joint=JRXN.netKnee(fSel);
-%     time        =JRXN.time(fSel);
-%     BW          =Misc.subject_data.subject_mass*9.81;
-% 
-%     toeOff_event=find(time>Misc.gait_data.toeOff_time,1,'first');
-% 
-%     Jrel_TS=JRXN_net_joint/BW;
-%     JRXN_net_joint_stance=JRXN_net_joint(1:toeOff_event)/BW;
-%     J      =mean(JRXN_net_joint_stance);
-% 
-%     J_extra.label ='knee contact force';
-%     J_extra.unit  ='N/BW';
 else
     warning('no aim was defined')
 end
